@@ -111,7 +111,7 @@ function pauza_render_step_meta_box(WP_Post $post): void
     pauza_admin_textarea('_pauza_step_tasks', __('Что делать', 'pauza-rabotaet'), pauza_meta($post->ID, '_pauza_step_tasks'), 8, __('Каждое действие с новой строки. На сайте это станет чек-листом.', 'pauza-rabotaet'));
     pauza_admin_textarea('_pauza_step_materials', __('Материалы и ссылки шага', 'pauza-rabotaet'), pauza_meta($post->ID, '_pauza_step_materials'), 5, __('Каждый материал с новой строки: видео, канал, диск, бот, внешняя инструкция.', 'pauza-rabotaet'));
     pauza_admin_textarea('_pauza_step_exercises', __('Упражнения и важные блоки', 'pauza-rabotaet'), pauza_meta($post->ID, '_pauza_step_exercises'), 8, __('Глоссарий, молитвы, подсказки, списки, ВДА и другие блоки, которые должны жить внутри шага.', 'pauza-rabotaet'));
-    pauza_admin_textarea('_pauza_step_full_text', __('Полный текст шага', 'pauza-rabotaet'), pauza_meta($post->ID, '_pauza_step_full_text'), 12, __('Длинный текст показывается только во вкладке "Полный текст", чтобы не перегружать страницу.', 'pauza-rabotaet'));
+    pauza_admin_textarea('_pauza_step_full_text', __('Текст руководителя', 'pauza-rabotaet'), pauza_meta($post->ID, '_pauza_step_full_text'), 12, __('Длинный текст показывается только во вкладке "Текст руководителя", чтобы не перегружать страницу.', 'pauza-rabotaet'));
     pauza_admin_text_input('_pauza_step_telegram_url', __('Ссылка Telegram', 'pauza-rabotaet'), pauza_meta($post->ID, '_pauza_step_telegram_url'), 'url');
     pauza_admin_text_input('_pauza_step_max_url', __('Ссылка MAX', 'pauza-rabotaet'), pauza_meta($post->ID, '_pauza_step_max_url'), 'url');
     pauza_admin_text_input('_pauza_step_video_url', __('Основное видео/плейлист', 'pauza-rabotaet'), pauza_meta($post->ID, '_pauza_step_video_url'), 'url');
@@ -144,6 +144,11 @@ function pauza_render_news_meta_box(WP_Post $post): void
 {
     wp_nonce_field('pauza_save_news_meta', 'pauza_news_nonce');
     pauza_admin_text_input('_pauza_news_type', __('Тип новости', 'pauza-rabotaet'), pauza_meta($post->ID, '_pauza_news_type'), 'text', __('Например: Видео, Группы, Важно.', 'pauza-rabotaet'));
+    pauza_admin_select('_pauza_news_origin', __('Происхождение', 'pauza-rabotaet'), pauza_meta($post->ID, '_pauza_news_origin', 'project'), [
+        'project'       => __('Новость проекта', 'pauza-rabotaet'),
+        'external_test' => __('Внешняя новость для теста', 'pauza-rabotaet'),
+    ]);
+    pauza_admin_text_input('_pauza_news_source', __('Источник', 'pauza-rabotaet'), pauza_meta($post->ID, '_pauza_news_source'), 'text', __('Например: МНПЦ наркологии или КонсультантПлюс.', 'pauza-rabotaet'));
     pauza_admin_text_input('_pauza_news_url', __('Ссылка', 'pauza-rabotaet'), pauza_meta($post->ID, '_pauza_news_url'), 'url');
     pauza_admin_text_input('_pauza_news_button_label', __('Текст кнопки', 'pauza-rabotaet'), pauza_meta($post->ID, '_pauza_news_button_label', __('Открыть', 'pauza-rabotaet')), 'text');
 }
@@ -215,6 +220,8 @@ function pauza_save_meta_boxes(int $post_id): void
     if ('pauza_news' === $post_type && isset($_POST['pauza_news_nonce']) && wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['pauza_news_nonce'])), 'pauza_save_news_meta')) {
         $fields = [
             '_pauza_news_type'         => 'text',
+            '_pauza_news_origin'       => 'text',
+            '_pauza_news_source'       => 'text',
             '_pauza_news_url'          => 'url',
             '_pauza_news_button_label' => 'text',
         ];

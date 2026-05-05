@@ -44,65 +44,96 @@
                 <div class="pauza-home-hero__copy">
                     <p class="pauza-eyebrow">12 шагов за 360 дней</p>
                     <h1>Пауза работает</h1>
-                    <p class="pauza-lead">Выберите спонсора и начните первый шаг. Остальные материалы открывайте по мере прохождения.</p>
+                    <p class="pauza-lead">Выберите спонсора и начните первый шаг. Остальные материалы открывайте только тогда, когда они нужны по шагу.</p>
                     <div class="pauza-actions">
                         <a class="pauza-button pauza-button--primary" href="#sponsors">Выбрать спонсора</a>
-                        <a class="pauza-button" href="#steps">Начать 1 шаг</a>
+                        <a class="pauza-button" href="#step-1">Начать 1 шаг</a>
                     </div>
                 </div>
                 <div class="pauza-route" aria-label="Маршрут новичка">
-                    <div class="pauza-route__item"><span>1</span><strong>Выберите свой пол и спонсора</strong></div>
-                    <div class="pauza-route__item"><span>2</span><strong>Начните 1 шаг</strong></div>
-                    <div class="pauza-route__item"><span>3</span><strong>Откройте нужную группу или бот</strong></div>
+                    <div class="pauza-route__item"><span>1</span><strong>Выбрать спонсора</strong></div>
+                    <div class="pauza-route__item"><span>2</span><strong>Начать 1 шаг</strong></div>
+                    <div class="pauza-route__item"><span>3</span><strong>Открыть группу или инструмент шага</strong></div>
                 </div>
             </div>
         </section>
 
-        <section class="pauza-section" id="steps">
+        <section class="pauza-section">
+            <div class="pauza-container">
+                <div class="pauza-source-legend">
+                    <strong>Метки:</strong>
+                    <span class="pauza-origin pauza-origin--source">Из DOCX</span>
+                    <span class="pauza-origin pauza-origin--editorial">Редакционный слой</span>
+                    <span class="pauza-origin pauza-origin--external_test">Внешняя новость для теста</span>
+                    <span class="pauza-origin pauza-origin--verify">Нужно подтвердить</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="pauza-section pauza-section--muted" id="steps">
             <div class="pauza-container">
                 <div class="pauza-section__heading">
                     <p class="pauza-eyebrow">Карта программы</p>
-                    <h2>12 шагов: открывается только нужный шаг</h2>
-                    <p>В карте видны все этапы, но длинные тексты и задания спрятаны во вкладках конкретного шага.</p>
+                    <h2>12 шагов: открывайте только нужный шаг</h2>
+                    <p>Карта не заменяет работу по шагу. Длинные тексты руководителя открываются внутри конкретного шага.</p>
+                    <span class="pauza-origin pauza-origin--editorial">Редакционный слой</span>
                 </div>
                 <div class="pauza-step-map">
-                    <a class="pauza-step-tile" href="#step-8"><span>1</span><strong>Первый шаг</strong><em>Старт</em></a>
+                    <a class="pauza-step-tile" href="#step-1"><span>1</span><strong>Первый шаг</strong><em>Калькулятор здесь</em></a>
                     <a class="pauza-step-tile" href="#step-2"><span>2</span><strong>Второй шаг</strong><em>Длинный текст</em></a>
                     <a class="pauza-step-tile" href="#step-4"><span>4</span><strong>Четвертый шаг</strong><em>Бот только здесь</em></a>
-                    <a class="pauza-step-tile" href="#step-8"><span>8</span><strong>Восьмой шаг</strong><em>Списки и ВДА</em></a>
+                    <a class="pauza-step-tile" href="#step-8"><span>8</span><strong>Восьмой шаг</strong><em>Списки, ЦБ, ВДА</em></a>
                     <a class="pauza-step-tile" href="#step-8"><span>9</span><strong>Девятый шаг</strong><em>После 8 шага</em></a>
-                    <a class="pauza-step-tile" href="#materials"><span>М</span><strong>Материалы</strong><em>Не вместо шагов</em></a>
+                    <a class="pauza-step-tile" href="#materials"><span>М</span><strong>Материалы</strong><em>Справочник типов</em></a>
                 </div>
             </div>
         </section>
 
-        <section class="pauza-section" id="news">
-            <div class="pauza-container">
-                <div class="pauza-section__heading">
-                    <p class="pauza-eyebrow">Новости</p>
-                    <h2>Объявления отдельно от шагов</h2>
-                    <p>Такой формат нужен для новых видео, обновления ссылок групп и важных сообщений владельца.</p>
+        <section class="pauza-section" id="step-1">
+            <div class="pauza-container pauza-content-grid">
+                <div class="pauza-content">
+                    <p class="pauza-eyebrow">Проверка размещения калькулятора</p>
+                    <h2>Первый шаг</h2>
+                    <p>Калькулятор появляется здесь, потому что он прямо указан в тексте первого шага.</p>
+                    <span class="pauza-origin pauza-origin--editorial">Редакционный слой</span>
+                    <div class="pauza-tabs" data-pauza-tabs>
+                        <div class="pauza-tabs__nav" role="tablist" aria-label="Разделы 1 шага">
+                            <button class="is-active" type="button" role="tab" aria-selected="true" data-tab-target="s1-work">Работа по шагу</button>
+                            <button type="button" role="tab" aria-selected="false" data-tab-target="s1-materials">Материалы шага</button>
+                            <button type="button" role="tab" aria-selected="false" data-tab-target="s1-source">Текст руководителя</button>
+                        </div>
+                        <div class="pauza-tabs__panel is-active" role="tabpanel" data-tab-panel="s1-work">
+                            <h2>Работа по шагу <span class="pauza-origin pauza-origin--source">Из DOCX</span></h2>
+                            <div id="preview-step1-work"><p>Загрузка пунктов...</p></div>
+                        </div>
+                        <div class="pauza-tabs__panel" role="tabpanel" data-tab-panel="s1-materials" hidden>
+                            <h2>Материалы шага <span class="pauza-origin pauza-origin--source">Из DOCX</span></h2>
+                            <div id="preview-step1-materials"><p>Загрузка материалов...</p></div>
+                            <div class="pauza-source-card">
+                                <h3>Калькулятор выздоровления <span class="pauza-origin pauza-origin--source">Из DOCX</span></h3>
+                                <p>В документе: инструкция к калькулятору, ежедневная работа и отправка результата спонсору или в группу.</p>
+                                <span class="pauza-origin pauza-origin--editorial">Редакционный слой</span>
+                                <div class="pauza-actions">
+                                    <a class="pauza-button pauza-button--primary" href="#calculator">Калькуляторы внизу</a>
+                                    <span class="pauza-origin pauza-origin--verify">Ссылки на боты нужно подтвердить</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pauza-tabs__panel pauza-tabs__panel--long" role="tabpanel" data-tab-panel="s1-source" hidden>
+                            <h2>Текст руководителя <span class="pauza-origin pauza-origin--source">Из DOCX</span></h2>
+                            <div id="preview-step1-source"><p>Загрузка текста...</p></div>
+                        </div>
+                    </div>
                 </div>
-                <div class="pauza-card-grid pauza-card-grid--three">
-                    <article class="pauza-card">
-                        <p class="pauza-tag">Видео · 5 мая 2026</p>
-                        <h3>Новое видео для 8 шага</h3>
-                        <p>Добавлено видео о списках вреда, материальном ущербе и упражнении ВДА. Ссылка дублируется внутри 8 шага.</p>
-                        <a class="pauza-button" href="https://rutube.ru/channel/44350949/">Открыть видео</a>
-                    </article>
-                    <article class="pauza-card">
-                        <p class="pauza-tag">Группы · 5 мая 2026</p>
-                        <h3>Обновлены ссылки групп</h3>
-                        <p>Проверены Telegram и MAX-группы шагов. Группы не смешиваются с каналами проекта и ботами.</p>
-                        <a class="pauza-button" href="#materials">Открыть материалы</a>
-                    </article>
-                    <article class="pauza-card">
-                        <p class="pauza-tag">Важно · 5 мая 2026</p>
-                        <h3>Перед началом выберите спонсора</h3>
-                        <p>Сначала выберите свой пол, потом напишите короткое сообщение. Звонить без переписки не нужно.</p>
-                        <a class="pauza-button pauza-button--primary" href="#sponsors">Выбрать спонсора</a>
-                    </article>
-                </div>
+                <aside class="pauza-panel">
+                    <h2>Что проверяем</h2>
+                    <ul class="pauza-check-list">
+                        <li>калькулятор не висит первым главным действием;</li>
+                        <li>калькулятор виден внутри 1 шага;</li>
+                        <li>внешние ссылки помечены как инструменты, не сайт.</li>
+                    </ul>
+                    <span class="pauza-origin pauza-origin--editorial">Редакционный слой</span>
+                </aside>
             </div>
         </section>
 
@@ -111,80 +142,50 @@
                 <div class="pauza-content">
                     <p class="pauza-eyebrow">Стресс-тест контента</p>
                     <h2>Восьмой шаг</h2>
-                    <p>Этот шаг взят как сложный пример: списки вреда, курс ЦБ, упражнение ВДА, переход к 9 шагу и полный текст из DOCX.</p>
+                    <p>Этот шаг проверяет, выдержит ли верстка сложный материал: списки вреда, материальный ущерб, ЦБ, доллары, упражнение ВДА и переход к 9 шагу.</p>
+                    <span class="pauza-origin pauza-origin--editorial">Редакционный слой</span>
                     <div class="pauza-tabs" data-pauza-tabs>
                         <div class="pauza-tabs__nav" role="tablist" aria-label="Разделы 8 шага">
-                            <button class="is-active" type="button" role="tab" aria-selected="true" data-tab-target="s8-short">Коротко</button>
-                            <button type="button" role="tab" aria-selected="false" data-tab-target="s8-tasks">Задания</button>
-                            <button type="button" role="tab" aria-selected="false" data-tab-target="s8-links">Видео и ссылки</button>
-                            <button type="button" role="tab" aria-selected="false" data-tab-target="s8-exercises">Упражнения</button>
-                            <button type="button" role="tab" aria-selected="false" data-tab-target="s8-full">Полный текст</button>
-                            <button type="button" role="tab" aria-selected="false" data-tab-target="s8-next">Дальше</button>
+                            <button class="is-active" type="button" role="tab" aria-selected="true" data-tab-target="s8-work">Работа по шагу</button>
+                            <button type="button" role="tab" aria-selected="false" data-tab-target="s8-materials">Материалы шага</button>
+                            <button type="button" role="tab" aria-selected="false" data-tab-target="s8-source">Текст руководителя</button>
                         </div>
-                        <div class="pauza-tabs__panel is-active" role="tabpanel" data-tab-panel="s8-short">
-                            <h2>Коротко о шаге</h2>
-                            <p>Нужно составить список людей и организаций, которым был причинен вред, и подготовить готовность к возмещению.</p>
-                            <div class="pauza-friendly-note">Не открывайте полный текст сразу. Начните с заданий и списка материалов.</div>
+                        <div class="pauza-tabs__panel is-active" role="tabpanel" data-tab-panel="s8-work">
+                            <h2>Работа по шагу <span class="pauza-origin pauza-origin--source">Из DOCX</span></h2>
+                            <div id="preview-step8-work"><p>Загрузка пунктов...</p></div>
                         </div>
-                        <div class="pauza-tabs__panel" role="tabpanel" data-tab-panel="s8-tasks" hidden>
-                            <h2>Делайте по порядку</h2>
-                            <ol class="pauza-task-list">
-                                <li>Смотреть видео 8 шага по порядку.</li>
-                                <li>Составить списки физического, психического, материального и духовного вреда.</li>
-                                <li>Материальный ущерб считать аккуратно: сумма, дата, валюта, курс.</li>
-                                <li>Выполнить упражнение ВДА по инструкции внутри шага.</li>
-                                <li>Согласовать со спонсором переход к 9 шагу.</li>
-                            </ol>
-                        </div>
-                        <div class="pauza-tabs__panel" role="tabpanel" data-tab-panel="s8-links" hidden>
-                            <h2>Видео и ссылки</h2>
-                            <ul class="pauza-check-list">
-                                <li>Видео восьмого шага: показывается здесь, а не в общей свалке материалов.</li>
-                                <li>Telegram-группа 8 шага: группа текущей работы, не бот и не канал проекта.</li>
-                                <li>MAX-группа 8 шага: запасной канал общения по этому шагу.</li>
-                                <li>Курс ЦБ для расчета ущерба: https://www.cbr.ru/currency_base/daily/</li>
-                            </ul>
+                        <div class="pauza-tabs__panel" role="tabpanel" data-tab-panel="s8-materials" hidden>
+                            <h2>Материалы шага <span class="pauza-origin pauza-origin--source">Из DOCX</span></h2>
+                            <div id="preview-step8-materials"><p>Загрузка материалов...</p></div>
                             <div class="pauza-actions">
                                 <a class="pauza-button pauza-button--primary" href="https://t.me/+25xg0R3EbdExMTUy">Группа Telegram 8 шага</a>
                                 <a class="pauza-button" href="https://max.ru/join/k5TJeDCbEZXvz08D8DhX2TRB2KPAY7dXOnsQDnVu0vk">Группа MAX 8 шага</a>
                             </div>
                         </div>
-                        <div class="pauza-tabs__panel" role="tabpanel" data-tab-panel="s8-exercises" hidden>
-                            <h2>Упражнения и списки</h2>
-                            <p>Списки вреда из документа:</p>
-                            <ul class="pauza-check-list">
-                                <li>физический себе;</li>
-                                <li>физический другим;</li>
-                                <li>косвенный физический;</li>
-                                <li>психический себе;</li>
-                                <li>психический другим;</li>
-                                <li>материальный организациям;</li>
-                                <li>материальный людям;</li>
-                                <li>материальный друзьям и партнерам;</li>
-                                <li>материальный родным.</li>
-                            </ul>
-                            <p>Упражнение ВДА остается внутри 8 шага. Оно не должно жить отдельной страницей, потому что человеку важно понимать, на каком этапе оно нужно.</p>
+                        <div class="pauza-tabs__panel pauza-tabs__panel--long" role="tabpanel" data-tab-panel="s8-source" hidden>
+                            <h2>Текст руководителя <span class="pauza-origin pauza-origin--source">Из DOCX</span></h2>
+                            <div id="preview-step8-sections"><p>Загрузка текста...</p></div>
                         </div>
-                        <div class="pauza-tabs__panel pauza-tabs__panel--long" role="tabpanel" data-tab-panel="s8-full" hidden>
-                            <h2>Полный текст 8 шага из DOCX</h2>
-                            <div id="preview-step8-full"><p>Загрузка полного текста...</p></div>
+                    </div>
+                    <div class="pauza-next-box">
+                        <div>
+                            <p class="pauza-eyebrow">Дальше</p>
+                            <h2>Переход в 9 шаг</h2>
+                            <p>Переход показывается после материала шага, а не отдельной вкладкой.</p>
+                            <span class="pauza-origin pauza-origin--editorial">Редакционный слой</span>
                         </div>
-                        <div class="pauza-tabs__panel" role="tabpanel" data-tab-panel="s8-next" hidden>
-                            <h2>Когда закончите</h2>
-                            <p>Переходите к девятому шагу только после завершения списков и согласования со спонсором.</p>
-                            <a class="pauza-button pauza-button--accent" href="#steps">Перейти к 9 шагу</a>
-                        </div>
+                        <a class="pauza-button pauza-button--accent" href="#steps">Перейти к 9 шагу</a>
                     </div>
                 </div>
                 <aside class="pauza-sidebar">
                     <div class="pauza-panel">
-                        <h2>Что проверяем</h2>
+                        <h2>Проверка фактуры</h2>
                         <ul class="pauza-check-list">
-                            <li>длинные списки не ломают карточку;</li>
-                            <li>вкладки помещаются на телефоне;</li>
-                            <li>полный текст скроллится внутри вкладки;</li>
-                            <li>ссылки шага не смешаны с ботами.</li>
+                            <li>ЦБ и доллары берутся из DOCX;</li>
+                            <li>ВДА раскрывается внутри текста руководителя;</li>
+                            <li>добавленные пояснения помечены желтым.</li>
                         </ul>
+                        <span class="pauza-origin pauza-origin--editorial">Редакционный слой</span>
                     </div>
                 </aside>
             </div>
@@ -195,25 +196,32 @@
                 <div class="pauza-content">
                     <p class="pauza-eyebrow">Стресс-тест длинного текста</p>
                     <h2>Второй шаг</h2>
-                    <p>Второй шаг нужен для проверки длинного сплошного текста. Он не раздувает первый экран, потому что полный материал спрятан во вкладке.</p>
+                    <p>Здесь проверяем не краткий пересказ, а длинный текст руководителя внутри вкладки.</p>
+                    <span class="pauza-origin pauza-origin--editorial">Редакционный слой</span>
                     <div class="pauza-tabs" data-pauza-tabs>
                         <div class="pauza-tabs__nav" role="tablist" aria-label="Разделы 2 шага">
-                            <button class="is-active" type="button" role="tab" aria-selected="true" data-tab-target="s2-short">Коротко</button>
-                            <button type="button" role="tab" aria-selected="false" data-tab-target="s2-full">Полный текст</button>
+                            <button class="is-active" type="button" role="tab" aria-selected="true" data-tab-target="s2-work">Работа по шагу</button>
+                            <button type="button" role="tab" aria-selected="false" data-tab-target="s2-materials">Материалы шага</button>
+                            <button type="button" role="tab" aria-selected="false" data-tab-target="s2-source">Текст руководителя</button>
                         </div>
-                        <div class="pauza-tabs__panel is-active" role="tabpanel" data-tab-panel="s2-short">
-                            <h2>Коротко</h2>
-                            <p>Смотреть видео 011-020, ответить по пяти зависимостям и зачитать работу спонсору.</p>
+                        <div class="pauza-tabs__panel is-active" role="tabpanel" data-tab-panel="s2-work">
+                            <h2>Работа по шагу <span class="pauza-origin pauza-origin--source">Из DOCX</span></h2>
+                            <div id="preview-step2-work"><p>Загрузка пунктов...</p></div>
                         </div>
-                        <div class="pauza-tabs__panel pauza-tabs__panel--long" role="tabpanel" data-tab-panel="s2-full" hidden>
-                            <h2>Полный текст 2 шага из DOCX</h2>
-                            <div id="preview-step2-full"><p>Загрузка полного текста...</p></div>
+                        <div class="pauza-tabs__panel" role="tabpanel" data-tab-panel="s2-materials" hidden>
+                            <h2>Материалы шага <span class="pauza-origin pauza-origin--source">Из DOCX</span></h2>
+                            <div id="preview-step2-materials"><p>Загрузка материалов...</p></div>
+                        </div>
+                        <div class="pauza-tabs__panel pauza-tabs__panel--long" role="tabpanel" data-tab-panel="s2-source" hidden>
+                            <h2>Текст руководителя <span class="pauza-origin pauza-origin--source">Из DOCX</span></h2>
+                            <div id="preview-step2-source"><p>Загрузка текста...</p></div>
                         </div>
                     </div>
                 </div>
                 <aside class="pauza-panel">
                     <h2>Зачем этот блок</h2>
                     <p>Если здесь текст читается на ПК и телефоне, схема вкладок подходит для полного переноса DOCX.</p>
+                    <span class="pauza-origin pauza-origin--editorial">Редакционный слой</span>
                 </aside>
             </div>
         </section>
@@ -223,12 +231,14 @@
                 <div>
                     <p class="pauza-eyebrow">Конкретный бот шага</p>
                     <h2>Бот 4 шага показывается на 4 шаге</h2>
-                    <p>Это не общий пункт футера и не раздел для новичка. Бот нужен, когда человек дошел до четвертого шага и готов к письменной инвентаризации.</p>
+                    <p>Это не общий пункт футера и не раздел для новичка. Бот нужен, когда человек дошел до четвертого шага.</p>
+                    <span class="pauza-origin pauza-origin--editorial">Редакционный слой</span>
                 </div>
                 <aside class="pauza-panel">
                     <p class="pauza-tag">Бот</p>
                     <h2>Telegram-бот 4 шага</h2>
                     <p>Личные ответы не хранятся на сайте. Работа выполняется во внешнем инструменте и согласуется со спонсором.</p>
+                    <span class="pauza-origin pauza-origin--editorial">Редакционный слой</span>
                     <a class="pauza-button pauza-button--primary" href="https://t.me/FourStepForAllBot">Перейти в бот</a>
                 </aside>
             </div>
@@ -239,12 +249,14 @@
                 <div class="pauza-section__heading">
                     <p class="pauza-eyebrow">Спонсоры и проводники</p>
                     <h2>Список скрыт, пока человек не выберет свой пол</h2>
+                    <span class="pauza-origin pauza-origin--editorial">Редакционный слой</span>
                 </div>
                 <div class="pauza-next-box">
                     <div>
                         <p class="pauza-eyebrow">Перед контактом</p>
                         <h2>Выберите свой пол</h2>
                         <p>Сначала напишите, не звоните. Представьтесь и коротко расскажите о себе.</p>
+                        <span class="pauza-origin pauza-origin--editorial">Редакционный слой</span>
                     </div>
                 </div>
                 <div class="pauza-filter" role="group" aria-label="Выбор списка спонсоров">
@@ -257,90 +269,136 @@
                         <h2>Спонсор</h2>
                         <p class="pauza-phone">Контакт скрыт</p>
                         <p>Контакт показан как тест формата. В WordPress реальные контакты публикуются только после подтверждения.</p>
+                        <span class="pauza-origin pauza-origin--verify">Нужно подтвердить</span>
                     </article>
                     <article class="pauza-sponsor-card is-hidden" data-sponsor-gender="female">
                         <p class="pauza-tag">Женщины</p>
                         <h2>Спонсор</h2>
                         <p class="pauza-phone">Контакт скрыт</p>
                         <p>Пользователь сам пишет с телефона или из мессенджера. Кнопки SMS на сайте нет.</p>
+                        <span class="pauza-origin pauza-origin--verify">Нужно подтвердить</span>
                     </article>
                     <article class="pauza-sponsor-card is-hidden" data-sponsor-gender="male">
                         <p class="pauza-tag">Мужчины</p>
                         <h2>Спонсор</h2>
                         <p class="pauza-phone">Контакт скрыт</p>
                         <p>Сначала короткое сообщение, звонить без переписки не нужно.</p>
+                        <span class="pauza-origin pauza-origin--verify">Нужно подтвердить</span>
                     </article>
                     <article class="pauza-sponsor-card is-hidden" data-sponsor-gender="male">
                         <p class="pauza-tag">Мужчины</p>
                         <h2>Спонсор</h2>
                         <p class="pauza-phone">Контакт скрыт</p>
                         <p>Так выглядит карточка после публикации подтвержденного контакта.</p>
+                        <span class="pauza-origin pauza-origin--verify">Нужно подтвердить</span>
                     </article>
                 </div>
             </div>
         </section>
 
-        <section class="pauza-section pauza-section--muted" id="calculator">
-            <div class="pauza-container pauza-content-grid">
-                <div class="pauza-content">
-                    <p class="pauza-eyebrow">Внешние инструменты</p>
-                    <h2>Калькуляторы</h2>
-                    <p>Калькуляторы не встраиваются в WordPress. Это внешние Telegram/MAX-боты, а сайт только объясняет, когда открыть инструмент и куда отправить результат.</p>
-                    <div class="pauza-card-grid">
-                        <article class="pauza-card">
-                            <p class="pauza-tag">Калькулятор</p>
-                            <h3>Telegram-бот</h3>
-                            <p>Заполните расчет, посмотрите итог и отправьте результат спонсору или в группу текущего шага.</p>
-                            <a class="pauza-button pauza-button--primary" href="#">Открыть Telegram-бот</a>
-                        </article>
-                        <article class="pauza-card">
-                            <p class="pauza-tag">Калькулятор</p>
-                            <h3>MAX-бот</h3>
-                            <p>Второй внешний инструмент для тех, кому удобнее MAX.</p>
-                            <a class="pauza-button" href="#">Открыть MAX-бот</a>
-                        </article>
-                    </div>
-                </div>
-                <aside class="pauza-panel">
-                    <h2>Как использовать</h2>
-                    <ol class="pauza-task-list">
-                        <li>Заполнять каждый день.</li>
-                        <li>Смотреть итоговую цифру.</li>
-                        <li>Отправлять результат спонсору или в группу шага.</li>
-                    </ol>
-                </aside>
-            </div>
-        </section>
-
-        <section class="pauza-section" id="materials">
+        <section class="pauza-section pauza-section--muted" id="materials">
             <div class="pauza-container">
                 <div class="pauza-section__heading">
                     <p class="pauza-eyebrow">Материалы</p>
-                    <h2>Не свалка, а справочник типов</h2>
-                    <p>Глобально показываем каналы и инструменты. Конкретные видео и задания остаются внутри нужных шагов.</p>
+                    <h2>Справочник типов, а не свалка</h2>
+                    <p>Глобально показываем каналы и инструменты. Конкретные видео, группы, боты и калькуляторы находятся внутри нужного шага.</p>
+                    <span class="pauza-origin pauza-origin--editorial">Редакционный слой</span>
                 </div>
                 <div class="pauza-card-grid pauza-card-grid--three">
                     <article class="pauza-card"><p class="pauza-tag">Канал проекта</p><h3>Telegram-канал</h3><p>Общие видео и объявления проекта.</p></article>
                     <article class="pauza-card"><p class="pauza-tag">Видео</p><h3>Rutube</h3><p>Дублирующий видеоканал, а конкретные видео привязаны к шагам.</p></article>
                     <article class="pauza-card"><p class="pauza-tag">Скачать</p><h3>Яндекс.Диск</h3><p>Архив видео и файлов.</p></article>
                     <article class="pauza-card"><p class="pauza-tag">Группа шага</p><h3>Telegram/MAX-группы</h3><p>Группы общения по конкретным шагам.</p></article>
-                    <article class="pauza-card"><p class="pauza-tag">Бот</p><h3>Бот 4 шага</h3><p>Инструмент только для четвертого шага.</p></article>
-                    <article class="pauza-card"><p class="pauza-tag">Калькулятор</p><h3>Telegram/MAX-боты</h3><p>Внешние инструменты ежедневного расчета.</p></article>
+                    <article class="pauza-card"><p class="pauza-tag">Бот</p><h3>Бот 4 шага</h3><p>Инструмент четвертого шага.</p></article>
+                    <article class="pauza-card"><p class="pauza-tag">Калькулятор</p><h3>Telegram/MAX-боты</h3><p>Внешние инструменты, указанные в первом шаге.</p></article>
                 </div>
             </div>
         </section>
 
-        <section class="pauza-section pauza-section--muted" id="today">
+        <section class="pauza-section" id="calculator">
+            <div class="pauza-container pauza-content-grid">
+                <div class="pauza-content">
+                    <p class="pauza-eyebrow">Дополнительный сервис</p>
+                    <h2>Калькуляторы</h2>
+                    <p>Калькуляторы не встраиваются в WordPress. Основное место для них - 1 шаг, а эта страница остается справочным входом к внешним ботам.</p>
+                    <span class="pauza-origin pauza-origin--editorial">Редакционный слой</span>
+                    <div class="pauza-card-grid">
+                        <article class="pauza-card">
+                            <p class="pauza-tag">Калькулятор</p>
+                            <h3>Telegram-бот</h3>
+                            <p>Ссылка будет добавлена после подтверждения владельцем.</p>
+                            <span class="pauza-origin pauza-origin--verify">Нужно подтвердить</span>
+                        </article>
+                        <article class="pauza-card">
+                            <p class="pauza-tag">Калькулятор</p>
+                            <h3>MAX-бот</h3>
+                            <p>Ссылка будет добавлена после подтверждения владельцем.</p>
+                            <span class="pauza-origin pauza-origin--verify">Нужно подтвердить</span>
+                        </article>
+                    </div>
+                </div>
+                <aside class="pauza-panel">
+                    <h2>Где показывать</h2>
+                    <ol class="pauza-task-list">
+                        <li>Внутри 1 шага.</li>
+                        <li>Внизу как дополнительный сервис.</li>
+                        <li>Не как главное действие первого экрана.</li>
+                    </ol>
+                    <span class="pauza-origin pauza-origin--editorial">Редакционный слой</span>
+                </aside>
+            </div>
+        </section>
+
+        <section class="pauza-section pauza-section--muted" id="news">
+            <div class="pauza-container">
+                <div class="pauza-section__heading">
+                    <p class="pauza-eyebrow">Новости</p>
+                    <h2>Новости отдельно от маршрута</h2>
+                    <p>Для проверки формата здесь показаны внешние тематические новости. Они не являются материалами программы.</p>
+                    <span class="pauza-origin pauza-origin--editorial">Редакционный слой</span>
+                </div>
+                <div class="pauza-card-grid pauza-card-grid--three">
+                    <article class="pauza-card">
+                        <span class="pauza-origin pauza-origin--external_test">Внешняя новость для теста</span>
+                        <p class="pauza-tag">27 апреля 2026</p>
+                        <h3>Как бросить курить сигареты и электронки</h3>
+                        <p class="pauza-muted-line">МНПЦ наркологии</p>
+                        <p>Карточка проверяет формат внешней тематической новости: источник, дата, короткий текст и кнопка.</p>
+                        <a class="pauza-button" href="https://narcologos.ru/news/?year=2026">Открыть источник</a>
+                    </article>
+                    <article class="pauza-card">
+                        <span class="pauza-origin pauza-origin--external_test">Внешняя новость для теста</span>
+                        <p class="pauza-tag">24 апреля 2026</p>
+                        <h3>Специалист МНПЦ на конкурсе «Московские мастера 2026»</h3>
+                        <p class="pauza-muted-line">МНПЦ наркологии</p>
+                        <p>Еще один пример новости из внешней ленты, чтобы проверить сетку и длину заголовка.</p>
+                        <a class="pauza-button" href="https://narcologos.ru/news/?year=2026">Открыть источник</a>
+                    </article>
+                    <article class="pauza-card">
+                        <span class="pauza-origin pauza-origin--external_test">Внешняя новость для теста</span>
+                        <p class="pauza-tag">12 января 2026</p>
+                        <h3>Новый порядок помощи по профилю «психиатрия-наркология»</h3>
+                        <p class="pauza-muted-line">КонсультантПлюс</p>
+                        <p>Юридическая новость отделена синей меткой и не смешивается с материалами шагов.</p>
+                        <a class="pauza-button" href="https://www.consultant.ru/legalnews/30513/">Открыть источник</a>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="pauza-section" id="today">
             <div class="pauza-container pauza-split">
                 <div>
                     <p class="pauza-eyebrow">Только сегодня</p>
                     <h2>Отдельные тексты владельца</h2>
                     <p>Периодические тексты не смешиваются с заданиями шагов и новостями. В WordPress это отдельный редактируемый раздел.</p>
+                    <span class="pauza-origin pauza-origin--editorial">Редакционный слой</span>
                 </div>
                 <article class="pauza-card">
                     <p class="pauza-tag">Пример формата</p>
                     <h3>Текст на сегодня</h3>
-                    <p>Короткое обращение или мысль дня. Полный текст открывается отдельной записью.</p>
+                    <p>Здесь будет исходный текст владельца, когда мы перенесем соответствующий блок из DOCX.</p>
+                    <span class="pauza-origin pauza-origin--verify">Нужно подтвердить</span>
                 </article>
             </div>
         </section>
@@ -365,12 +423,76 @@
     <script src="assets/theme.js"></script>
     <script>
         (function () {
-            function renderText(id, text) {
+            function splitLines(text) {
+                return String(text || '').split(/\r?\n/).map(function (line) {
+                    return line.trim();
+                }).filter(Boolean);
+            }
+
+            function numberedLines(text) {
+                return splitLines(text).filter(function (line) {
+                    return /^\d+\.\s+/.test(line);
+                });
+            }
+
+            function materialLines(text) {
+                var seen = {};
+                return splitLines(text).filter(function (line) {
+                    return /https?:\/\//i.test(line) || /(группа|телеграм|telegram|макс|max|видео|бот|калькулятор|rutube|яндекс|диск)/i.test(line);
+                }).filter(function (line) {
+                    if (seen[line]) {
+                        return false;
+                    }
+                    seen[line] = true;
+                    return true;
+                });
+            }
+
+            function textBetween(text, start, end) {
+                var source = String(text || '');
+                var startIndex = source.indexOf(start);
+                if (startIndex === -1) {
+                    return '';
+                }
+                var endIndex = end ? source.indexOf(end, startIndex) : -1;
+                if (endIndex === -1) {
+                    return source.slice(startIndex).trim();
+                }
+                return source.slice(startIndex, endIndex + end.length).trim();
+            }
+
+            function clear(id) {
                 var target = document.getElementById(id);
+                if (!target) {
+                    return null;
+                }
+                target.textContent = '';
+                return target;
+            }
+
+            function renderList(id, items, ordered) {
+                var target = clear(id);
                 if (!target) {
                     return;
                 }
-                target.textContent = '';
+                var hasSourceNumbers = items.some(function (item) {
+                    return /^\d+\.\s+/.test(item);
+                });
+                var list = document.createElement(hasSourceNumbers || !ordered ? 'ul' : 'ol');
+                list.className = hasSourceNumbers ? 'pauza-source-list' : (ordered ? 'pauza-task-list' : 'pauza-check-list');
+                (items.length ? items : ['Материал не найден в сохраненном тексте.']).forEach(function (item) {
+                    var li = document.createElement('li');
+                    li.textContent = item;
+                    list.appendChild(li);
+                });
+                target.appendChild(list);
+            }
+
+            function renderText(id, text) {
+                var target = clear(id);
+                if (!target) {
+                    return;
+                }
                 String(text || '').split(/\n\s*\n/).filter(Boolean).forEach(function (paragraph) {
                     var p = document.createElement('p');
                     p.textContent = paragraph.trim();
@@ -378,15 +500,85 @@
                 });
             }
 
+            function sourceBadge() {
+                var badge = document.createElement('span');
+                badge.className = 'pauza-origin pauza-origin--source';
+                badge.textContent = 'Из DOCX';
+                return badge;
+            }
+
+            function appendPlainText(container, text) {
+                String(text || '').split(/\n\s*\n/).filter(Boolean).forEach(function (paragraph) {
+                    var p = document.createElement('p');
+                    p.textContent = paragraph.trim();
+                    container.appendChild(p);
+                });
+            }
+
+            function renderStep8Sections(text) {
+                var target = clear('preview-step8-sections');
+                if (!target) {
+                    return;
+                }
+                var numbered = numberedLines(text);
+                var harm = numbered.filter(function (line) {
+                    return /^(2|3|4|5|6|7|8|9)\.\s/.test(line);
+                });
+                var money = numbered.filter(function (line) {
+                    return /^(10|11|12|13)\.\s/.test(line);
+                });
+                var sections = [
+                    { title: 'Списки вреда', lines: harm },
+                    { title: 'Материальный ущерб', lines: money },
+                    { title: 'Упражнение ВДА', text: textBetween(text, 'УПРАЖНЕНИЕ ВДА', 'Конец записи') },
+                    { title: 'Переход в 9 шаг', text: textBetween(text, '15. Переходи в группу 9 шага.') }
+                ];
+
+                sections.forEach(function (section) {
+                    var details = document.createElement('details');
+                    details.className = 'pauza-details';
+                    var summary = document.createElement('summary');
+                    summary.textContent = section.title + ' ';
+                    summary.appendChild(sourceBadge());
+                    details.appendChild(summary);
+                    var content = document.createElement('div');
+                    content.className = 'pauza-content';
+                    if (section.lines) {
+                        var list = document.createElement('ul');
+                        list.className = 'pauza-source-list';
+                        section.lines.forEach(function (line) {
+                            var li = document.createElement('li');
+                            li.textContent = line;
+                            list.appendChild(li);
+                        });
+                        content.appendChild(list);
+                    } else {
+                        appendPlainText(content, section.text);
+                    }
+                    details.appendChild(content);
+                    target.appendChild(details);
+                });
+            }
+
             fetch('inc/step-full-texts.json')
                 .then(function (response) { return response.json(); })
                 .then(function (data) {
-                    renderText('preview-step8-full', data['8']);
-                    renderText('preview-step2-full', data['2']);
+                    renderList('preview-step1-work', numberedLines(data['1']), true);
+                    renderList('preview-step1-materials', materialLines(data['1']), false);
+                    renderText('preview-step1-source', data['1']);
+
+                    renderList('preview-step8-work', numberedLines(data['8']), true);
+                    renderList('preview-step8-materials', materialLines(data['8']), false);
+                    renderStep8Sections(data['8']);
+
+                    renderList('preview-step2-work', numberedLines(data['2']), true);
+                    renderList('preview-step2-materials', materialLines(data['2']), false);
+                    renderText('preview-step2-source', data['2']);
                 })
                 .catch(function () {
-                    renderText('preview-step8-full', 'Полный текст не загрузился в статическом preview.');
-                    renderText('preview-step2-full', 'Полный текст не загрузился в статическом preview.');
+                    renderText('preview-step1-work', 'Текст не загрузился в статическом preview.');
+                    renderText('preview-step8-work', 'Текст не загрузился в статическом preview.');
+                    renderText('preview-step2-work', 'Текст не загрузился в статическом preview.');
                 });
         })();
     </script>

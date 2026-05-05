@@ -62,12 +62,12 @@ add_action('admin_init', 'pauza_ensure_default_menu_items');
 
 function pauza_ensure_news_seeded(): void
 {
-    if (get_option('pauza_news_seeded_v2')) {
+    if (get_option('pauza_news_seeded_v3')) {
         return;
     }
 
     pauza_seed_news();
-    update_option('pauza_news_seeded_v2', current_time('mysql'));
+    update_option('pauza_news_seeded_v3', current_time('mysql'));
 }
 
 function pauza_ensure_default_menu_items(): void
@@ -529,7 +529,7 @@ function pauza_step_structured_blocks(): array
             'materials' => [
                 'День 9-18: видео 011-020 по второму шагу смотреть по порядку.',
                 'Группа 2 шага в Telegram и MAX используется для вопросов по текущему шагу.',
-                'Длинный текст про похоть и отношения оставлен во вкладке "Полный текст" для проверки большого prose-блока.',
+                'Длинный текст про похоть и отношения оставлен во вкладке "Текст руководителя" для проверки большого prose-блока.',
             ],
             'exercises' => "Ответить по каждой из пяти зависимостей: какими станут мои отношения в свободе от этой зависимости.\n\nПодвести итоги и зачитать работу спонсору.",
         ],
@@ -730,34 +730,42 @@ function pauza_seed_news(): void
 {
     $news = [
         [
-            'slug' => 'novoe-video-vosmoy-shag',
-            'title' => 'Новое видео для 8 шага',
-            'content' => 'Добавлено видео к восьмому шагу: как не смешивать списки вреда, материальный ущерб и упражнение ВДА. Ссылка также дублируется внутри страницы 8 шага.',
-            'type' => 'Видео',
-            'url' => 'https://rutube.ru/channel/44350949/',
-            'label' => 'Открыть видео',
+            'slug' => 'mnpc-kak-brosit-kurit-2026',
+            'title' => 'Как бросить курить сигареты и электронки: советы врача и работающие методики',
+            'content' => 'Внешняя тематическая новость для проверки формата раздела. Это не материал программы и не инструкция руководителя проекта.',
+            'type' => 'Внешняя тестовая новость',
+            'source' => 'МНПЦ наркологии, 27 апреля 2026',
+            'origin' => 'external_test',
+            'url' => 'https://narcologos.ru/news/?year=2026',
+            'label' => 'Открыть источник',
         ],
         [
-            'slug' => 'obnovleny-ssylki-grupp',
-            'title' => 'Обновлены ссылки групп',
-            'content' => 'Проверены ссылки Telegram и MAX для шаговых групп. Если ссылка не открывается, используйте раздел материалов или напишите спонсору.',
-            'type' => 'Группы',
-            'url' => home_url('/materialy/'),
-            'label' => 'Открыть материалы',
+            'slug' => 'mnpc-moskovskie-mastera-2026',
+            'title' => 'Специалист МНПЦ наркологии представил Московскую наркологию на конкурсе «Московские мастера 2026»',
+            'content' => 'Внешняя тематическая новость для проверки формата карточек: дата, источник, короткий текст и кнопка.',
+            'type' => 'Внешняя тестовая новость',
+            'source' => 'МНПЦ наркологии, 24 апреля 2026',
+            'origin' => 'external_test',
+            'url' => 'https://narcologos.ru/news/?year=2026',
+            'label' => 'Открыть источник',
         ],
         [
-            'slug' => 'snachala-vybrat-sponsora',
-            'title' => 'Перед началом: сначала выберите спонсора',
-            'content' => 'Новичку лучше не проходить программу в одиночку. Откройте список, выберите свой пол и сначала напишите короткое сообщение. Звонить без предварительной переписки не нужно.',
-            'type' => 'Важно',
-            'url' => home_url('/sponsory/'),
-            'label' => 'Выбрать спонсора',
+            'slug' => 'consultant-narcology-order-2026',
+            'title' => 'Новый порядок медпомощи по профилю «психиатрия-наркология» вступит в силу 1 сентября 2026 года',
+            'content' => 'Внешняя юридическая новость для проверки формата. Она не является материалом программы и должна быть визуально отделена от шагов.',
+            'type' => 'Внешняя тестовая новость',
+            'source' => 'КонсультантПлюс, 12 января 2026',
+            'origin' => 'external_test',
+            'url' => 'https://www.consultant.ru/legalnews/30513/',
+            'label' => 'Открыть источник',
         ],
     ];
 
     foreach ($news as $item) {
         pauza_seed_post('pauza_news', $item['slug'], $item['title'], $item['content'], [
             '_pauza_news_type'         => $item['type'],
+            '_pauza_news_origin'       => $item['origin'],
+            '_pauza_news_source'       => $item['source'],
             '_pauza_news_url'          => $item['url'],
             '_pauza_news_button_label' => $item['label'],
         ], 'publish');

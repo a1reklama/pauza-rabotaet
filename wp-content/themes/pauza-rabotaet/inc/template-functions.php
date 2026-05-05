@@ -91,6 +91,121 @@ function pauza_render_plain_text(string $text): void
     }
 }
 
+function pauza_origin_badge(string $origin, string $label = ''): string
+{
+    $labels = [
+        'source'        => __('Из DOCX', 'pauza-rabotaet'),
+        'editorial'     => __('Редакционный слой', 'pauza-rabotaet'),
+        'external_test' => __('Внешняя новость для теста', 'pauza-rabotaet'),
+        'verify'        => __('Нужно подтвердить', 'pauza-rabotaet'),
+    ];
+
+    $label = $label ?: ($labels[$origin] ?? $origin);
+
+    return sprintf(
+        '<span class="pauza-origin pauza-origin--%1$s">%2$s</span>',
+        esc_attr($origin),
+        esc_html($label)
+    );
+}
+
+function pauza_step_numbered_lines(string $text): array
+{
+    return array_values(array_filter(pauza_lines($text), static function ($line) {
+        return (bool) preg_match('/^\d+\.\s+/u', $line);
+    }));
+}
+
+function pauza_step_material_lines(string $text): array
+{
+    $items = [];
+
+    foreach (pauza_lines($text) as $line) {
+        if (preg_match('/https?:\/\//i', $line) || preg_match('/(группа|телеграм|telegram|макс|max|видео|бот|калькулятор|rutube|яндекс|диск)/iu', $line)) {
+            $items[] = $line;
+        }
+    }
+
+    return array_values(array_unique($items));
+}
+
+function pauza_render_source_list(array $items, string $type = 'ol'): void
+{
+    if (!$items) {
+        return;
+    }
+
+    $has_source_numbers = (bool) array_filter($items, static function ($item) {
+        return (bool) preg_match('/^\d+\.\s+/u', (string) $item);
+    });
+    $tag = $has_source_numbers || 'ul' === $type ? 'ul' : 'ol';
+    $class = $has_source_numbers ? 'pauza-source-list' : ('ul' === $type ? 'pauza-check-list' : 'pauza-task-list');
+
+    printf('<%1$s class="%2$s">', esc_html($tag), esc_attr($class));
+    foreach ($items as $item) {
+        echo '<li>' . esc_html((string) $item) . '</li>';
+    }
+    printf('</%s>', esc_html($tag));
+}
+
+function pauza_text_between(string $text, string $start, string $end = ''): string
+{
+    $start_pos = strpos($text, $start);
+    if (false === $start_pos) {
+        return '';
+    }
+
+    $end_pos = '' !== $end ? strpos($text, $end, $start_pos) : false;
+    if (false === $end_pos) {
+        return trim(substr($text, $start_pos));
+    }
+
+    return trim(substr($text, $start_pos, $end_pos - $start_pos + strlen($end)));
+}
+
+function pauza_render_step8_source_sections(string $full_text): void
+{
+    $numbered = pauza_step_numbered_lines($full_text);
+    $harm = [];
+    $money = [];
+
+    foreach ($numbered as $line) {
+        if (preg_match('/^(2|3|4|5|6|7|8|9)\.\s/u', $line)) {
+            $harm[] = $line;
+        }
+
+        if (preg_match('/^(10|11|12|13)\.\s/u', $line)) {
+            $money[] = $line;
+        }
+    }
+
+    $vda = pauza_text_between($full_text, 'УПРАЖНЕНИЕ ВДА', 'Конец записи');
+    $transition = pauza_text_between($full_text, '15. Переходи в группу 9 шага.');
+    $sections = [
+        __('Списки вреда', 'pauza-rabotaet')          => $harm,
+        __('Материальный ущерб', 'pauza-rabotaet')    => $money,
+        __('Упражнение ВДА', 'pauza-rabotaet')        => $vda,
+        __('Переход в 9 шаг', 'pauza-rabotaet')       => $transition,
+    ];
+
+    foreach ($sections as $title => $content) {
+        echo '<details class="pauza-details">';
+        echo '<summary>' . esc_html($title) . ' ' . pauza_origin_badge('source') . '</summary>';
+        echo '<div class="pauza-content">';
+
+        if (is_array($content)) {
+            pauza_render_source_list($content);
+        } elseif ('' !== trim((string) $content)) {
+            pauza_render_plain_text((string) $content);
+        } else {
+            echo '<p>' . esc_html__('Этот фрагмент не найден в сохраненном тексте шага.', 'pauza-rabotaet') . '</p>';
+        }
+
+        echo '</div>';
+        echo '</details>';
+    }
+}
+
 function pauza_sms_link(string $phone): string
 {
     $clean = preg_replace('/[^\d+]/', '', $phone);

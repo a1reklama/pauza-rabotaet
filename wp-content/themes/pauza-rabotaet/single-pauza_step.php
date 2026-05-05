@@ -13,16 +13,19 @@ while (have_posts()) :
     $number = pauza_meta($step_id, '_pauza_step_number');
     $status = pauza_meta($step_id, '_pauza_step_status');
     $goal = pauza_meta($step_id, '_pauza_step_goal');
-    $requirements = pauza_lines(pauza_meta($step_id, '_pauza_step_requirements'));
     $tasks = pauza_lines(pauza_meta($step_id, '_pauza_step_tasks'));
     $materials = pauza_lines(pauza_meta($step_id, '_pauza_step_materials'));
-    $exercises = pauza_meta($step_id, '_pauza_step_exercises');
     $full_text = pauza_meta($step_id, '_pauza_step_full_text');
     $telegram = pauza_meta($step_id, '_pauza_step_telegram_url');
     $max = pauza_meta($step_id, '_pauza_step_max_url');
     $video = pauza_meta($step_id, '_pauza_step_video_url');
     $next_label = pauza_meta($step_id, '_pauza_step_next_label');
     $next_url = pauza_meta($step_id, '_pauza_step_next_url');
+    $source_work = pauza_step_numbered_lines($full_text);
+    $source_materials = pauza_step_material_lines($full_text);
+    $calculator_instruction = pauza_get_option('calculator_instruction_url');
+    $calculator_telegram = pauza_get_option('calculator_telegram_url');
+    $calculator_max = pauza_get_option('calculator_max_url');
     ?>
     <article>
         <section class="pauza-page-hero">
@@ -31,7 +34,7 @@ while (have_posts()) :
                     <p class="pauza-eyebrow"><?php echo esc_html(sprintf(__('Шаг %s', 'pauza-rabotaet'), $number)); ?></p>
                     <h1><?php the_title(); ?></h1>
                     <?php if ($goal) : ?>
-                        <p class="pauza-lead"><?php echo esc_html($goal); ?></p>
+                        <p class="pauza-lead"><?php echo esc_html($goal); ?> <?php echo pauza_origin_badge('editorial'); ?></p>
                     <?php endif; ?>
                 </div>
                 <?php if ($status) : ?>
@@ -44,8 +47,9 @@ while (have_posts()) :
             <div class="pauza-container pauza-simple-step">
                 <div class="pauza-next-box">
                     <div>
-                        <p class="pauza-eyebrow"><?php esc_html_e('Что сделать сейчас', 'pauza-rabotaet'); ?></p>
-                        <h2><?php esc_html_e('Откройте обзор и двигайтесь по одному пункту', 'pauza-rabotaet'); ?></h2>
+                        <p class="pauza-eyebrow"><?php esc_html_e('Работа по документу', 'pauza-rabotaet'); ?></p>
+                        <h2><?php esc_html_e('Сначала откройте работу по шагу', 'pauza-rabotaet'); ?></h2>
+                        <p><?php esc_html_e('Ниже фактические пункты из DOCX. Подсказки интерфейса отдельно помечены цветом.', 'pauza-rabotaet'); ?> <?php echo pauza_origin_badge('editorial'); ?></p>
                     </div>
                     <div class="pauza-actions">
                         <?php echo pauza_button($telegram, __('Открыть Telegram', 'pauza-rabotaet'), 'pauza-button pauza-button--primary'); ?>
@@ -55,101 +59,92 @@ while (have_posts()) :
 
                 <div class="pauza-tabs" data-pauza-tabs>
                     <div class="pauza-tabs__nav" role="tablist" aria-label="<?php esc_attr_e('Разделы шага', 'pauza-rabotaet'); ?>">
-                        <button class="is-active" type="button" role="tab" id="pauza-tab-overview" aria-selected="true" aria-controls="pauza-panel-overview" data-tab-target="overview"><?php esc_html_e('Коротко', 'pauza-rabotaet'); ?></button>
-                        <button type="button" role="tab" id="pauza-tab-requirements" aria-selected="false" aria-controls="pauza-panel-requirements" data-tab-target="requirements"><?php esc_html_e('Условия', 'pauza-rabotaet'); ?></button>
-                        <button type="button" role="tab" id="pauza-tab-tasks" aria-selected="false" aria-controls="pauza-panel-tasks" data-tab-target="tasks"><?php esc_html_e('Задания', 'pauza-rabotaet'); ?></button>
-                        <button type="button" role="tab" id="pauza-tab-materials" aria-selected="false" aria-controls="pauza-panel-materials" data-tab-target="materials"><?php esc_html_e('Видео и ссылки', 'pauza-rabotaet'); ?></button>
-                        <button type="button" role="tab" id="pauza-tab-exercises" aria-selected="false" aria-controls="pauza-panel-exercises" data-tab-target="exercises"><?php esc_html_e('Упражнения', 'pauza-rabotaet'); ?></button>
-                        <button type="button" role="tab" id="pauza-tab-full" aria-selected="false" aria-controls="pauza-panel-full" data-tab-target="full"><?php esc_html_e('Полный текст', 'pauza-rabotaet'); ?></button>
-                        <button type="button" role="tab" id="pauza-tab-next" aria-selected="false" aria-controls="pauza-panel-next" data-tab-target="next"><?php esc_html_e('Дальше', 'pauza-rabotaet'); ?></button>
+                        <button class="is-active" type="button" role="tab" id="pauza-tab-work" aria-selected="true" aria-controls="pauza-panel-work" data-tab-target="work"><?php esc_html_e('Работа по шагу', 'pauza-rabotaet'); ?></button>
+                        <button type="button" role="tab" id="pauza-tab-materials" aria-selected="false" aria-controls="pauza-panel-materials" data-tab-target="materials"><?php esc_html_e('Материалы шага', 'pauza-rabotaet'); ?></button>
+                        <button type="button" role="tab" id="pauza-tab-source" aria-selected="false" aria-controls="pauza-panel-source" data-tab-target="source"><?php esc_html_e('Текст руководителя', 'pauza-rabotaet'); ?></button>
                     </div>
 
-                    <div class="pauza-tabs__panel is-active" role="tabpanel" id="pauza-panel-overview" aria-labelledby="pauza-tab-overview" data-tab-panel="overview">
+                    <div class="pauza-tabs__panel is-active" role="tabpanel" id="pauza-panel-work" aria-labelledby="pauza-tab-work" data-tab-panel="work">
                         <div class="pauza-content">
-                            <h2><?php esc_html_e('Коротко о шаге', 'pauza-rabotaet'); ?></h2>
-                            <?php the_content(); ?>
-                            <div class="pauza-friendly-note">
-                                <?php esc_html_e('Не нужно читать всё сразу. Начните с условий, потом откройте список действий.', 'pauza-rabotaet'); ?>
-                            </div>
+                            <h2><?php esc_html_e('Работа по шагу', 'pauza-rabotaet'); ?> <?php echo $source_work ? pauza_origin_badge('source') : pauza_origin_badge('editorial'); ?></h2>
+                            <?php if ($source_work) : ?>
+                                <?php pauza_render_source_list($source_work); ?>
+                            <?php elseif ($tasks) : ?>
+                                <?php pauza_render_source_list($tasks); ?>
+                            <?php else : ?>
+                                <p><?php esc_html_e('Пункты работы пока не добавлены.', 'pauza-rabotaet'); ?> <?php echo pauza_origin_badge('verify'); ?></p>
+                            <?php endif; ?>
                         </div>
-                    </div>
-
-                    <div class="pauza-tabs__panel" role="tabpanel" id="pauza-panel-requirements" aria-labelledby="pauza-tab-requirements" data-tab-panel="requirements" hidden>
-                        <h2><?php esc_html_e('Перед началом', 'pauza-rabotaet'); ?></h2>
-                        <?php if ($requirements) : ?>
-                            <ul class="pauza-check-list">
-                                <?php foreach ($requirements as $item) : ?>
-                                    <li><?php echo esc_html($item); ?></li>
-                                <?php endforeach; ?>
-                            </ul>
-                        <?php else : ?>
-                            <p><?php esc_html_e('Особых условий для этого шага пока не указано.', 'pauza-rabotaet'); ?></p>
-                        <?php endif; ?>
-                    </div>
-
-                    <div class="pauza-tabs__panel" role="tabpanel" id="pauza-panel-tasks" aria-labelledby="pauza-tab-tasks" data-tab-panel="tasks" hidden>
-                        <h2><?php esc_html_e('Делайте по порядку', 'pauza-rabotaet'); ?></h2>
-                        <?php if ($tasks) : ?>
-                            <ol class="pauza-task-list">
-                                <?php foreach ($tasks as $item) : ?>
-                                    <li><?php echo esc_html($item); ?></li>
-                                <?php endforeach; ?>
-                            </ol>
-                        <?php else : ?>
-                            <p><?php esc_html_e('Задания пока не добавлены.', 'pauza-rabotaet'); ?></p>
-                        <?php endif; ?>
                     </div>
 
                     <div class="pauza-tabs__panel" role="tabpanel" id="pauza-panel-materials" aria-labelledby="pauza-tab-materials" data-tab-panel="materials" hidden>
-                        <h2><?php esc_html_e('Видео и ссылки', 'pauza-rabotaet'); ?></h2>
-                        <?php if ($materials) : ?>
-                            <ul class="pauza-check-list">
-                                <?php foreach ($materials as $item) : ?>
-                                    <li><?php echo esc_html($item); ?></li>
-                                <?php endforeach; ?>
-                            </ul>
-                        <?php endif; ?>
+                        <div class="pauza-content">
+                            <h2><?php esc_html_e('Материалы шага', 'pauza-rabotaet'); ?> <?php echo $source_materials ? pauza_origin_badge('source') : pauza_origin_badge('verify'); ?></h2>
+                            <?php if ($source_materials) : ?>
+                                <?php pauza_render_source_list($source_materials, 'ul'); ?>
+                            <?php elseif ($materials) : ?>
+                                <?php pauza_render_source_list($materials, 'ul'); ?>
+                            <?php else : ?>
+                                <p><?php esc_html_e('Материалы для этого шага пока не указаны.', 'pauza-rabotaet'); ?></p>
+                            <?php endif; ?>
 
-                        <?php if ('4' === (string) $number) : ?>
+                            <?php if ('1' === (string) $number) : ?>
+                                <div class="pauza-source-card">
+                                    <h3><?php esc_html_e('Калькулятор выздоровления', 'pauza-rabotaet'); ?> <?php echo pauza_origin_badge('source'); ?></h3>
+                                    <p><?php esc_html_e('В DOCX калькулятор указан внутри первого шага: сначала инструкция, затем ежедневная работа и отправка результата спонсору или в группу.', 'pauza-rabotaet'); ?> <?php echo pauza_origin_badge('editorial'); ?></p>
+                                    <div class="pauza-actions">
+                                        <?php echo pauza_button($calculator_instruction, __('Инструкция к калькулятору', 'pauza-rabotaet'), 'pauza-button pauza-button--primary'); ?>
+                                        <?php echo pauza_button($calculator_telegram, __('Открыть Telegram-бот', 'pauza-rabotaet')); ?>
+                                        <?php echo pauza_button($calculator_max, __('Открыть MAX-бот', 'pauza-rabotaet')); ?>
+                                        <?php if (!$calculator_instruction && !$calculator_telegram && !$calculator_max) : ?>
+                                            <?php echo pauza_origin_badge('verify', __('Ссылки на калькулятор нужно подтвердить', 'pauza-rabotaet')); ?>
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
+                            <?php endif; ?>
+
+                            <?php if ('4' === (string) $number) : ?>
+                                <div class="pauza-source-card">
+                                    <h3><?php esc_html_e('Бот 4 шага', 'pauza-rabotaet'); ?> <?php echo pauza_origin_badge('source'); ?></h3>
+                                    <p><?php esc_html_e('Этот бот показывается как инструмент конкретного четвертого шага, а не как общий пункт сайта.', 'pauza-rabotaet'); ?> <?php echo pauza_origin_badge('editorial'); ?></p>
+                                    <div class="pauza-actions">
+                                        <?php echo pauza_button(pauza_get_option('four_step_bot_url'), __('Открыть бот 4 шага', 'pauza-rabotaet'), 'pauza-button pauza-button--primary'); ?>
+                                    </div>
+                                </div>
+                            <?php endif; ?>
+
                             <div class="pauza-actions">
-                                <?php echo pauza_button(pauza_get_option('four_step_bot_url'), __('Открыть бот 4 шага', 'pauza-rabotaet'), 'pauza-button pauza-button--primary'); ?>
+                                <?php echo pauza_button($telegram, __('Группа Telegram этого шага', 'pauza-rabotaet'), 'pauza-button pauza-button--primary'); ?>
+                                <?php echo pauza_button($max, __('Группа MAX этого шага', 'pauza-rabotaet')); ?>
+                                <?php echo pauza_button($video, __('Открыть видео', 'pauza-rabotaet')); ?>
                             </div>
-                        <?php endif; ?>
-
-                        <?php if (!$materials) : ?>
-                            <p><?php esc_html_e('Материалы для этого шага пока не добавлены.', 'pauza-rabotaet'); ?></p>
-                        <?php endif; ?>
-                    </div>
-
-                    <div class="pauza-tabs__panel" role="tabpanel" id="pauza-panel-exercises" aria-labelledby="pauza-tab-exercises" data-tab-panel="exercises" hidden>
-                        <h2><?php esc_html_e('Упражнения', 'pauza-rabotaet'); ?></h2>
-                        <?php if ($exercises) : ?>
-                            <div class="pauza-content">
-                                <?php pauza_render_plain_text($exercises); ?>
-                            </div>
-                        <?php else : ?>
-                            <p><?php esc_html_e('Упражнения для этого шага пока не добавлены.', 'pauza-rabotaet'); ?></p>
-                        <?php endif; ?>
-                    </div>
-
-                    <div class="pauza-tabs__panel pauza-tabs__panel--long" role="tabpanel" id="pauza-panel-full" aria-labelledby="pauza-tab-full" data-tab-panel="full" hidden>
-                        <h2><?php esc_html_e('Полный текст', 'pauza-rabotaet'); ?></h2>
-                        <?php if ($full_text) : ?>
-                            <?php pauza_render_plain_text($full_text); ?>
-                        <?php else : ?>
-                            <p><?php esc_html_e('Полный текст для этого шага пока не добавлен.', 'pauza-rabotaet'); ?></p>
-                        <?php endif; ?>
-                    </div>
-
-                    <div class="pauza-tabs__panel" role="tabpanel" id="pauza-panel-next" aria-labelledby="pauza-tab-next" data-tab-panel="next" hidden>
-                        <h2><?php esc_html_e('Когда закончите', 'pauza-rabotaet'); ?></h2>
-                        <p><?php esc_html_e('Личные ответы и отчеты не отправляются через сайт. Используйте спонсора, группу или внешний бот.', 'pauza-rabotaet'); ?></p>
-                        <div class="pauza-actions">
-                            <?php echo pauza_button($telegram, __('Открыть группу Telegram', 'pauza-rabotaet'), 'pauza-button pauza-button--primary'); ?>
-                            <?php echo pauza_button($max, __('Открыть группу MAX', 'pauza-rabotaet')); ?>
-                            <?php echo pauza_button($video, __('Открыть видео', 'pauza-rabotaet')); ?>
-                            <?php echo $next_url && $next_label ? pauza_smart_button($next_url, $next_label, 'pauza-button pauza-button--accent') : ''; ?>
                         </div>
+                    </div>
+
+                    <div class="pauza-tabs__panel pauza-tabs__panel--long" role="tabpanel" id="pauza-panel-source" aria-labelledby="pauza-tab-source" data-tab-panel="source" hidden>
+                        <div class="pauza-content">
+                            <h2><?php esc_html_e('Текст руководителя', 'pauza-rabotaet'); ?> <?php echo $full_text ? pauza_origin_badge('source') : pauza_origin_badge('verify'); ?></h2>
+                            <?php if ($full_text && '8' === (string) $number) : ?>
+                                <?php pauza_render_step8_source_sections($full_text); ?>
+                            <?php elseif ($full_text) : ?>
+                                <?php pauza_render_plain_text($full_text); ?>
+                            <?php else : ?>
+                                <p><?php esc_html_e('Исходный текст для этого шага пока не добавлен.', 'pauza-rabotaet'); ?></p>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pauza-next-box">
+                    <div>
+                        <p class="pauza-eyebrow"><?php esc_html_e('Дальше', 'pauza-rabotaet'); ?></p>
+                        <h2><?php esc_html_e('После выполнения шага', 'pauza-rabotaet'); ?></h2>
+                        <p><?php esc_html_e('Ответы и отчеты не отправляются через сайт. Используйте спонсора, группу или внешний бот, если он указан в этом шаге.', 'pauza-rabotaet'); ?> <?php echo pauza_origin_badge('editorial'); ?></p>
+                    </div>
+                    <div class="pauza-actions">
+                        <?php echo $next_url && $next_label ? pauza_smart_button($next_url, $next_label, 'pauza-button pauza-button--accent') : ''; ?>
+                        <?php echo pauza_button($telegram, __('Открыть группу Telegram', 'pauza-rabotaet'), 'pauza-button pauza-button--primary'); ?>
+                        <?php echo pauza_button($max, __('Открыть группу MAX', 'pauza-rabotaet')); ?>
                     </div>
                 </div>
             </div>

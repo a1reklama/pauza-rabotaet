@@ -16,12 +16,18 @@ pauza_archive_title('Новости', 'Объявления, новые виде
                 <?php while (have_posts()) : the_post(); ?>
                     <?php
                     $news_type = pauza_meta(get_the_ID(), '_pauza_news_type');
+                    $news_origin = pauza_meta(get_the_ID(), '_pauza_news_origin', 'project');
+                    $news_source = pauza_meta(get_the_ID(), '_pauza_news_source');
                     $news_url = pauza_meta(get_the_ID(), '_pauza_news_url');
                     $news_button = pauza_meta(get_the_ID(), '_pauza_news_button_label', __('Открыть', 'pauza-rabotaet'));
                     ?>
                     <article class="pauza-card">
+                        <?php echo 'external_test' === $news_origin ? pauza_origin_badge('external_test') : pauza_origin_badge('source', __('Новость проекта', 'pauza-rabotaet')); ?>
                         <p class="pauza-tag"><?php echo esc_html(trim(($news_type ? $news_type . ' · ' : '') . get_the_date())); ?></p>
                         <h2><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
+                        <?php if ($news_source) : ?>
+                            <p class="pauza-muted-line"><?php echo esc_html($news_source); ?></p>
+                        <?php endif; ?>
                         <p><?php echo esc_html(get_the_excerpt()); ?></p>
                         <div class="pauza-actions">
                             <?php echo pauza_internal_button(get_permalink(), __('Читать', 'pauza-rabotaet')); ?>
