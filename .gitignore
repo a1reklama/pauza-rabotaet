@@ -1,0 +1,18 @@
+.DS_Store
+Thumbs.db
+
+# Local WordPress/debug runtime
+local-wordpress/
+wordpress/
+php/
+mysql/
+sqlite-database/
+
+# Generated archives
+*.zip
+
+# Logs and caches
+*.log
+.cache/
+node_modules/
+
