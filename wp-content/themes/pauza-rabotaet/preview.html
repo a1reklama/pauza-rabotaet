@@ -44,16 +44,17 @@
                 <div class="pauza-home-hero__copy">
                     <p class="pauza-eyebrow">12 шагов за 360 дней</p>
                     <h1>Пауза работает</h1>
-                    <p class="pauza-lead">Выберите спонсора и начните первый шаг. Остальные материалы открывайте только тогда, когда они нужны по шагу.</p>
+                    <p class="pauza-lead">Выберите спонсора и начните первый шаг. Все 12 шагов ниже идут строго по порядку и открываются как папки.</p>
                     <div class="pauza-actions">
                         <a class="pauza-button pauza-button--primary" href="#sponsors">Выбрать спонсора</a>
                         <a class="pauza-button" href="#step-1">Начать 1 шаг</a>
                     </div>
+                    <span class="pauza-origin pauza-origin--editorial">Редакционный слой</span>
                 </div>
                 <div class="pauza-route" aria-label="Маршрут новичка">
                     <div class="pauza-route__item"><span>1</span><strong>Выбрать спонсора</strong></div>
-                    <div class="pauza-route__item"><span>2</span><strong>Начать 1 шаг</strong></div>
-                    <div class="pauza-route__item"><span>3</span><strong>Открыть группу или инструмент шага</strong></div>
+                    <div class="pauza-route__item"><span>2</span><strong>Открыть 1 шаг</strong></div>
+                    <div class="pauza-route__item"><span>3</span><strong>Перейти дальше только по тексту шага</strong></div>
                 </div>
             </div>
         </section>
@@ -73,174 +74,14 @@
         <section class="pauza-section pauza-section--muted" id="steps">
             <div class="pauza-container">
                 <div class="pauza-section__heading">
-                    <p class="pauza-eyebrow">Карта программы</p>
-                    <h2>12 шагов: открывайте только нужный шаг</h2>
-                    <p>Карта не заменяет работу по шагу. Длинные тексты руководителя открываются внутри конкретного шага.</p>
+                    <p class="pauza-eyebrow">Полный маршрут</p>
+                    <h2>12 шагов из DOCX без пропусков</h2>
+                    <p>Открыта только одна папка. Внутри каждого шага: работа по шагу, материалы, текст руководителя и переход дальше.</p>
                     <span class="pauza-origin pauza-origin--editorial">Редакционный слой</span>
                 </div>
-                <div class="pauza-step-map">
-                    <a class="pauza-step-tile" href="#step-1"><span>1</span><strong>Первый шаг</strong><em>Калькулятор здесь</em></a>
-                    <a class="pauza-step-tile" href="#step-2"><span>2</span><strong>Второй шаг</strong><em>Длинный текст</em></a>
-                    <a class="pauza-step-tile" href="#step-4"><span>4</span><strong>Четвертый шаг</strong><em>Бот только здесь</em></a>
-                    <a class="pauza-step-tile" href="#step-8"><span>8</span><strong>Восьмой шаг</strong><em>Списки, ЦБ, ВДА</em></a>
-                    <a class="pauza-step-tile" href="#step-8"><span>9</span><strong>Девятый шаг</strong><em>После 8 шага</em></a>
-                    <a class="pauza-step-tile" href="#materials"><span>М</span><strong>Материалы</strong><em>Справочник типов</em></a>
+                <div class="pauza-step-folders" id="full-step-folders">
+                    <p>Загрузка всех 12 шагов...</p>
                 </div>
-            </div>
-        </section>
-
-        <section class="pauza-section" id="step-1">
-            <div class="pauza-container pauza-content-grid">
-                <div class="pauza-content">
-                    <p class="pauza-eyebrow">Проверка размещения калькулятора</p>
-                    <h2>Первый шаг</h2>
-                    <p>Калькулятор появляется здесь, потому что он прямо указан в тексте первого шага.</p>
-                    <span class="pauza-origin pauza-origin--editorial">Редакционный слой</span>
-                    <div class="pauza-tabs" data-pauza-tabs>
-                        <div class="pauza-tabs__nav" role="tablist" aria-label="Разделы 1 шага">
-                            <button class="is-active" type="button" role="tab" aria-selected="true" data-tab-target="s1-work">Работа по шагу</button>
-                            <button type="button" role="tab" aria-selected="false" data-tab-target="s1-materials">Материалы шага</button>
-                            <button type="button" role="tab" aria-selected="false" data-tab-target="s1-source">Текст руководителя</button>
-                        </div>
-                        <div class="pauza-tabs__panel is-active" role="tabpanel" data-tab-panel="s1-work">
-                            <h2>Работа по шагу <span class="pauza-origin pauza-origin--source">Из DOCX</span></h2>
-                            <div id="preview-step1-work"><p>Загрузка пунктов...</p></div>
-                        </div>
-                        <div class="pauza-tabs__panel" role="tabpanel" data-tab-panel="s1-materials" hidden>
-                            <h2>Материалы шага <span class="pauza-origin pauza-origin--source">Из DOCX</span></h2>
-                            <div id="preview-step1-materials"><p>Загрузка материалов...</p></div>
-                            <div class="pauza-source-card">
-                                <h3>Калькулятор выздоровления <span class="pauza-origin pauza-origin--source">Из DOCX</span></h3>
-                                <p>В документе: инструкция к калькулятору, ежедневная работа и отправка результата спонсору или в группу.</p>
-                                <span class="pauza-origin pauza-origin--editorial">Редакционный слой</span>
-                                <div class="pauza-actions">
-                                    <a class="pauza-button pauza-button--primary" href="#calculator">Калькуляторы внизу</a>
-                                    <span class="pauza-origin pauza-origin--verify">Ссылки на боты нужно подтвердить</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="pauza-tabs__panel pauza-tabs__panel--long" role="tabpanel" data-tab-panel="s1-source" hidden>
-                            <h2>Текст руководителя <span class="pauza-origin pauza-origin--source">Из DOCX</span></h2>
-                            <div id="preview-step1-source"><p>Загрузка текста...</p></div>
-                        </div>
-                    </div>
-                </div>
-                <aside class="pauza-panel">
-                    <h2>Что проверяем</h2>
-                    <ul class="pauza-check-list">
-                        <li>калькулятор не висит первым главным действием;</li>
-                        <li>калькулятор виден внутри 1 шага;</li>
-                        <li>внешние ссылки помечены как инструменты, не сайт.</li>
-                    </ul>
-                    <span class="pauza-origin pauza-origin--editorial">Редакционный слой</span>
-                </aside>
-            </div>
-        </section>
-
-        <section class="pauza-section pauza-section--muted" id="step-8">
-            <div class="pauza-container pauza-content-grid">
-                <div class="pauza-content">
-                    <p class="pauza-eyebrow">Стресс-тест контента</p>
-                    <h2>Восьмой шаг</h2>
-                    <p>Этот шаг проверяет, выдержит ли верстка сложный материал: списки вреда, материальный ущерб, ЦБ, доллары, упражнение ВДА и переход к 9 шагу.</p>
-                    <span class="pauza-origin pauza-origin--editorial">Редакционный слой</span>
-                    <div class="pauza-tabs" data-pauza-tabs>
-                        <div class="pauza-tabs__nav" role="tablist" aria-label="Разделы 8 шага">
-                            <button class="is-active" type="button" role="tab" aria-selected="true" data-tab-target="s8-work">Работа по шагу</button>
-                            <button type="button" role="tab" aria-selected="false" data-tab-target="s8-materials">Материалы шага</button>
-                            <button type="button" role="tab" aria-selected="false" data-tab-target="s8-source">Текст руководителя</button>
-                        </div>
-                        <div class="pauza-tabs__panel is-active" role="tabpanel" data-tab-panel="s8-work">
-                            <h2>Работа по шагу <span class="pauza-origin pauza-origin--source">Из DOCX</span></h2>
-                            <div id="preview-step8-work"><p>Загрузка пунктов...</p></div>
-                        </div>
-                        <div class="pauza-tabs__panel" role="tabpanel" data-tab-panel="s8-materials" hidden>
-                            <h2>Материалы шага <span class="pauza-origin pauza-origin--source">Из DOCX</span></h2>
-                            <div id="preview-step8-materials"><p>Загрузка материалов...</p></div>
-                            <div class="pauza-actions">
-                                <a class="pauza-button pauza-button--primary" href="https://t.me/+25xg0R3EbdExMTUy">Группа Telegram 8 шага</a>
-                                <a class="pauza-button" href="https://max.ru/join/k5TJeDCbEZXvz08D8DhX2TRB2KPAY7dXOnsQDnVu0vk">Группа MAX 8 шага</a>
-                            </div>
-                        </div>
-                        <div class="pauza-tabs__panel pauza-tabs__panel--long" role="tabpanel" data-tab-panel="s8-source" hidden>
-                            <h2>Текст руководителя <span class="pauza-origin pauza-origin--source">Из DOCX</span></h2>
-                            <div id="preview-step8-sections"><p>Загрузка текста...</p></div>
-                        </div>
-                    </div>
-                    <div class="pauza-next-box">
-                        <div>
-                            <p class="pauza-eyebrow">Дальше</p>
-                            <h2>Переход в 9 шаг</h2>
-                            <p>Переход показывается после материала шага, а не отдельной вкладкой.</p>
-                            <span class="pauza-origin pauza-origin--editorial">Редакционный слой</span>
-                        </div>
-                        <a class="pauza-button pauza-button--accent" href="#steps">Перейти к 9 шагу</a>
-                    </div>
-                </div>
-                <aside class="pauza-sidebar">
-                    <div class="pauza-panel">
-                        <h2>Проверка фактуры</h2>
-                        <ul class="pauza-check-list">
-                            <li>ЦБ и доллары берутся из DOCX;</li>
-                            <li>ВДА раскрывается внутри текста руководителя;</li>
-                            <li>добавленные пояснения помечены желтым.</li>
-                        </ul>
-                        <span class="pauza-origin pauza-origin--editorial">Редакционный слой</span>
-                    </div>
-                </aside>
-            </div>
-        </section>
-
-        <section class="pauza-section" id="step-2">
-            <div class="pauza-container pauza-content-grid">
-                <div class="pauza-content">
-                    <p class="pauza-eyebrow">Стресс-тест длинного текста</p>
-                    <h2>Второй шаг</h2>
-                    <p>Здесь проверяем не краткий пересказ, а длинный текст руководителя внутри вкладки.</p>
-                    <span class="pauza-origin pauza-origin--editorial">Редакционный слой</span>
-                    <div class="pauza-tabs" data-pauza-tabs>
-                        <div class="pauza-tabs__nav" role="tablist" aria-label="Разделы 2 шага">
-                            <button class="is-active" type="button" role="tab" aria-selected="true" data-tab-target="s2-work">Работа по шагу</button>
-                            <button type="button" role="tab" aria-selected="false" data-tab-target="s2-materials">Материалы шага</button>
-                            <button type="button" role="tab" aria-selected="false" data-tab-target="s2-source">Текст руководителя</button>
-                        </div>
-                        <div class="pauza-tabs__panel is-active" role="tabpanel" data-tab-panel="s2-work">
-                            <h2>Работа по шагу <span class="pauza-origin pauza-origin--source">Из DOCX</span></h2>
-                            <div id="preview-step2-work"><p>Загрузка пунктов...</p></div>
-                        </div>
-                        <div class="pauza-tabs__panel" role="tabpanel" data-tab-panel="s2-materials" hidden>
-                            <h2>Материалы шага <span class="pauza-origin pauza-origin--source">Из DOCX</span></h2>
-                            <div id="preview-step2-materials"><p>Загрузка материалов...</p></div>
-                        </div>
-                        <div class="pauza-tabs__panel pauza-tabs__panel--long" role="tabpanel" data-tab-panel="s2-source" hidden>
-                            <h2>Текст руководителя <span class="pauza-origin pauza-origin--source">Из DOCX</span></h2>
-                            <div id="preview-step2-source"><p>Загрузка текста...</p></div>
-                        </div>
-                    </div>
-                </div>
-                <aside class="pauza-panel">
-                    <h2>Зачем этот блок</h2>
-                    <p>Если здесь текст читается на ПК и телефоне, схема вкладок подходит для полного переноса DOCX.</p>
-                    <span class="pauza-origin pauza-origin--editorial">Редакционный слой</span>
-                </aside>
-            </div>
-        </section>
-
-        <section class="pauza-section pauza-section--muted" id="step-4">
-            <div class="pauza-container pauza-split">
-                <div>
-                    <p class="pauza-eyebrow">Конкретный бот шага</p>
-                    <h2>Бот 4 шага показывается на 4 шаге</h2>
-                    <p>Это не общий пункт футера и не раздел для новичка. Бот нужен, когда человек дошел до четвертого шага.</p>
-                    <span class="pauza-origin pauza-origin--editorial">Редакционный слой</span>
-                </div>
-                <aside class="pauza-panel">
-                    <p class="pauza-tag">Бот</p>
-                    <h2>Telegram-бот 4 шага</h2>
-                    <p>Личные ответы не хранятся на сайте. Работа выполняется во внешнем инструменте и согласуется со спонсором.</p>
-                    <span class="pauza-origin pauza-origin--editorial">Редакционный слой</span>
-                    <a class="pauza-button pauza-button--primary" href="https://t.me/FourStepForAllBot">Перейти в бот</a>
-                </aside>
             </div>
         </section>
 
@@ -309,7 +150,7 @@
                     <article class="pauza-card"><p class="pauza-tag">Видео</p><h3>Rutube</h3><p>Дублирующий видеоканал, а конкретные видео привязаны к шагам.</p></article>
                     <article class="pauza-card"><p class="pauza-tag">Скачать</p><h3>Яндекс.Диск</h3><p>Архив видео и файлов.</p></article>
                     <article class="pauza-card"><p class="pauza-tag">Группа шага</p><h3>Telegram/MAX-группы</h3><p>Группы общения по конкретным шагам.</p></article>
-                    <article class="pauza-card"><p class="pauza-tag">Бот</p><h3>Бот 4 шага</h3><p>Инструмент четвертого шага.</p></article>
+                    <article class="pauza-card"><p class="pauza-tag">Боты шагов</p><h3>Внутри нужного шага</h3><p>Конкретный бот показывается в том шаге, где он указан в документе.</p></article>
                     <article class="pauza-card"><p class="pauza-tag">Калькулятор</p><h3>Telegram/MAX-боты</h3><p>Внешние инструменты, указанные в первом шаге.</p></article>
                 </div>
             </div>
@@ -423,10 +264,52 @@
     <script src="assets/theme.js"></script>
     <script>
         (function () {
+            var stepNames = {
+                1: 'Первый шаг',
+                2: 'Второй шаг',
+                3: 'Третий шаг',
+                4: 'Четвертый шаг',
+                5: 'Пятый шаг',
+                6: 'Шестой шаг',
+                7: 'Седьмой шаг',
+                8: 'Восьмой шаг',
+                9: 'Девятый шаг',
+                10: 'Десятый шаг',
+                11: 'Одиннадцатый шаг',
+                12: 'Двенадцатый шаг'
+            };
+            var sourceIconSteps = { 1: true, 2: true, 3: true, 6: true, 7: true, 8: true, 9: true, 10: true, 11: true, 12: true };
+
             function splitLines(text) {
                 return String(text || '').split(/\r?\n/).map(function (line) {
                     return line.trim();
                 }).filter(Boolean);
+            }
+
+            function createElement(tag, className, text) {
+                var element = document.createElement(tag);
+                if (className) {
+                    element.className = className;
+                }
+                if (text !== undefined) {
+                    element.textContent = text;
+                }
+                return element;
+            }
+
+            function badge(type, label) {
+                return createElement('span', 'pauza-origin pauza-origin--' + type, label);
+            }
+
+            function iconForStep(stepNumber) {
+                if (sourceIconSteps[stepNumber]) {
+                    var img = createElement('img', 'pauza-step-icon');
+                    img.src = 'assets/step-icons/step-' + String(stepNumber).padStart(2, '0') + '.png';
+                    img.alt = 'Шаг ' + stepNumber;
+                    return img;
+                }
+
+                return createElement('span', 'pauza-step-icon pauza-step-icon--fallback', String(stepNumber));
             }
 
             function numberedLines(text) {
@@ -438,7 +321,7 @@
             function materialLines(text) {
                 var seen = {};
                 return splitLines(text).filter(function (line) {
-                    return /https?:\/\//i.test(line) || /(группа|телеграм|telegram|макс|max|видео|бот|калькулятор|rutube|яндекс|диск)/i.test(line);
+                    return /https?:\/\//i.test(line) || /(группа\s+\d+\s+шага|телеграм|telegram|макс|max|видео|бот|калькулятор|rutube|яндекс|диск|cbr\.ru)/i.test(line);
                 }).filter(function (line) {
                     if (seen[line]) {
                         return false;
@@ -448,137 +331,241 @@
                 });
             }
 
-            function textBetween(text, start, end) {
-                var source = String(text || '');
-                var startIndex = source.indexOf(start);
-                if (startIndex === -1) {
-                    return '';
-                }
-                var endIndex = end ? source.indexOf(end, startIndex) : -1;
-                if (endIndex === -1) {
-                    return source.slice(startIndex).trim();
-                }
-                return source.slice(startIndex, endIndex + end.length).trim();
+            function extractUrls(text) {
+                return Array.from(String(text || '').matchAll(/https?:\/\/[^\s)]+/g)).map(function (match) {
+                    return match[0].replace(/[.,;]+$/, '');
+                });
             }
 
-            function clear(id) {
-                var target = document.getElementById(id);
-                if (!target) {
-                    return null;
+            function urlLabel(url) {
+                if (/FourStepForAllBot/i.test(url)) {
+                    return 'Открыть бот 4 шага';
                 }
-                target.textContent = '';
-                return target;
+                if (/cbr\.ru/i.test(url)) {
+                    return 'Открыть курс ЦБ';
+                }
+                if (/t\.me/i.test(url)) {
+                    return 'Открыть Telegram';
+                }
+                if (/max\.ru/i.test(url)) {
+                    return 'Открыть MAX';
+                }
+                return 'Открыть ссылку';
             }
 
-            function renderList(id, items, ordered) {
-                var target = clear(id);
-                if (!target) {
+            function appendButtons(target, text) {
+                var urls = Array.from(new Set(extractUrls(text)));
+                if (!urls.length) {
                     return;
                 }
-                var hasSourceNumbers = items.some(function (item) {
-                    return /^\d+\.\s+/.test(item);
+
+                var actions = createElement('div', 'pauza-actions');
+                urls.forEach(function (url, index) {
+                    var link = createElement('a', 'pauza-button' + (index === 0 ? ' pauza-button--primary' : ''), urlLabel(url));
+                    link.href = url;
+                    link.target = '_blank';
+                    link.rel = 'noopener noreferrer';
+                    actions.appendChild(link);
                 });
-                var list = document.createElement(hasSourceNumbers || !ordered ? 'ul' : 'ol');
-                list.className = hasSourceNumbers ? 'pauza-source-list' : (ordered ? 'pauza-task-list' : 'pauza-check-list');
-                (items.length ? items : ['Материал не найден в сохраненном тексте.']).forEach(function (item) {
-                    var li = document.createElement('li');
-                    li.textContent = item;
-                    list.appendChild(li);
-                });
-                target.appendChild(list);
+                target.appendChild(actions);
             }
 
-            function renderText(id, text) {
-                var target = clear(id);
-                if (!target) {
-                    return;
-                }
-                String(text || '').split(/\n\s*\n/).filter(Boolean).forEach(function (paragraph) {
-                    var p = document.createElement('p');
-                    p.textContent = paragraph.trim();
-                    target.appendChild(p);
+            function renderSourceList(items) {
+                var list = createElement('ul', 'pauza-source-list');
+                items.forEach(function (item) {
+                    list.appendChild(createElement('li', '', item));
                 });
+                return list;
             }
 
-            function sourceBadge() {
-                var badge = document.createElement('span');
-                badge.className = 'pauza-origin pauza-origin--source';
-                badge.textContent = 'Из DOCX';
-                return badge;
+            function paragraphize(lines) {
+                var fragment = document.createDocumentFragment();
+                lines.forEach(function (line) {
+                    fragment.appendChild(createElement('p', '', line));
+                });
+                return fragment;
             }
 
-            function appendPlainText(container, text) {
-                String(text || '').split(/\n\s*\n/).filter(Boolean).forEach(function (paragraph) {
-                    var p = document.createElement('p');
-                    p.textContent = paragraph.trim();
-                    container.appendChild(p);
-                });
-            }
-
-            function renderStep8Sections(text) {
-                var target = clear('preview-step8-sections');
-                if (!target) {
-                    return;
-                }
-                var numbered = numberedLines(text);
-                var harm = numbered.filter(function (line) {
-                    return /^(2|3|4|5|6|7|8|9)\.\s/.test(line);
-                });
-                var money = numbered.filter(function (line) {
-                    return /^(10|11|12|13)\.\s/.test(line);
-                });
-                var sections = [
-                    { title: 'Списки вреда', lines: harm },
-                    { title: 'Материальный ущерб', lines: money },
-                    { title: 'Упражнение ВДА', text: textBetween(text, 'УПРАЖНЕНИЕ ВДА', 'Конец записи') },
-                    { title: 'Переход в 9 шаг', text: textBetween(text, '15. Переходи в группу 9 шага.') }
-                ];
-
-                sections.forEach(function (section) {
-                    var details = document.createElement('details');
-                    details.className = 'pauza-details';
-                    var summary = document.createElement('summary');
-                    summary.textContent = section.title + ' ';
-                    summary.appendChild(sourceBadge());
-                    details.appendChild(summary);
-                    var content = document.createElement('div');
-                    content.className = 'pauza-content';
-                    if (section.lines) {
-                        var list = document.createElement('ul');
-                        list.className = 'pauza-source-list';
-                        section.lines.forEach(function (line) {
-                            var li = document.createElement('li');
-                            li.textContent = line;
-                            list.appendChild(li);
-                        });
-                        content.appendChild(list);
-                    } else {
-                        appendPlainText(content, section.text);
+            function sourceChunks(text) {
+                var chunks = [];
+                var current = [];
+                splitLines(text).forEach(function (line) {
+                    if (/^\d+\.\s+/.test(line) && current.length) {
+                        chunks.push(current);
+                        current = [];
                     }
-                    details.appendChild(content);
-                    target.appendChild(details);
+                    current.push(line);
                 });
+                if (current.length) {
+                    chunks.push(current);
+                }
+
+                var result = [];
+                chunks.forEach(function (chunk) {
+                    if (chunk.join('\n').length < 2200 || chunk.length < 10) {
+                        result.push(chunk);
+                        return;
+                    }
+                    for (var i = 0; i < chunk.length; i += 8) {
+                        result.push(chunk.slice(i, i + 8));
+                    }
+                });
+                return result;
+            }
+
+            function transitionLines(text, stepNumber) {
+                var lines = splitLines(text);
+                var index = -1;
+                lines.forEach(function (line, i) {
+                    if (/(перехожу|переходим|переходи|через 30 дней|вернуться)/i.test(line)) {
+                        index = i;
+                    }
+                });
+
+                if (index >= 0) {
+                    return lines.slice(index);
+                }
+
+                if (stepNumber === 12) {
+                    return ['Двенадцатый шаг не ведет к следующему номеру: работа по тексту шага остается текущей практикой.'];
+                }
+
+                return lines.slice(-3);
+            }
+
+            function detailsBlock(title, contentNode, open) {
+                var details = createElement('details', 'pauza-details');
+                if (open) {
+                    details.open = true;
+                }
+                var summary = createElement('summary');
+                summary.textContent = title + ' ';
+                summary.appendChild(badge('source', 'Из DOCX'));
+                details.appendChild(summary);
+                var content = createElement('div', 'pauza-content');
+                content.appendChild(contentNode);
+                details.appendChild(content);
+                return details;
+            }
+
+            function renderStepFolder(stepNumber, text) {
+                var lines = splitLines(text);
+                var title = stepNames[stepNumber] || (lines[0] || ('Шаг ' + stepNumber));
+                var details = createElement('details', 'pauza-step-folder');
+                details.id = 'step-' + stepNumber;
+                details.dataset.stepNumber = String(stepNumber);
+                if (stepNumber === 1) {
+                    details.open = true;
+                }
+
+                var summary = createElement('summary', 'pauza-step-folder__summary');
+                var iconWrap = createElement('div', 'pauza-step-hero__icon');
+                iconWrap.appendChild(iconForStep(stepNumber));
+                if (!sourceIconSteps[stepNumber]) {
+                    iconWrap.appendChild(badge('verify', 'Нужно подтвердить'));
+                }
+                summary.appendChild(iconWrap);
+
+                var heading = createElement('div');
+                heading.appendChild(createElement('h3', '', stepNumber + '. ' + title));
+                heading.appendChild(createElement('p', '', lines[0] || ''));
+                summary.appendChild(heading);
+                summary.appendChild(createElement('span', 'pauza-step-folder__chevron', '›'));
+                details.appendChild(summary);
+
+                var body = createElement('div', 'pauza-step-folder__body');
+                var intro = createElement('div', 'pauza-step-folder__intro');
+                intro.appendChild(createElement('p', 'pauza-tag', 'Текущий шаг'));
+                intro.appendChild(createElement('h2', '', title));
+                var headerLines = lines.slice(0, Math.max(1, lines.findIndex(function (line) { return /^\d+\.\s+/.test(line); })));
+                intro.appendChild(paragraphize(headerLines));
+                appendButtons(intro, headerLines.join('\n'));
+                body.appendChild(intro);
+
+                var work = numberedLines(text);
+                body.appendChild(detailsBlock('Работа по шагу', work.length ? renderSourceList(work) : paragraphize(lines), true));
+
+                var materials = materialLines(text);
+                var materialsContent = createElement('div');
+                if (materials.length) {
+                    materialsContent.appendChild(renderSourceList(materials));
+                    appendButtons(materialsContent, materials.join('\n'));
+                } else {
+                    materialsContent.appendChild(createElement('p', '', 'В тексте этого шага внешние ссылки не указаны.'));
+                    materialsContent.appendChild(badge('editorial', 'Редакционный слой'));
+                }
+                if (stepNumber === 1) {
+                    var calculator = createElement('div', 'pauza-source-card');
+                    calculator.appendChild(createElement('h3', '', 'Калькулятор выздоровления'));
+                    calculator.appendChild(createElement('p', '', 'В первом шаге прямо указаны инструкция к калькулятору и ежедневная работа с отправкой результата спонсору или в группу.'));
+                    calculator.appendChild(badge('source', 'Из DOCX'));
+                    calculator.appendChild(badge('verify', 'Ссылки на боты нужно подтвердить'));
+                    materialsContent.appendChild(calculator);
+                }
+                if (stepNumber === 4) {
+                    var bot = createElement('div', 'pauza-source-card');
+                    bot.appendChild(createElement('h3', '', 'Бот 4 шага'));
+                    bot.appendChild(createElement('p', '', 'Работа по четвертому шагу вынесена во внешний Telegram-бот.'));
+                    bot.appendChild(badge('source', 'Из DOCX'));
+                    appendButtons(bot, text);
+                    materialsContent.appendChild(bot);
+                }
+                body.appendChild(detailsBlock('Материалы шага', materialsContent, false));
+
+                var sourceContent = createElement('div');
+                sourceChunks(text).forEach(function (chunk, index) {
+                    var item = createElement('details', 'pauza-details');
+                    if (index === 0) {
+                        item.open = true;
+                    }
+                    var itemSummary = createElement('summary');
+                    itemSummary.textContent = chunk[0].slice(0, 120) + (chunk[0].length > 120 ? '...' : '') + ' ';
+                    itemSummary.appendChild(badge('source', 'Из DOCX'));
+                    item.appendChild(itemSummary);
+                    var itemBody = createElement('div', 'pauza-content');
+                    itemBody.appendChild(paragraphize(chunk));
+                    item.appendChild(itemBody);
+                    sourceContent.appendChild(item);
+                });
+                body.appendChild(detailsBlock('Текст руководителя', sourceContent, false));
+
+                var transition = createElement('div', 'pauza-step-transition');
+                transition.appendChild(createElement('p', 'pauza-tag', 'Переход дальше'));
+                var transitionContent = transitionLines(text, stepNumber);
+                transition.appendChild(paragraphize(transitionContent));
+                transition.appendChild(badge(stepNumber === 12 ? 'editorial' : 'source', stepNumber === 12 ? 'Редакционный слой' : 'Из DOCX'));
+                appendButtons(transition, transitionContent.join('\n'));
+                body.appendChild(transition);
+
+                details.appendChild(body);
+                return details;
             }
 
             fetch('inc/step-full-texts.json')
                 .then(function (response) { return response.json(); })
                 .then(function (data) {
-                    renderList('preview-step1-work', numberedLines(data['1']), true);
-                    renderList('preview-step1-materials', materialLines(data['1']), false);
-                    renderText('preview-step1-source', data['1']);
+                    var target = document.getElementById('full-step-folders');
+                    target.textContent = '';
+                    for (var i = 1; i <= 12; i += 1) {
+                        target.appendChild(renderStepFolder(i, data[String(i)] || ''));
+                    }
 
-                    renderList('preview-step8-work', numberedLines(data['8']), true);
-                    renderList('preview-step8-materials', materialLines(data['8']), false);
-                    renderStep8Sections(data['8']);
-
-                    renderList('preview-step2-work', numberedLines(data['2']), true);
-                    renderList('preview-step2-materials', materialLines(data['2']), false);
-                    renderText('preview-step2-source', data['2']);
+                    target.querySelectorAll('.pauza-step-folder').forEach(function (folder) {
+                        folder.addEventListener('toggle', function () {
+                            if (!folder.open) {
+                                return;
+                            }
+                            target.querySelectorAll('.pauza-step-folder').forEach(function (other) {
+                                if (other !== folder) {
+                                    other.open = false;
+                                }
+                            });
+                        });
+                    });
                 })
                 .catch(function () {
-                    renderText('preview-step1-work', 'Текст не загрузился в статическом preview.');
-                    renderText('preview-step8-work', 'Текст не загрузился в статическом preview.');
-                    renderText('preview-step2-work', 'Текст не загрузился в статическом preview.');
+                    var target = document.getElementById('full-step-folders');
+                    target.textContent = 'Текст шагов не загрузился в статическом preview.';
                 });
         })();
     </script>

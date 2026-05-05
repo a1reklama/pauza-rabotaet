@@ -30,6 +30,12 @@ while (have_posts()) :
     <article>
         <section class="pauza-page-hero">
             <div class="pauza-container pauza-step-hero">
+                <div class="pauza-step-hero__icon">
+                    <?php echo pauza_step_icon_html($number); ?>
+                    <?php if (in_array((int) $number, [4, 5], true)) : ?>
+                        <?php echo pauza_origin_badge('verify'); ?>
+                    <?php endif; ?>
+                </div>
                 <div>
                     <p class="pauza-eyebrow"><?php echo esc_html(sprintf(__('Шаг %s', 'pauza-rabotaet'), $number)); ?></p>
                     <h1><?php the_title(); ?></h1>
@@ -125,9 +131,9 @@ while (have_posts()) :
                         <div class="pauza-content">
                             <h2><?php esc_html_e('Текст руководителя', 'pauza-rabotaet'); ?> <?php echo $full_text ? pauza_origin_badge('source') : pauza_origin_badge('verify'); ?></h2>
                             <?php if ($full_text && '8' === (string) $number) : ?>
-                                <?php pauza_render_step8_source_sections($full_text); ?>
+                                <?php pauza_render_step_source_sections($full_text); ?>
                             <?php elseif ($full_text) : ?>
-                                <?php pauza_render_plain_text($full_text); ?>
+                                <?php pauza_render_step_source_sections($full_text); ?>
                             <?php else : ?>
                                 <p><?php esc_html_e('Исходный текст для этого шага пока не добавлен.', 'pauza-rabotaet'); ?></p>
                             <?php endif; ?>

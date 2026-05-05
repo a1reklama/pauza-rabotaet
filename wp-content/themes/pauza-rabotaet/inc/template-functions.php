@@ -109,6 +109,81 @@ function pauza_origin_badge(string $origin, string $label = ''): string
     );
 }
 
+function pauza_step_icon_html(string $number): string
+{
+    $step = max(1, min(12, (int) $number));
+    $relative = sprintf('/assets/step-icons/step-%02d.png', $step);
+    $path = PAUZA_THEME_DIR . $relative;
+
+    if (file_exists($path)) {
+        return sprintf(
+            '<img class="pauza-step-icon" src="%1$s" alt="%2$s">',
+            esc_url(PAUZA_THEME_URI . $relative),
+            esc_attr(sprintf(__('Шаг %d', 'pauza-rabotaet'), $step))
+        );
+    }
+
+    return sprintf(
+        '<span class="pauza-step-icon pauza-step-icon--fallback">%1$d</span>',
+        $step
+    );
+}
+
+function pauza_step_source_chunks(string $text): array
+{
+    $lines = pauza_lines($text);
+    $chunks = [];
+    $current = [];
+
+    foreach ($lines as $line) {
+        if (preg_match('/^\d+\.\s+/u', $line) && $current) {
+            $chunks[] = $current;
+            $current = [];
+        }
+
+        $current[] = $line;
+    }
+
+    if ($current) {
+        $chunks[] = $current;
+    }
+
+    $result = [];
+    foreach ($chunks as $chunk) {
+        $chunk_text = implode("\n", $chunk);
+        $text_length = function_exists('mb_strlen') ? mb_strlen($chunk_text) : strlen($chunk_text);
+        if ($text_length < 2200 || count($chunk) < 10) {
+            $result[] = $chunk;
+            continue;
+        }
+
+        foreach (array_chunk($chunk, 8) as $part) {
+            $result[] = $part;
+        }
+    }
+
+    return $result;
+}
+
+function pauza_render_step_source_sections(string $full_text): void
+{
+    $chunks = pauza_step_source_chunks($full_text);
+
+    foreach ($chunks as $index => $chunk) {
+        $summary = wp_trim_words(wp_strip_all_tags($chunk[0] ?? ''), 12, '...');
+        if ('' === $summary) {
+            $summary = sprintf(__('Фрагмент %d', 'pauza-rabotaet'), $index + 1);
+        }
+
+        echo '<details class="pauza-details">';
+        echo '<summary>' . esc_html($summary) . ' ' . pauza_origin_badge('source') . '</summary>';
+        echo '<div class="pauza-content">';
+        pauza_render_plain_text(implode("\n", $chunk));
+        echo '</div>';
+        echo '</details>';
+    }
+}
+
 function pauza_step_numbered_lines(string $text): array
 {
     return array_values(array_filter(pauza_lines($text), static function ($line) {
@@ -121,7 +196,7 @@ function pauza_step_material_lines(string $text): array
     $items = [];
 
     foreach (pauza_lines($text) as $line) {
-        if (preg_match('/https?:\/\//i', $line) || preg_match('/(группа|телеграм|telegram|макс|max|видео|бот|калькулятор|rutube|яндекс|диск)/iu', $line)) {
+        if (preg_match('/https?:\/\//i', $line) || preg_match('/(группа\s+\d+\s+шага|телеграм|telegram|макс|max|видео|бот|калькулятор|rutube|яндекс|диск|cbr\.ru)/iu', $line)) {
             $items[] = $line;
         }
     }
