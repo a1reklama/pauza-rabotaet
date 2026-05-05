@@ -326,7 +326,13 @@
             function materialLines(text) {
                 var seen = {};
                 return splitLines(text).filter(function (line) {
-                    return /https?:\/\//i.test(line) || /(группа\s+\d+\s+шага|телеграм|telegram|макс|max|видео|бот|калькулятор|rutube|яндекс|диск|cbr\.ru)/i.test(line);
+                    var hasUrl = /https?:\/\//i.test(line);
+                    if (!hasUrl && /^\(\d+\)/.test(line)) {
+                        return false;
+                    }
+                    return hasUrl ||
+                        /(группа\s+\d+\s+шага|телеграм|telegram|макс|max|видео|бот|rutube|яндекс|диск|cbr\.ru)/i.test(line) ||
+                        (/калькулятор/i.test(line) && (/^\d+\.\s+/.test(line) || /инструкц|выздоровления/i.test(line)));
                 }).filter(function (line) {
                     if (seen[line]) {
                         return false;
@@ -419,9 +425,10 @@
             function renderSourceList(items) {
                 var list = createElement('ul', 'pauza-source-list');
                 items.forEach(function (item) {
-                    var li = createElement('li', 'pauza-source-item');
-                    var match = String(item).match(/^(\d+)\.\s+(.*)$/);
+                    var source = String(item);
+                    var match = source.match(/^(\d+)\.\s+(.*)$/);
                     if (match) {
+                        var li = createElement('li', 'pauza-source-item');
                         li.appendChild(createElement('span', 'pauza-source-item__number', match[1]));
                         var body = createElement('div', 'pauza-source-item__body');
                         var label = /видео/i.test(item) ? 'Видео' : (/калькулятор/i.test(item) ? 'Калькулятор' : (/бот/i.test(item) ? 'Бот' : (/перехожу|переходи|группа\s+\d+\s+шага/i.test(item) ? 'Переход' : 'Задание')));
@@ -430,12 +437,31 @@
                         appendLinkedText(text, match[2], true);
                         body.appendChild(text);
                         li.appendChild(body);
-                    } else {
-                        appendLinkedText(li, item, true);
+                        list.appendChild(li);
+                        return;
                     }
-                    list.appendChild(li);
+
+                    var pair = source.match(/^(.+?)\s*→\s*(.+)$/);
+                    if (pair) {
+                        var pairItem = createElement('li', 'pauza-source-text pauza-source-pair');
+                        pairItem.appendChild(createElement('span', 'pauza-source-pair__from', pair[1]));
+                        pairItem.appendChild(createElement('span', 'pauza-source-pair__arrow', '→'));
+                        pairItem.appendChild(createElement('span', 'pauza-source-pair__to', pair[2]));
+                        list.appendChild(pairItem);
+                        return;
+                    }
+
+                    var textItem = createElement('li', 'pauza-source-text');
+                    var paragraph = createElement('p');
+                    appendLinkedText(paragraph, source, true);
+                    textItem.appendChild(paragraph);
+                    list.appendChild(textItem);
                 });
                 return list;
+            }
+
+            function renderReadableText(lines) {
+                return renderSourceList(lines);
             }
 
             function paragraphize(lines, replaceUrls) {
@@ -542,7 +568,7 @@
                 body.appendChild(intro);
 
                 var work = numberedLines(text);
-                body.appendChild(detailsBlock('Работа по шагу', work.length ? renderSourceList(work) : paragraphize(lines, true), true));
+                body.appendChild(detailsBlock('Работа по шагу', work.length ? renderSourceList(work) : renderReadableText(lines), true));
 
                 var materials = materialLines(text);
                 var materialsContent = createElement('div');

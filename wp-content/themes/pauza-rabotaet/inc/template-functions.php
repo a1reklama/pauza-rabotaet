@@ -263,7 +263,17 @@ function pauza_step_material_lines(string $text): array
     $items = [];
 
     foreach (pauza_lines($text) as $line) {
-        if (preg_match('/https?:\/\//i', $line) || preg_match('/(группа\s+\d+\s+шага|телеграм|telegram|макс|max|видео|бот|калькулятор|rutube|яндекс|диск|cbr\.ru)/iu', $line)) {
+        $has_url = (bool) preg_match('/https?:\/\//i', $line);
+
+        if (!$has_url && preg_match('/^\(\d+\)/u', $line)) {
+            continue;
+        }
+
+        if (
+            $has_url ||
+            preg_match('/(группа\s+\d+\s+шага|телеграм|telegram|макс|max|видео|бот|rutube|яндекс|диск|cbr\.ru)/iu', $line) ||
+            (preg_match('/калькулятор/iu', $line) && (preg_match('/^\d+\.\s+/u', $line) || preg_match('/инструкц|выздоровления/iu', $line)))
+        ) {
             $items[] = $line;
         }
     }
@@ -281,7 +291,7 @@ function pauza_render_source_list(array $items, string $type = 'ol'): void
         return (bool) preg_match('/^\d+\.\s+/u', (string) $item);
     });
     $tag = $has_source_numbers || 'ul' === $type ? 'ul' : 'ol';
-    $class = $has_source_numbers ? 'pauza-source-list' : ('ul' === $type ? 'pauza-check-list' : 'pauza-task-list');
+    $class = $has_source_numbers || 'ul' === $type ? 'pauza-source-list' : 'pauza-task-list';
 
     printf('<%1$s class="%2$s">', esc_html($tag), esc_attr($class));
     foreach ($items as $item) {
@@ -310,7 +320,16 @@ function pauza_render_source_list(array $items, string $type = 'ol'): void
             continue;
         }
 
-        echo '<li>' . pauza_linkify_text($item, true) . '</li>';
+        if (preg_match('/^(.+?)\s*→\s*(.+)$/u', $item, $matches)) {
+            echo '<li class="pauza-source-text pauza-source-pair">';
+            echo '<span class="pauza-source-pair__from">' . esc_html($matches[1]) . '</span>';
+            echo '<span class="pauza-source-pair__arrow">→</span>';
+            echo '<span class="pauza-source-pair__to">' . esc_html($matches[2]) . '</span>';
+            echo '</li>';
+            continue;
+        }
+
+        echo '<li class="pauza-source-text"><p>' . pauza_linkify_text($item, true) . '</p></li>';
     }
     printf('</%s>', esc_html($tag));
 }

@@ -76,6 +76,8 @@ while (have_posts()) :
                                 <?php pauza_render_source_list($source_work); ?>
                             <?php elseif ($tasks) : ?>
                                 <?php pauza_render_source_list($tasks); ?>
+                            <?php elseif ($full_text) : ?>
+                                <?php pauza_render_source_list(pauza_lines($full_text), 'ul'); ?>
                             <?php else : ?>
                                 <p><?php esc_html_e('Пункты работы пока не добавлены.', 'pauza-rabotaet'); ?> <?php echo pauza_origin_badge('verify'); ?></p>
                             <?php endif; ?>
