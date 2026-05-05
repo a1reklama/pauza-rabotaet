@@ -72,6 +72,26 @@ function pauza_register_post_types(): void
         'supports'     => ['title', 'editor', 'excerpt', 'thumbnail'],
     ]);
 
+    register_post_type('pauza_news', [
+        'labels' => [
+            'name'               => __('Новости', 'pauza-rabotaet'),
+            'singular_name'      => __('Новость', 'pauza-rabotaet'),
+            'add_new_item'       => __('Добавить новость', 'pauza-rabotaet'),
+            'edit_item'          => __('Редактировать новость', 'pauza-rabotaet'),
+            'new_item'           => __('Новая новость', 'pauza-rabotaet'),
+            'view_item'          => __('Смотреть новость', 'pauza-rabotaet'),
+            'search_items'       => __('Искать новости', 'pauza-rabotaet'),
+            'not_found'          => __('Новости не найдены', 'pauza-rabotaet'),
+            'menu_name'          => __('Новости', 'pauza-rabotaet'),
+        ],
+        'public'       => true,
+        'has_archive'  => 'novosti',
+        'rewrite'      => ['slug' => 'novosti'],
+        'menu_icon'    => 'dashicons-megaphone',
+        'show_in_rest' => true,
+        'supports'     => ['title', 'editor', 'excerpt', 'thumbnail'],
+    ]);
+
     register_post_type('pauza_material', [
         'labels' => [
             'name'               => __('Материалы', 'pauza-rabotaet'),
@@ -100,4 +120,3 @@ function pauza_flush_rewrite_rules_on_switch(): void
     flush_rewrite_rules();
 }
 add_action('after_switch_theme', 'pauza_flush_rewrite_rules_on_switch');
-

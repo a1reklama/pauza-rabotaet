@@ -100,6 +100,8 @@ function pauza_render_step_meta_box(WP_Post $post): void
     pauza_admin_textarea('_pauza_step_goal', __('Короткая цель шага', 'pauza-rabotaet'), pauza_meta($post->ID, '_pauza_step_goal'), 3);
     pauza_admin_textarea('_pauza_step_requirements', __('Условия входа', 'pauza-rabotaet'), pauza_meta($post->ID, '_pauza_step_requirements'), 4, __('Каждое условие с новой строки.', 'pauza-rabotaet'));
     pauza_admin_textarea('_pauza_step_tasks', __('Что делать', 'pauza-rabotaet'), pauza_meta($post->ID, '_pauza_step_tasks'), 8, __('Каждое действие с новой строки. На сайте это станет чек-листом.', 'pauza-rabotaet'));
+    pauza_admin_textarea('_pauza_step_materials', __('Материалы и ссылки шага', 'pauza-rabotaet'), pauza_meta($post->ID, '_pauza_step_materials'), 5, __('Каждый материал с новой строки: видео, канал, диск, бот, внешняя инструкция.', 'pauza-rabotaet'));
+    pauza_admin_textarea('_pauza_step_exercises', __('Упражнения и важные блоки', 'pauza-rabotaet'), pauza_meta($post->ID, '_pauza_step_exercises'), 8, __('Глоссарий, молитвы, подсказки, списки, ВДА и другие блоки, которые должны жить внутри шага.', 'pauza-rabotaet'));
     pauza_admin_textarea('_pauza_step_full_text', __('Полный текст шага', 'pauza-rabotaet'), pauza_meta($post->ID, '_pauza_step_full_text'), 12, __('Длинный текст показывается только во вкладке "Полный текст", чтобы не перегружать страницу.', 'pauza-rabotaet'));
     pauza_admin_text_input('_pauza_step_telegram_url', __('Ссылка Telegram', 'pauza-rabotaet'), pauza_meta($post->ID, '_pauza_step_telegram_url'), 'url');
     pauza_admin_text_input('_pauza_step_max_url', __('Ссылка MAX', 'pauza-rabotaet'), pauza_meta($post->ID, '_pauza_step_max_url'), 'url');
@@ -164,6 +166,8 @@ function pauza_save_meta_boxes(int $post_id): void
             '_pauza_step_goal'         => 'textarea',
             '_pauza_step_requirements' => 'textarea',
             '_pauza_step_tasks'        => 'textarea',
+            '_pauza_step_materials'    => 'textarea',
+            '_pauza_step_exercises'    => 'textarea',
             '_pauza_step_full_text'    => 'textarea',
             '_pauza_step_telegram_url' => 'url',
             '_pauza_step_max_url'      => 'url',

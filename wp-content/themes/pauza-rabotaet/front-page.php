@@ -9,6 +9,7 @@ get_header();
 
 $steps = pauza_steps_query(12);
 $today = pauza_latest_today_query(1);
+$news = pauza_latest_news_query(2);
 ?>
 
 <section class="pauza-home-hero">
@@ -65,6 +66,33 @@ $today = pauza_latest_today_query(1);
                 <p><?php esc_html_e('Результаты ежедневной работы отправляются спонсору или в группу.', 'pauza-rabotaet'); ?></p>
                 <?php echo pauza_internal_button(home_url('/calculator/'), __('Открыть калькулятор', 'pauza-rabotaet')); ?>
             </article>
+        </div>
+    </div>
+</section>
+
+<section class="pauza-section">
+    <div class="pauza-container pauza-split">
+        <div>
+            <p class="pauza-eyebrow"><?php esc_html_e('Важно сейчас', 'pauza-rabotaet'); ?></p>
+            <h2><?php esc_html_e('Новости и обновления отдельно от шагов', 'pauza-rabotaet'); ?></h2>
+            <p><?php esc_html_e('Здесь будут объявления, новые видео, изменения ссылок групп и важные сообщения. Программа шагов при этом остается в своем разделе.', 'pauza-rabotaet'); ?></p>
+            <?php echo pauza_internal_button(home_url('/novosti/'), __('Открыть новости', 'pauza-rabotaet'), 'pauza-button pauza-button--primary'); ?>
+        </div>
+        <div class="pauza-card-grid">
+            <?php if ($news->have_posts()) : ?>
+                <?php while ($news->have_posts()) : $news->the_post(); ?>
+                    <article class="pauza-card">
+                        <p class="pauza-tag"><?php echo esc_html(get_the_date()); ?></p>
+                        <h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
+                        <p><?php echo esc_html(wp_trim_words(get_the_excerpt() ?: get_the_content(), 18)); ?></p>
+                    </article>
+                <?php endwhile; wp_reset_postdata(); ?>
+            <?php else : ?>
+                <article class="pauza-card">
+                    <h3><?php esc_html_e('Новостей пока нет', 'pauza-rabotaet'); ?></h3>
+                    <p><?php esc_html_e('Владелец сможет добавить их в админке.', 'pauza-rabotaet'); ?></p>
+                </article>
+            <?php endif; ?>
         </div>
     </div>
 </section>

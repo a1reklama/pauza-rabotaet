@@ -15,6 +15,8 @@ while (have_posts()) :
     $goal = pauza_meta($step_id, '_pauza_step_goal');
     $requirements = pauza_lines(pauza_meta($step_id, '_pauza_step_requirements'));
     $tasks = pauza_lines(pauza_meta($step_id, '_pauza_step_tasks'));
+    $materials = pauza_lines(pauza_meta($step_id, '_pauza_step_materials'));
+    $exercises = pauza_meta($step_id, '_pauza_step_exercises');
     $full_text = pauza_meta($step_id, '_pauza_step_full_text');
     $telegram = pauza_meta($step_id, '_pauza_step_telegram_url');
     $max = pauza_meta($step_id, '_pauza_step_max_url');
@@ -56,6 +58,7 @@ while (have_posts()) :
                         <button class="is-active" type="button" role="tab" id="pauza-tab-overview" aria-selected="true" aria-controls="pauza-panel-overview" data-tab-target="overview"><?php esc_html_e('Обзор', 'pauza-rabotaet'); ?></button>
                         <button type="button" role="tab" id="pauza-tab-requirements" aria-selected="false" aria-controls="pauza-panel-requirements" data-tab-target="requirements"><?php esc_html_e('Условия', 'pauza-rabotaet'); ?></button>
                         <button type="button" role="tab" id="pauza-tab-tasks" aria-selected="false" aria-controls="pauza-panel-tasks" data-tab-target="tasks"><?php esc_html_e('Что делать', 'pauza-rabotaet'); ?></button>
+                        <button type="button" role="tab" id="pauza-tab-materials" aria-selected="false" aria-controls="pauza-panel-materials" data-tab-target="materials"><?php esc_html_e('Материалы', 'pauza-rabotaet'); ?></button>
                         <button type="button" role="tab" id="pauza-tab-full" aria-selected="false" aria-controls="pauza-panel-full" data-tab-target="full"><?php esc_html_e('Полный текст', 'pauza-rabotaet'); ?></button>
                         <button type="button" role="tab" id="pauza-tab-next" aria-selected="false" aria-controls="pauza-panel-next" data-tab-target="next"><?php esc_html_e('Дальше', 'pauza-rabotaet'); ?></button>
                     </div>
@@ -93,6 +96,28 @@ while (have_posts()) :
                             </ol>
                         <?php else : ?>
                             <p><?php esc_html_e('Задания пока не добавлены.', 'pauza-rabotaet'); ?></p>
+                        <?php endif; ?>
+                    </div>
+
+                    <div class="pauza-tabs__panel" role="tabpanel" id="pauza-panel-materials" aria-labelledby="pauza-tab-materials" data-tab-panel="materials" hidden>
+                        <h2><?php esc_html_e('Материалы шага', 'pauza-rabotaet'); ?></h2>
+                        <?php if ($materials) : ?>
+                            <ul class="pauza-check-list">
+                                <?php foreach ($materials as $item) : ?>
+                                    <li><?php echo esc_html($item); ?></li>
+                                <?php endforeach; ?>
+                            </ul>
+                        <?php endif; ?>
+
+                        <?php if ($exercises) : ?>
+                            <h3><?php esc_html_e('Упражнения и важные блоки', 'pauza-rabotaet'); ?></h3>
+                            <div class="pauza-content">
+                                <?php pauza_render_plain_text($exercises); ?>
+                            </div>
+                        <?php endif; ?>
+
+                        <?php if (!$materials && !$exercises) : ?>
+                            <p><?php esc_html_e('Материалы для этого шага пока не добавлены.', 'pauza-rabotaet'); ?></p>
                         <?php endif; ?>
                     </div>
 

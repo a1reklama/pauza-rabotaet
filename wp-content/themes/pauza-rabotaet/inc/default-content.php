@@ -46,6 +46,7 @@ function pauza_seed_default_content(): void
     pauza_seed_steps();
     pauza_seed_materials();
     pauza_seed_today();
+    pauza_seed_news();
     pauza_seed_sponsors();
     pauza_seed_menu($home_id, $calculator_id, $bot_id);
 
@@ -53,7 +54,23 @@ function pauza_seed_default_content(): void
 }
 add_action('after_switch_theme', 'pauza_seed_default_content', 20);
 add_action('after_switch_theme', 'pauza_seed_step_full_texts_for_existing_posts', 30);
+add_action('after_switch_theme', 'pauza_seed_step_structured_blocks_for_existing_posts', 31);
 add_action('admin_init', 'pauza_seed_step_full_texts_for_existing_posts');
+add_action('admin_init', 'pauza_seed_step_structured_blocks_for_existing_posts');
+add_action('admin_init', 'pauza_ensure_default_menu_items');
+
+function pauza_ensure_default_menu_items(): void
+{
+    $home = get_page_by_path('glavnaya', OBJECT, 'page');
+    $calculator = get_page_by_path('calculator', OBJECT, 'page');
+    $bot = get_page_by_path('bot-4-shaga', OBJECT, 'page');
+
+    pauza_seed_menu(
+        $home instanceof WP_Post ? (int) $home->ID : 0,
+        $calculator instanceof WP_Post ? (int) $calculator->ID : 0,
+        $bot instanceof WP_Post ? (int) $bot->ID : 0
+    );
+}
 
 function pauza_seed_step_full_texts_for_existing_posts(): void
 {
@@ -81,6 +98,42 @@ function pauza_seed_step_full_texts_for_existing_posts(): void
     }
 
     update_option('pauza_full_text_seeded_v1', current_time('mysql'));
+}
+
+function pauza_seed_step_structured_blocks_for_existing_posts(): void
+{
+    if (get_option('pauza_step_blocks_seeded_v1')) {
+        return;
+    }
+
+    $blocks = pauza_step_structured_blocks();
+    if (!$blocks) {
+        return;
+    }
+
+    $query = new WP_Query([
+        'post_type'      => 'pauza_step',
+        'post_status'    => ['publish', 'draft', 'pending', 'private'],
+        'posts_per_page' => -1,
+        'fields'         => 'ids',
+    ]);
+
+    foreach ($query->posts as $post_id) {
+        $number = pauza_meta((int) $post_id, '_pauza_step_number');
+        if (!$number || !isset($blocks[$number])) {
+            continue;
+        }
+
+        if (!pauza_meta((int) $post_id, '_pauza_step_materials')) {
+            update_post_meta((int) $post_id, '_pauza_step_materials', implode("\n", $blocks[$number]['materials']));
+        }
+
+        if (!pauza_meta((int) $post_id, '_pauza_step_exercises')) {
+            update_post_meta((int) $post_id, '_pauza_step_exercises', $blocks[$number]['exercises']);
+        }
+    }
+
+    update_option('pauza_step_blocks_seeded_v1', current_time('mysql'));
 }
 
 function pauza_seed_options(): void
@@ -160,6 +213,7 @@ function pauza_seed_post(string $post_type, string $slug, string $title, string 
 function pauza_seed_steps(): void
 {
     $full_texts = pauza_load_step_full_texts();
+    $step_blocks = pauza_step_structured_blocks();
     $steps = [
         [
             'number' => 1,
@@ -431,6 +485,8 @@ function pauza_seed_steps(): void
             '_pauza_step_goal'         => $step['goal'],
             '_pauza_step_requirements' => implode("\n", $step['requirements']),
             '_pauza_step_tasks'        => implode("\n", $step['tasks']),
+            '_pauza_step_materials'    => isset($step_blocks[(string) $step['number']]) ? implode("\n", $step_blocks[(string) $step['number']]['materials']) : '',
+            '_pauza_step_exercises'    => $step_blocks[(string) $step['number']]['exercises'] ?? '',
             '_pauza_step_full_text'    => $full_texts[(string) $step['number']] ?? '',
             '_pauza_step_telegram_url' => $step['telegram'],
             '_pauza_step_max_url'      => $step['max'],
@@ -439,6 +495,98 @@ function pauza_seed_steps(): void
             '_pauza_step_next_url'     => $step['next_url'],
         ], 'publish', (int) $step['number']);
     }
+}
+
+function pauza_step_structured_blocks(): array
+{
+    return [
+        '1' => [
+            'materials' => [
+                'Вводное видео INTRO.',
+                'Инструкция к калькулятору выздоровления.',
+                'Видео 003-010 по первому шагу.',
+                'Группа 1 шага в Telegram и MAX.',
+            ],
+            'exercises' => "Топ-5 зависимостей: главная зависимость, курение и еще три зависимости.\n\nВарианты зависимостей из документа: порно, кофеин, еда, контроль, созависимость, гнев, схемы, игры, сплетни, ничегонеделание, антидепрессанты, транжирство, диеты, соцсети, секс, новости, кредиты, ставки, успех, трудоголизм.\n\nПять вопросов по зависимости: что говорит сделать голова; беру ли паузу и наношу ли вред; как не вижу интересов других; как вру другим и себе; какая цифра получается на калькуляторе.",
+        ],
+        '2' => [
+            'materials' => [
+                'Видео 011-020 по второму шагу.',
+                'Группа 2 шага в Telegram и MAX.',
+                'Длинный текст про похоть оставлен в полном тексте шага.',
+            ],
+            'exercises' => "Ответить по каждой из пяти зависимостей: какими станут мои отношения в свободе от этой зависимости.\n\nПодвести итоги и зачитать работу спонсору.",
+        ],
+        '3' => [
+            'materials' => [
+                'Видео 021-030 по третьему шагу.',
+                'Группа 3 шага в Telegram и MAX.',
+                'Переход в Telegram-бот 4 шага после завершения.',
+            ],
+            'exercises' => "Текст третьего шага.\n\nВолшебные слова: короткая фраза для возвращения к паузе после ошибки.\n\nУпражнение на знание глоссария: бессилие, зависимость, одержимость, компульсивность, эгоцентризм, отрицание, жизнь, неуправляемость, здравомыслие, могущественная сила, вред, Бог, воля Бога, выздоровление, исцеление, препоручение, пауза, молитва.",
+        ],
+        '4' => [
+            'materials' => [
+                'Telegram-бот 4 шага.',
+                'Страница сайта только объясняет момент перехода.',
+            ],
+            'exercises' => "Рабочие вопросы и ответы выполняются во внешнем боте. Сайт не должен хранить личные ответы четвертого шага.",
+        ],
+        '5' => [
+            'materials' => [
+                'Работа со спонсором после четвертого шага.',
+                'На сайте остается короткая навигационная страница.',
+            ],
+            'exercises' => "Прочитать работу по четвертому шагу спонсору и согласовать переход к шестому шагу.",
+        ],
+        '6' => [
+            'materials' => [
+                'Видео шестого шага.',
+                'Группа 6 шага в Telegram и MAX.',
+            ],
+            'exercises' => "Работа с дефектами из финального текста пятого шага.\n\nПять вопросов по каждому дефекту: как проявляется; чего заставляет бояться; как будет выглядеть жизнь без него; готов ли я, чтобы Бог избавил; что делаю дальше.",
+        ],
+        '7' => [
+            'materials' => [
+                'Видео седьмого шага.',
+                'Группа 7 шага в Telegram и MAX.',
+            ],
+            'exercises' => "Утро: написать молитву своими словами и попросить сил не совершать действия под дефектом.\n\nВечер: написать опыт дня по дефекту.\n\nСвязки дефектов и принципов из документа остаются в полном тексте шага.",
+        ],
+        '8' => [
+            'materials' => [
+                'Видео восьмого шага.',
+                'Группа 8 шага в Telegram и MAX.',
+                'Ссылка ЦБ для курса валют: https://www.cbr.ru/currency_base/daily/',
+            ],
+            'exercises' => "Списки вреда: физический себе, физический другим, косвенный физический, психический себе, психический другим, материальный организациям, материальный людям, материальный друзьям/партнерам, материальный родным.\n\nУпражнение ВДА из документа хранится в полном тексте шага.",
+        ],
+        '9' => [
+            'materials' => [
+                'Группа 9 шага в Telegram и MAX.',
+            ],
+            'exercises' => "Письмо каждому человеку из списка восьмого шага.\n\nПлан выхода на человека согласуется со спонсором.\n\nГрафик встреч, звонков, посещений кладбищ или прочтения письма Богу. График материальных возмещений отдельно.",
+        ],
+        '10' => [
+            'materials' => [
+                'Группа 10 шага в Telegram и MAX.',
+            ],
+            'exercises' => "Каждый вечер выбрать одну главную ситуацию дня.\n\nРазобрать по 4 шагу: был ли вред и какой дефект.\n\nРазобрать по 9 шагу: возместить ущерб до конца дня, если был.\n\nРазобрать по 7 шагу: какие дефекты и страхи видны, на какие принципы просить заменить.",
+        ],
+        '11' => [
+            'materials' => [
+                'Группа 11 шага в Telegram и MAX.',
+                'Спикерские на канале.',
+            ],
+            'exercises' => "Слушать спикерские по одной в день.\n\nЕжедневно просить знать волю Бога и силы ее исполнить.\n\nПосле прослушивания ответить на вопросы о религии, понимании Бога, молитве, медитации и воле Бога.",
+        ],
+        '12' => [
+            'materials' => [
+                'Группа 12 шага в Telegram и MAX.',
+            ],
+            'exercises' => "Писать в группе только слова или действия, прямо связанные с несением вести и работой с подспонсорными, учениками, поднаставными и реабилитационными центрами.",
+        ],
+    ];
 }
 
 function pauza_load_step_full_texts(): array
@@ -536,6 +684,18 @@ function pauza_seed_today(): void
     );
 }
 
+function pauza_seed_news(): void
+{
+    pauza_seed_post(
+        'pauza_news',
+        'novosti-start',
+        'Раздел новостей готов',
+        'Здесь можно публиковать объявления, новые видео, изменения ссылок групп и важные сообщения для участников программы.',
+        [],
+        'publish'
+    );
+}
+
 function pauza_seed_sponsors(): void
 {
     // Sponsor contacts are managed in WordPress admin, not seeded from theme files.
@@ -543,18 +703,15 @@ function pauza_seed_sponsors(): void
 
 function pauza_seed_menu(int $home_id, int $calculator_id, int $bot_id): void
 {
-    if (wp_get_nav_menu_object('Основное меню')) {
+    $menu = wp_get_nav_menu_object('Основное меню');
+    $menu_id = $menu ? (int) $menu->term_id : wp_create_nav_menu('Основное меню');
+    if (is_wp_error($menu_id) || !$menu_id) {
         return;
     }
 
-    $menu_id = wp_create_nav_menu('Основное меню');
-    if (is_wp_error($menu_id)) {
-        return;
-    }
-
-    if ($home_id) {
+    if ($home_id && !pauza_menu_has_item((int) $menu_id, 'Начать')) {
         wp_update_nav_menu_item($menu_id, 0, [
-            'menu-item-title'     => 'Главная',
+            'menu-item-title'     => 'Начать',
             'menu-item-object'    => 'page',
             'menu-item-object-id' => $home_id,
             'menu-item-type'      => 'post_type',
@@ -563,14 +720,20 @@ function pauza_seed_menu(int $home_id, int $calculator_id, int $bot_id): void
     }
 
     $links = [
-        ['12 шагов', home_url('/12-shagov/')],
         ['Спонсоры', home_url('/sponsory/')],
+        ['12 шагов', home_url('/12-shagov/')],
         ['Калькулятор', $calculator_id ? get_permalink($calculator_id) : home_url('/calculator/')],
+        ['Новости', home_url('/novosti/')],
+        ['Материалы', home_url('/materialy/')],
         ['Только сегодня', home_url('/tolko-segodnya/')],
         ['Бот 4 шага', $bot_id ? get_permalink($bot_id) : home_url('/bot-4-shaga/')],
     ];
 
     foreach ($links as $link) {
+        if (pauza_menu_has_item((int) $menu_id, $link[0])) {
+            continue;
+        }
+
         wp_update_nav_menu_item($menu_id, 0, [
             'menu-item-title'  => $link[0],
             'menu-item-url'    => $link[1],
@@ -583,4 +746,20 @@ function pauza_seed_menu(int $home_id, int $calculator_id, int $bot_id): void
         'primary' => (int) $menu_id,
         'footer'  => (int) $menu_id,
     ]);
+}
+
+function pauza_menu_has_item(int $menu_id, string $title): bool
+{
+    $items = wp_get_nav_menu_items($menu_id);
+    if (!is_array($items)) {
+        return false;
+    }
+
+    foreach ($items as $item) {
+        if ($title === $item->title) {
+            return true;
+        }
+    }
+
+    return false;
 }

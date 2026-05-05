@@ -15,10 +15,12 @@
             </a>
             <nav class="pauza-nav is-open" aria-label="Основное меню">
                 <ul class="pauza-nav__list">
-                    <li><a href="#start">Главная</a></li>
-                    <li><a href="#steps">12 шагов</a></li>
+                    <li><a href="#start">Начать</a></li>
                     <li><a href="#sponsors">Спонсоры</a></li>
+                    <li><a href="#steps">12 шагов</a></li>
                     <li><a href="#calculator">Калькулятор</a></li>
+                    <li><a href="#news">Новости</a></li>
+                    <li><a href="#materials">Материалы</a></li>
                     <li><a href="#bot">Бот 4 шага</a></li>
                 </ul>
             </nav>
@@ -65,6 +67,21 @@
             </div>
         </section>
 
+        <section class="pauza-section" id="news">
+            <div class="pauza-container pauza-split">
+                <div>
+                    <p class="pauza-eyebrow">Новости</p>
+                    <h2>Объявления не смешиваем с шагами</h2>
+                    <p>Здесь будут новые видео, изменения ссылок групп, важные сообщения и объявления владельца.</p>
+                </div>
+                <article class="pauza-card">
+                    <p class="pauza-tag">Пример</p>
+                    <h3>Раздел новостей готов</h3>
+                    <p>В WordPress это отдельный тип записей, который редактируется в админке.</p>
+                </article>
+            </div>
+        </section>
+
         <section class="pauza-section pauza-section--muted" id="step-detail">
             <div class="pauza-container pauza-content-grid">
                 <div class="pauza-content">
@@ -76,6 +93,7 @@
                             <button class="is-active" type="button" role="tab" aria-selected="true" data-tab-target="overview">Обзор</button>
                             <button type="button" role="tab" aria-selected="false" data-tab-target="requirements">Условия</button>
                             <button type="button" role="tab" aria-selected="false" data-tab-target="tasks">Что делать</button>
+                            <button type="button" role="tab" aria-selected="false" data-tab-target="materials">Материалы</button>
                             <button type="button" role="tab" aria-selected="false" data-tab-target="full">Полный текст</button>
                             <button type="button" role="tab" aria-selected="false" data-tab-target="next">Дальше</button>
                         </div>
@@ -98,6 +116,16 @@
                                 <li>Посмотреть вводное видео и инструкцию к калькулятору.</li>
                                 <li>Каждый день работать в калькуляторе и отправлять результат.</li>
                             </ol>
+                        </div>
+                        <div class="pauza-tabs__panel" role="tabpanel" data-tab-panel="materials" hidden>
+                            <h2>Материалы шага</h2>
+                            <ul class="pauza-check-list">
+                                <li>Вводное видео INTRO.</li>
+                                <li>Инструкция к калькулятору.</li>
+                                <li>Группа шага в Telegram и MAX.</li>
+                            </ul>
+                            <h3>Упражнения и важные блоки</h3>
+                            <p>Топ-5 зависимостей, пять вопросов и другие блоки из документа живут внутри конкретного шага, а не теряются.</p>
                         </div>
                         <div class="pauza-tabs__panel pauza-tabs__panel--long" role="tabpanel" data-tab-panel="full" hidden>
                             <h2>Полный текст</h2>
@@ -160,6 +188,20 @@
                         <li>Отправлять результат спонсору или в группу.</li>
                     </ol>
                 </aside>
+            </div>
+        </section>
+
+        <section class="pauza-section" id="materials">
+            <div class="pauza-container">
+                <div class="pauza-section__heading">
+                    <p class="pauza-eyebrow">Материалы</p>
+                    <h2>Видео, диск и внешние ссылки в одном месте</h2>
+                </div>
+                <div class="pauza-card-grid pauza-card-grid--three">
+                    <article class="pauza-card"><h3>Telegram</h3><p>Канал с видео.</p></article>
+                    <article class="pauza-card"><h3>Rutube</h3><p>Дублирующий видеоканал.</p></article>
+                    <article class="pauza-card"><h3>Яндекс.Диск</h3><p>Архив для скачивания.</p></article>
+                </div>
             </div>
         </section>
 

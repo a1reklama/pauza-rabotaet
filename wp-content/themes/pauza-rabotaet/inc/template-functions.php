@@ -121,6 +121,17 @@ function pauza_latest_today_query(int $limit = 3): WP_Query
     ]);
 }
 
+function pauza_latest_news_query(int $limit = 3): WP_Query
+{
+    return new WP_Query([
+        'post_type'      => 'pauza_news',
+        'post_status'    => 'publish',
+        'posts_per_page' => $limit,
+        'orderby'        => 'date',
+        'order'          => 'DESC',
+    ]);
+}
+
 function pauza_sponsors_query(): WP_Query
 {
     return new WP_Query([
@@ -150,12 +161,13 @@ function pauza_archive_title(string $title, string $subtitle = ''): void
 function pauza_fallback_menu(): void
 {
     $items = [
-        ['Главная', home_url('/')],
-        ['12 шагов', home_url('/12-shagov/')],
+        ['Начать', home_url('/')],
         ['Спонсоры', home_url('/sponsory/')],
+        ['12 шагов', home_url('/12-shagov/')],
         ['Калькулятор', home_url('/calculator/')],
+        ['Новости', home_url('/novosti/')],
+        ['Материалы', home_url('/materialy/')],
         ['Только сегодня', home_url('/tolko-segodnya/')],
-        ['Бот 4 шага', home_url('/bot-4-shaga/')],
     ];
 
     echo '<ul class="pauza-nav__list">';
