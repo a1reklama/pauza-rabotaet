@@ -17,13 +17,7 @@ $footer_note = pauza_get_option('footer_note', 'Сайт помогает ори
         </div>
         <nav aria-label="<?php esc_attr_e('Меню в подвале', 'pauza-rabotaet'); ?>">
             <?php
-            wp_nav_menu([
-                'theme_location' => 'footer',
-                'container'      => false,
-                'menu_class'     => 'pauza-footer__links',
-                'fallback_cb'    => false,
-                'depth'          => 1,
-            ]);
+            pauza_footer_menu();
             ?>
         </nav>
     </div>
@@ -32,4 +26,3 @@ $footer_note = pauza_get_option('footer_note', 'Сайт помогает ори
 <?php wp_footer(); ?>
 </body>
 </html>
-

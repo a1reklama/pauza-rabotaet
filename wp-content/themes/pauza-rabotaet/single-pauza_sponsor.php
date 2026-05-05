@@ -12,9 +12,6 @@ while (have_posts()) :
     $sponsor_id = get_the_ID();
     $gender = pauza_meta($sponsor_id, '_pauza_sponsor_gender', 'female');
     $phone = pauza_meta($sponsor_id, '_pauza_sponsor_phone');
-    $telegram = pauza_meta($sponsor_id, '_pauza_sponsor_telegram_url');
-    $whatsapp = pauza_meta($sponsor_id, '_pauza_sponsor_whatsapp_url');
-    $max = pauza_meta($sponsor_id, '_pauza_sponsor_max_url');
     ?>
     <section class="pauza-page-hero">
         <div class="pauza-container">
@@ -27,12 +24,10 @@ while (have_posts()) :
         <div class="pauza-container pauza-narrow">
             <div class="pauza-panel">
                 <?php the_content(); ?>
-                <div class="pauza-actions">
-                    <?php echo pauza_button($telegram, __('Написать в Telegram', 'pauza-rabotaet'), 'pauza-button pauza-button--primary'); ?>
-                    <?php echo pauza_button($whatsapp, __('Написать в WhatsApp', 'pauza-rabotaet')); ?>
-                    <?php echo pauza_button($max, __('Написать в MAX', 'pauza-rabotaet')); ?>
-                    <?php echo $phone ? pauza_button(pauza_sms_link($phone), __('Написать SMS', 'pauza-rabotaet')) : ''; ?>
-                </div>
+                <?php if ($phone) : ?>
+                    <p class="pauza-phone"><?php echo esc_html($phone); ?></p>
+                <?php endif; ?>
+                <p class="pauza-muted-line"><?php esc_html_e('Пишите вручную с телефона или из мессенджера. Звонить без предварительной переписки не нужно.', 'pauza-rabotaet'); ?></p>
             </div>
         </div>
     </section>
@@ -40,4 +35,3 @@ while (have_posts()) :
 
 <?php
 get_footer();
-

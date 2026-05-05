@@ -162,19 +162,52 @@ function pauza_fallback_menu(): void
 {
     $items = [
         ['Начать', home_url('/')],
-        ['Спонсоры', home_url('/sponsory/')],
         ['12 шагов', home_url('/12-shagov/')],
-        ['Калькулятор', home_url('/calculator/')],
+        ['Спонсоры', home_url('/sponsory/')],
         ['Новости', home_url('/novosti/')],
-        ['Материалы', home_url('/materialy/')],
-        ['Только сегодня', home_url('/tolko-segodnya/')],
     ];
 
     echo '<ul class="pauza-nav__list">';
     foreach ($items as $item) {
         printf('<li><a href="%s">%s</a></li>', esc_url($item[1]), esc_html($item[0]));
     }
+    echo '<li class="menu-item-has-children"><a href="#">Еще</a><ul class="sub-menu">';
+    foreach ([['Материалы', home_url('/materialy/')], ['Только сегодня', home_url('/tolko-segodnya/')], ['Калькуляторы', home_url('/calculator/')]] as $item) {
+        printf('<li><a href="%s">%s</a></li>', esc_url($item[1]), esc_html($item[0]));
+    }
+    echo '</ul></li>';
     echo '</ul>';
+}
+
+function pauza_footer_menu(): void
+{
+    $items = [
+        ['Начать', home_url('/')],
+        ['12 шагов', home_url('/12-shagov/')],
+        ['Спонсоры', home_url('/sponsory/')],
+        ['Новости', home_url('/novosti/')],
+    ];
+
+    echo '<ul class="pauza-footer__links">';
+    foreach ($items as $item) {
+        printf('<li><a href="%s">%s</a></li>', esc_url($item[1]), esc_html($item[0]));
+    }
+    echo '</ul>';
+}
+
+function pauza_material_type_label(string $type): string
+{
+    $labels = [
+        'project_channel' => __('Канал проекта', 'pauza-rabotaet'),
+        'step_group'      => __('Группа шага', 'pauza-rabotaet'),
+        'bot'             => __('Бот', 'pauza-rabotaet'),
+        'video'           => __('Видео', 'pauza-rabotaet'),
+        'calculator'      => __('Калькулятор', 'pauza-rabotaet'),
+        'download'        => __('Скачать', 'pauza-rabotaet'),
+        'instruction'     => __('Инструкция', 'pauza-rabotaet'),
+    ];
+
+    return $labels[$type] ?? $type;
 }
 
 function pauza_order_archives(WP_Query $query): void

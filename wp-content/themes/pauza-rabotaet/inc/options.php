@@ -40,6 +40,8 @@ function pauza_sanitize_options(array $input): array
         'rutube_channel_url',
         'yandex_disk_url',
         'calculator_instruction_url',
+        'calculator_telegram_url',
+        'calculator_max_url',
         'four_step_bot_url',
     ];
 
@@ -58,8 +60,6 @@ function pauza_sanitize_options(array $input): array
     foreach ($text_fields as $field) {
         $output[$field] = isset($input[$field]) ? sanitize_textarea_field((string) $input[$field]) : '';
     }
-
-    $output['calculator_embed'] = isset($input['calculator_embed']) ? pauza_sanitize_embed((string) $input['calculator_embed']) : '';
 
     return $output;
 }
@@ -104,7 +104,8 @@ function pauza_render_options_page(): void
             <h2><?php esc_html_e('Калькулятор', 'pauza-rabotaet'); ?></h2>
             <?php pauza_options_textarea('calculator_intro', __('Пояснение на странице калькулятора', 'pauza-rabotaet'), $options, 4); ?>
             <?php pauza_options_text('calculator_instruction_url', __('Ссылка на инструкцию', 'pauza-rabotaet'), $options, 'url'); ?>
-            <?php pauza_options_textarea('calculator_embed', __('HTML/shortcode готового калькулятора', 'pauza-rabotaet'), $options, 8); ?>
+            <?php pauza_options_text('calculator_telegram_url', __('Ссылка на Telegram-бот калькулятора', 'pauza-rabotaet'), $options, 'url'); ?>
+            <?php pauza_options_text('calculator_max_url', __('Ссылка на MAX-бот калькулятора', 'pauza-rabotaet'), $options, 'url'); ?>
 
             <h2><?php esc_html_e('Юридические и служебные тексты', 'pauza-rabotaet'); ?></h2>
             <?php pauza_options_textarea('privacy_notice', __('Заметка о контактах спонсоров', 'pauza-rabotaet'), $options, 4); ?>
@@ -135,4 +136,3 @@ function pauza_options_textarea(string $key, string $label, array $options, int 
     </p>
     <?php
 }
-

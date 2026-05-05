@@ -9,19 +9,30 @@
 <body class="pauza-site">
     <header class="pauza-header">
         <div class="pauza-container pauza-header__inner">
-            <a class="pauza-brand" href="#">
+            <a class="pauza-brand" href="#start">
                 <span class="pauza-brand__mark">П</span>
                 <span class="pauza-brand__text">Пауза работает</span>
             </a>
-            <nav class="pauza-nav is-open" aria-label="Основное меню">
+            <button class="pauza-menu-toggle" type="button" aria-expanded="false" aria-controls="pauza-primary-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span class="screen-reader-text">Открыть меню</span>
+            </button>
+            <nav class="pauza-nav" id="pauza-primary-menu" aria-label="Основное меню">
                 <ul class="pauza-nav__list">
                     <li><a href="#start">Начать</a></li>
-                    <li><a href="#sponsors">Спонсоры</a></li>
                     <li><a href="#steps">12 шагов</a></li>
-                    <li><a href="#calculator">Калькулятор</a></li>
+                    <li><a href="#sponsors">Спонсоры</a></li>
                     <li><a href="#news">Новости</a></li>
-                    <li><a href="#materials">Материалы</a></li>
-                    <li><a href="#bot">Бот 4 шага</a></li>
+                    <li class="menu-item-has-children">
+                        <a href="#more">Еще</a>
+                        <ul class="sub-menu">
+                            <li><a href="#materials">Материалы</a></li>
+                            <li><a href="#today">Только сегодня</a></li>
+                            <li><a href="#calculator">Калькуляторы</a></li>
+                        </ul>
+                    </li>
                 </ul>
             </nav>
         </div>
@@ -32,18 +43,17 @@
             <div class="pauza-container pauza-home-hero__grid">
                 <div class="pauza-home-hero__copy">
                     <p class="pauza-eyebrow">12 шагов за 360 дней</p>
-                    <h1>Понятный вход в программу без лишнего шума</h1>
-                    <p class="pauza-lead">Сайт помогает быстро понять маршрут: выбрать спонсора, начать первый шаг, пользоваться калькулятором и перейти в нужные группы Telegram или MAX.</p>
+                    <h1>Пауза работает</h1>
+                    <p class="pauza-lead">Выберите спонсора и начните первый шаг. Остальные материалы открывайте по мере прохождения.</p>
                     <div class="pauza-actions">
                         <a class="pauza-button pauza-button--primary" href="#sponsors">Выбрать спонсора</a>
-                        <a class="pauza-button pauza-button--ghost" href="#steps">Открыть 12 шагов</a>
-                        <a class="pauza-button pauza-button--ghost" href="#calculator">Калькулятор</a>
+                        <a class="pauza-button" href="#steps">Начать 1 шаг</a>
                     </div>
                 </div>
-                <div class="pauza-route">
-                    <div class="pauza-route__item"><span>1</span><strong>Написать спонсору</strong></div>
-                    <div class="pauza-route__item"><span>2</span><strong>Открыть 1 шаг</strong></div>
-                    <div class="pauza-route__item"><span>3</span><strong>Работать ежедневно</strong></div>
+                <div class="pauza-route" aria-label="Маршрут новичка">
+                    <div class="pauza-route__item"><span>1</span><strong>Выберите свой пол и спонсора</strong></div>
+                    <div class="pauza-route__item"><span>2</span><strong>Начните 1 шаг</strong></div>
+                    <div class="pauza-route__item"><span>3</span><strong>Откройте нужную группу или бот</strong></div>
                 </div>
             </div>
         </section>
@@ -52,100 +62,174 @@
             <div class="pauza-container">
                 <div class="pauza-section__heading">
                     <p class="pauza-eyebrow">Карта программы</p>
-                    <h2>12 шагов без длинной простыни текста</h2>
+                    <h2>12 шагов: открывается только нужный шаг</h2>
+                    <p>В карте видны все этапы, но длинные тексты и задания спрятаны во вкладках конкретного шага.</p>
                 </div>
                 <div class="pauza-step-map">
-                    <a class="pauza-step-tile" href="#step-detail"><span>1</span><strong>Первый шаг</strong><em>Старт</em></a>
-                    <a class="pauza-step-tile" href="#step-detail"><span>2</span><strong>Второй шаг</strong><em>Дни 9-18</em></a>
-                    <a class="pauza-step-tile" href="#step-detail"><span>3</span><strong>Третий шаг</strong><em>Перед 4 шагом</em></a>
-                    <a class="pauza-step-tile" href="#bot"><span>4</span><strong>Четвертый шаг</strong><em>Внешний бот</em></a>
-                    <a class="pauza-step-tile" href="#step-detail"><span>5</span><strong>Пятый шаг</strong><em>Со спонсором</em></a>
-                    <a class="pauza-step-tile" href="#step-detail"><span>6</span><strong>Шестой шаг</strong><em>После 5 шага</em></a>
-                    <a class="pauza-step-tile" href="#step-detail"><span>7</span><strong>Седьмой шаг</strong><em>Практика</em></a>
-                    <a class="pauza-step-tile" href="#step-detail"><span>8</span><strong>Восьмой шаг</strong><em>Список ущерба</em></a>
+                    <a class="pauza-step-tile" href="#step-8"><span>1</span><strong>Первый шаг</strong><em>Старт</em></a>
+                    <a class="pauza-step-tile" href="#step-2"><span>2</span><strong>Второй шаг</strong><em>Длинный текст</em></a>
+                    <a class="pauza-step-tile" href="#step-4"><span>4</span><strong>Четвертый шаг</strong><em>Бот только здесь</em></a>
+                    <a class="pauza-step-tile" href="#step-8"><span>8</span><strong>Восьмой шаг</strong><em>Списки и ВДА</em></a>
+                    <a class="pauza-step-tile" href="#step-8"><span>9</span><strong>Девятый шаг</strong><em>После 8 шага</em></a>
+                    <a class="pauza-step-tile" href="#materials"><span>М</span><strong>Материалы</strong><em>Не вместо шагов</em></a>
                 </div>
             </div>
         </section>
 
         <section class="pauza-section" id="news">
-            <div class="pauza-container pauza-split">
-                <div>
+            <div class="pauza-container">
+                <div class="pauza-section__heading">
                     <p class="pauza-eyebrow">Новости</p>
-                    <h2>Объявления не смешиваем с шагами</h2>
-                    <p>Здесь будут новые видео, изменения ссылок групп, важные сообщения и объявления владельца.</p>
+                    <h2>Объявления отдельно от шагов</h2>
+                    <p>Такой формат нужен для новых видео, обновления ссылок групп и важных сообщений владельца.</p>
                 </div>
-                <article class="pauza-card">
-                    <p class="pauza-tag">Пример</p>
-                    <h3>Раздел новостей готов</h3>
-                    <p>В WordPress это отдельный тип записей, который редактируется в админке.</p>
-                </article>
+                <div class="pauza-card-grid pauza-card-grid--three">
+                    <article class="pauza-card">
+                        <p class="pauza-tag">Видео · 5 мая 2026</p>
+                        <h3>Новое видео для 8 шага</h3>
+                        <p>Добавлено видео о списках вреда, материальном ущербе и упражнении ВДА. Ссылка дублируется внутри 8 шага.</p>
+                        <a class="pauza-button" href="https://rutube.ru/channel/44350949/">Открыть видео</a>
+                    </article>
+                    <article class="pauza-card">
+                        <p class="pauza-tag">Группы · 5 мая 2026</p>
+                        <h3>Обновлены ссылки групп</h3>
+                        <p>Проверены Telegram и MAX-группы шагов. Группы не смешиваются с каналами проекта и ботами.</p>
+                        <a class="pauza-button" href="#materials">Открыть материалы</a>
+                    </article>
+                    <article class="pauza-card">
+                        <p class="pauza-tag">Важно · 5 мая 2026</p>
+                        <h3>Перед началом выберите спонсора</h3>
+                        <p>Сначала выберите свой пол, потом напишите короткое сообщение. Звонить без переписки не нужно.</p>
+                        <a class="pauza-button pauza-button--primary" href="#sponsors">Выбрать спонсора</a>
+                    </article>
+                </div>
             </div>
         </section>
 
-        <section class="pauza-section pauza-section--muted" id="step-detail">
+        <section class="pauza-section pauza-section--muted" id="step-8">
             <div class="pauza-container pauza-content-grid">
                 <div class="pauza-content">
-                    <p class="pauza-eyebrow">Шаг 1</p>
-                    <h2>Первый шаг</h2>
-                    <p>На реальной странице шаг открывается вкладками. Сначала человек видит только короткий обзор, а длинный текст открывает отдельно.</p>
+                    <p class="pauza-eyebrow">Стресс-тест контента</p>
+                    <h2>Восьмой шаг</h2>
+                    <p>Этот шаг взят как сложный пример: списки вреда, курс ЦБ, упражнение ВДА, переход к 9 шагу и полный текст из DOCX.</p>
                     <div class="pauza-tabs" data-pauza-tabs>
-                        <div class="pauza-tabs__nav" role="tablist" aria-label="Разделы шага">
-                            <button class="is-active" type="button" role="tab" aria-selected="true" data-tab-target="overview">Обзор</button>
-                            <button type="button" role="tab" aria-selected="false" data-tab-target="requirements">Условия</button>
-                            <button type="button" role="tab" aria-selected="false" data-tab-target="tasks">Что делать</button>
-                            <button type="button" role="tab" aria-selected="false" data-tab-target="materials">Материалы</button>
-                            <button type="button" role="tab" aria-selected="false" data-tab-target="full">Полный текст</button>
-                            <button type="button" role="tab" aria-selected="false" data-tab-target="next">Дальше</button>
+                        <div class="pauza-tabs__nav" role="tablist" aria-label="Разделы 8 шага">
+                            <button class="is-active" type="button" role="tab" aria-selected="true" data-tab-target="s8-short">Коротко</button>
+                            <button type="button" role="tab" aria-selected="false" data-tab-target="s8-tasks">Задания</button>
+                            <button type="button" role="tab" aria-selected="false" data-tab-target="s8-links">Видео и ссылки</button>
+                            <button type="button" role="tab" aria-selected="false" data-tab-target="s8-exercises">Упражнения</button>
+                            <button type="button" role="tab" aria-selected="false" data-tab-target="s8-full">Полный текст</button>
+                            <button type="button" role="tab" aria-selected="false" data-tab-target="s8-next">Дальше</button>
                         </div>
-                        <div class="pauza-tabs__panel is-active" role="tabpanel" data-tab-panel="overview">
+                        <div class="pauza-tabs__panel is-active" role="tabpanel" data-tab-panel="s8-short">
                             <h2>Коротко о шаге</h2>
-                            <p>Первый шаг нужен, чтобы человек не потерялся в программе: выбрать спонсора, открыть первые видео, начать калькулятор и выполнить первые письменные задания.</p>
-                            <div class="pauza-friendly-note">Не нужно читать всё сразу. Двигайтесь по вкладкам слева направо.</div>
+                            <p>Нужно составить список людей и организаций, которым был причинен вред, и подготовить готовность к возмещению.</p>
+                            <div class="pauza-friendly-note">Не открывайте полный текст сразу. Начните с заданий и списка материалов.</div>
                         </div>
-                        <div class="pauza-tabs__panel" role="tabpanel" data-tab-panel="requirements" hidden>
-                            <h2>Перед началом</h2>
-                            <ul class="pauza-check-list">
-                                <li>Выбрать спонсора своего пола.</li>
-                                <li>Сначала написать сообщение, не звонить.</li>
-                            </ul>
-                        </div>
-                        <div class="pauza-tabs__panel" role="tabpanel" data-tab-panel="tasks" hidden>
+                        <div class="pauza-tabs__panel" role="tabpanel" data-tab-panel="s8-tasks" hidden>
                             <h2>Делайте по порядку</h2>
                             <ol class="pauza-task-list">
-                                <li>Написать спонсору или в группу первого шага.</li>
-                                <li>Посмотреть вводное видео и инструкцию к калькулятору.</li>
-                                <li>Каждый день работать в калькуляторе и отправлять результат.</li>
+                                <li>Смотреть видео 8 шага по порядку.</li>
+                                <li>Составить списки физического, психического, материального и духовного вреда.</li>
+                                <li>Материальный ущерб считать аккуратно: сумма, дата, валюта, курс.</li>
+                                <li>Выполнить упражнение ВДА по инструкции внутри шага.</li>
+                                <li>Согласовать со спонсором переход к 9 шагу.</li>
                             </ol>
                         </div>
-                        <div class="pauza-tabs__panel" role="tabpanel" data-tab-panel="materials" hidden>
-                            <h2>Материалы шага</h2>
+                        <div class="pauza-tabs__panel" role="tabpanel" data-tab-panel="s8-links" hidden>
+                            <h2>Видео и ссылки</h2>
                             <ul class="pauza-check-list">
-                                <li>Вводное видео INTRO.</li>
-                                <li>Инструкция к калькулятору.</li>
-                                <li>Группа шага в Telegram и MAX.</li>
+                                <li>Видео восьмого шага: показывается здесь, а не в общей свалке материалов.</li>
+                                <li>Telegram-группа 8 шага: группа текущей работы, не бот и не канал проекта.</li>
+                                <li>MAX-группа 8 шага: запасной канал общения по этому шагу.</li>
+                                <li>Курс ЦБ для расчета ущерба: https://www.cbr.ru/currency_base/daily/</li>
                             </ul>
-                            <h3>Упражнения и важные блоки</h3>
-                            <p>Топ-5 зависимостей, пять вопросов и другие блоки из документа живут внутри конкретного шага, а не теряются.</p>
+                            <div class="pauza-actions">
+                                <a class="pauza-button pauza-button--primary" href="https://t.me/+25xg0R3EbdExMTUy">Группа Telegram 8 шага</a>
+                                <a class="pauza-button" href="https://max.ru/join/k5TJeDCbEZXvz08D8DhX2TRB2KPAY7dXOnsQDnVu0vk">Группа MAX 8 шага</a>
+                            </div>
                         </div>
-                        <div class="pauza-tabs__panel pauza-tabs__panel--long" role="tabpanel" data-tab-panel="full" hidden>
-                            <h2>Полный текст</h2>
-                            <p>Здесь будет полный текст из документа. Он скрыт по умолчанию, чтобы человек с телефона не упирался в длинную страницу.</p>
+                        <div class="pauza-tabs__panel" role="tabpanel" data-tab-panel="s8-exercises" hidden>
+                            <h2>Упражнения и списки</h2>
+                            <p>Списки вреда из документа:</p>
+                            <ul class="pauza-check-list">
+                                <li>физический себе;</li>
+                                <li>физический другим;</li>
+                                <li>косвенный физический;</li>
+                                <li>психический себе;</li>
+                                <li>психический другим;</li>
+                                <li>материальный организациям;</li>
+                                <li>материальный людям;</li>
+                                <li>материальный друзьям и партнерам;</li>
+                                <li>материальный родным.</li>
+                            </ul>
+                            <p>Упражнение ВДА остается внутри 8 шага. Оно не должно жить отдельной страницей, потому что человеку важно понимать, на каком этапе оно нужно.</p>
                         </div>
-                        <div class="pauza-tabs__panel" role="tabpanel" data-tab-panel="next" hidden>
+                        <div class="pauza-tabs__panel pauza-tabs__panel--long" role="tabpanel" data-tab-panel="s8-full" hidden>
+                            <h2>Полный текст 8 шага из DOCX</h2>
+                            <div id="preview-step8-full"><p>Загрузка полного текста...</p></div>
+                        </div>
+                        <div class="pauza-tabs__panel" role="tabpanel" data-tab-panel="s8-next" hidden>
                             <h2>Когда закончите</h2>
-                            <p>Откройте группу Telegram или MAX и согласуйте следующий шаг со спонсором.</p>
+                            <p>Переходите к девятому шагу только после завершения списков и согласования со спонсором.</p>
+                            <a class="pauza-button pauza-button--accent" href="#steps">Перейти к 9 шагу</a>
                         </div>
                     </div>
                 </div>
                 <aside class="pauza-sidebar">
                     <div class="pauza-panel">
-                        <h2>Куда перейти</h2>
-                        <div class="pauza-actions pauza-actions--stacked">
-                            <a class="pauza-button pauza-button--primary" href="#">Группа Telegram</a>
-                            <a class="pauza-button" href="#">Группа MAX</a>
-                            <a class="pauza-button pauza-button--accent" href="#steps">Перейти ко 2 шагу</a>
+                        <h2>Что проверяем</h2>
+                        <ul class="pauza-check-list">
+                            <li>длинные списки не ломают карточку;</li>
+                            <li>вкладки помещаются на телефоне;</li>
+                            <li>полный текст скроллится внутри вкладки;</li>
+                            <li>ссылки шага не смешаны с ботами.</li>
+                        </ul>
+                    </div>
+                </aside>
+            </div>
+        </section>
+
+        <section class="pauza-section" id="step-2">
+            <div class="pauza-container pauza-content-grid">
+                <div class="pauza-content">
+                    <p class="pauza-eyebrow">Стресс-тест длинного текста</p>
+                    <h2>Второй шаг</h2>
+                    <p>Второй шаг нужен для проверки длинного сплошного текста. Он не раздувает первый экран, потому что полный материал спрятан во вкладке.</p>
+                    <div class="pauza-tabs" data-pauza-tabs>
+                        <div class="pauza-tabs__nav" role="tablist" aria-label="Разделы 2 шага">
+                            <button class="is-active" type="button" role="tab" aria-selected="true" data-tab-target="s2-short">Коротко</button>
+                            <button type="button" role="tab" aria-selected="false" data-tab-target="s2-full">Полный текст</button>
+                        </div>
+                        <div class="pauza-tabs__panel is-active" role="tabpanel" data-tab-panel="s2-short">
+                            <h2>Коротко</h2>
+                            <p>Смотреть видео 011-020, ответить по пяти зависимостям и зачитать работу спонсору.</p>
+                        </div>
+                        <div class="pauza-tabs__panel pauza-tabs__panel--long" role="tabpanel" data-tab-panel="s2-full" hidden>
+                            <h2>Полный текст 2 шага из DOCX</h2>
+                            <div id="preview-step2-full"><p>Загрузка полного текста...</p></div>
                         </div>
                     </div>
+                </div>
+                <aside class="pauza-panel">
+                    <h2>Зачем этот блок</h2>
+                    <p>Если здесь текст читается на ПК и телефоне, схема вкладок подходит для полного переноса DOCX.</p>
+                </aside>
+            </div>
+        </section>
+
+        <section class="pauza-section pauza-section--muted" id="step-4">
+            <div class="pauza-container pauza-split">
+                <div>
+                    <p class="pauza-eyebrow">Конкретный бот шага</p>
+                    <h2>Бот 4 шага показывается на 4 шаге</h2>
+                    <p>Это не общий пункт футера и не раздел для новичка. Бот нужен, когда человек дошел до четвертого шага и готов к письменной инвентаризации.</p>
+                </div>
+                <aside class="pauza-panel">
+                    <p class="pauza-tag">Бот</p>
+                    <h2>Telegram-бот 4 шага</h2>
+                    <p>Личные ответы не хранятся на сайте. Работа выполняется во внешнем инструменте и согласуется со спонсором.</p>
+                    <a class="pauza-button pauza-button--primary" href="https://t.me/FourStepForAllBot">Перейти в бот</a>
                 </aside>
             </div>
         </section>
@@ -154,21 +238,43 @@
             <div class="pauza-container">
                 <div class="pauza-section__heading">
                     <p class="pauza-eyebrow">Спонсоры и проводники</p>
-                    <h2>Сначала написать, не звонить</h2>
+                    <h2>Список скрыт, пока человек не выберет свой пол</h2>
                 </div>
-                <div class="pauza-notice">Публично показываются только подтвержденные контакты. В WordPress импортированные контакты добавлены как черновики.</div>
-                <div class="pauza-sponsor-grid">
-                    <article class="pauza-sponsor-card">
+                <div class="pauza-next-box">
+                    <div>
+                        <p class="pauza-eyebrow">Перед контактом</p>
+                        <h2>Выберите свой пол</h2>
+                        <p>Сначала напишите, не звоните. Представьтесь и коротко расскажите о себе.</p>
+                    </div>
+                </div>
+                <div class="pauza-filter" role="group" aria-label="Выбор списка спонсоров">
+                    <button type="button" data-sponsor-filter="female">Женщины</button>
+                    <button type="button" data-sponsor-filter="male">Мужчины</button>
+                </div>
+                <div class="pauza-sponsor-grid is-collapsed" data-sponsor-list>
+                    <article class="pauza-sponsor-card is-hidden" data-sponsor-gender="female">
                         <p class="pauza-tag">Женщины</p>
-                        <h2>Пример карточки</h2>
-                        <p>После подтверждения согласия здесь появится кнопка сообщения.</p>
-                        <a class="pauza-button pauza-button--primary" href="#">Написать SMS</a>
+                        <h2>Спонсор</h2>
+                        <p class="pauza-phone">Контакт скрыт</p>
+                        <p>Контакт показан как тест формата. В WordPress реальные контакты публикуются только после подтверждения.</p>
                     </article>
-                    <article class="pauza-sponsor-card">
+                    <article class="pauza-sponsor-card is-hidden" data-sponsor-gender="female">
+                        <p class="pauza-tag">Женщины</p>
+                        <h2>Спонсор</h2>
+                        <p class="pauza-phone">Контакт скрыт</p>
+                        <p>Пользователь сам пишет с телефона или из мессенджера. Кнопки SMS на сайте нет.</p>
+                    </article>
+                    <article class="pauza-sponsor-card is-hidden" data-sponsor-gender="male">
                         <p class="pauza-tag">Мужчины</p>
-                        <h2>Пример карточки</h2>
-                        <p>Контакты редактируются в админке WordPress.</p>
-                        <a class="pauza-button pauza-button--primary" href="#">Написать SMS</a>
+                        <h2>Спонсор</h2>
+                        <p class="pauza-phone">Контакт скрыт</p>
+                        <p>Сначала короткое сообщение, звонить без переписки не нужно.</p>
+                    </article>
+                    <article class="pauza-sponsor-card is-hidden" data-sponsor-gender="male">
+                        <p class="pauza-tag">Мужчины</p>
+                        <h2>Спонсор</h2>
+                        <p class="pauza-phone">Контакт скрыт</p>
+                        <p>Так выглядит карточка после публикации подтвержденного контакта.</p>
                     </article>
                 </div>
             </div>
@@ -176,16 +282,31 @@
 
         <section class="pauza-section pauza-section--muted" id="calculator">
             <div class="pauza-container pauza-content-grid">
-                <div class="pauza-empty">
-                    <h2>Калькулятор подключается в админке</h2>
-                    <p>Вставьте shortcode или HTML готового калькулятора в настройках темы.</p>
+                <div class="pauza-content">
+                    <p class="pauza-eyebrow">Внешние инструменты</p>
+                    <h2>Калькуляторы</h2>
+                    <p>Калькуляторы не встраиваются в WordPress. Это внешние Telegram/MAX-боты, а сайт только объясняет, когда открыть инструмент и куда отправить результат.</p>
+                    <div class="pauza-card-grid">
+                        <article class="pauza-card">
+                            <p class="pauza-tag">Калькулятор</p>
+                            <h3>Telegram-бот</h3>
+                            <p>Заполните расчет, посмотрите итог и отправьте результат спонсору или в группу текущего шага.</p>
+                            <a class="pauza-button pauza-button--primary" href="#">Открыть Telegram-бот</a>
+                        </article>
+                        <article class="pauza-card">
+                            <p class="pauza-tag">Калькулятор</p>
+                            <h3>MAX-бот</h3>
+                            <p>Второй внешний инструмент для тех, кому удобнее MAX.</p>
+                            <a class="pauza-button" href="#">Открыть MAX-бот</a>
+                        </article>
+                    </div>
                 </div>
                 <aside class="pauza-panel">
                     <h2>Как использовать</h2>
                     <ol class="pauza-task-list">
                         <li>Заполнять каждый день.</li>
                         <li>Смотреть итоговую цифру.</li>
-                        <li>Отправлять результат спонсору или в группу.</li>
+                        <li>Отправлять результат спонсору или в группу шага.</li>
                     </ol>
                 </aside>
             </div>
@@ -195,27 +316,32 @@
             <div class="pauza-container">
                 <div class="pauza-section__heading">
                     <p class="pauza-eyebrow">Материалы</p>
-                    <h2>Видео, диск и внешние ссылки в одном месте</h2>
+                    <h2>Не свалка, а справочник типов</h2>
+                    <p>Глобально показываем каналы и инструменты. Конкретные видео и задания остаются внутри нужных шагов.</p>
                 </div>
                 <div class="pauza-card-grid pauza-card-grid--three">
-                    <article class="pauza-card"><h3>Telegram</h3><p>Канал с видео.</p></article>
-                    <article class="pauza-card"><h3>Rutube</h3><p>Дублирующий видеоканал.</p></article>
-                    <article class="pauza-card"><h3>Яндекс.Диск</h3><p>Архив для скачивания.</p></article>
+                    <article class="pauza-card"><p class="pauza-tag">Канал проекта</p><h3>Telegram-канал</h3><p>Общие видео и объявления проекта.</p></article>
+                    <article class="pauza-card"><p class="pauza-tag">Видео</p><h3>Rutube</h3><p>Дублирующий видеоканал, а конкретные видео привязаны к шагам.</p></article>
+                    <article class="pauza-card"><p class="pauza-tag">Скачать</p><h3>Яндекс.Диск</h3><p>Архив видео и файлов.</p></article>
+                    <article class="pauza-card"><p class="pauza-tag">Группа шага</p><h3>Telegram/MAX-группы</h3><p>Группы общения по конкретным шагам.</p></article>
+                    <article class="pauza-card"><p class="pauza-tag">Бот</p><h3>Бот 4 шага</h3><p>Инструмент только для четвертого шага.</p></article>
+                    <article class="pauza-card"><p class="pauza-tag">Калькулятор</p><h3>Telegram/MAX-боты</h3><p>Внешние инструменты ежедневного расчета.</p></article>
                 </div>
             </div>
         </section>
 
-        <section class="pauza-section" id="bot">
+        <section class="pauza-section pauza-section--muted" id="today">
             <div class="pauza-container pauza-split">
                 <div>
-                    <p class="pauza-eyebrow">Внешний инструмент</p>
-                    <h2>Бот 4 шага остается вне сайта</h2>
-                    <p>Сайт объясняет, когда переходить в бот, но не хранит личные ответы и не заменяет работу со спонсором.</p>
+                    <p class="pauza-eyebrow">Только сегодня</p>
+                    <h2>Отдельные тексты владельца</h2>
+                    <p>Периодические тексты не смешиваются с заданиями шагов и новостями. В WordPress это отдельный редактируемый раздел.</p>
                 </div>
-                <aside class="pauza-panel">
-                    <h2>Открыть бот</h2>
-                    <a class="pauza-button pauza-button--primary" href="https://t.me/FourStepForAllBot">Перейти в бот 4 шага</a>
-                </aside>
+                <article class="pauza-card">
+                    <p class="pauza-tag">Пример формата</p>
+                    <h3>Текст на сегодня</h3>
+                    <p>Короткое обращение или мысль дня. Полный текст открывается отдельной записью.</p>
+                </article>
             </div>
         </section>
     </main>
@@ -224,10 +350,45 @@
         <div class="pauza-container pauza-footer__grid">
             <div>
                 <h2>Пауза работает</h2>
-                <p>Preview показывает UX и визуальную структуру. Реальная админка работает после установки темы в WordPress.</p>
+                <p>Сайт помогает ориентироваться в программе и ведет во внешние группы, боты и видеоматериалы. Он не заменяет работу со спонсором.</p>
             </div>
+            <nav aria-label="Меню в подвале">
+                <ul class="pauza-footer__links">
+                    <li><a href="#start">Начать</a></li>
+                    <li><a href="#steps">12 шагов</a></li>
+                    <li><a href="#sponsors">Спонсоры</a></li>
+                    <li><a href="#news">Новости</a></li>
+                </ul>
+            </nav>
         </div>
     </footer>
     <script src="assets/theme.js"></script>
+    <script>
+        (function () {
+            function renderText(id, text) {
+                var target = document.getElementById(id);
+                if (!target) {
+                    return;
+                }
+                target.textContent = '';
+                String(text || '').split(/\n\s*\n/).filter(Boolean).forEach(function (paragraph) {
+                    var p = document.createElement('p');
+                    p.textContent = paragraph.trim();
+                    target.appendChild(p);
+                });
+            }
+
+            fetch('inc/step-full-texts.json')
+                .then(function (response) { return response.json(); })
+                .then(function (data) {
+                    renderText('preview-step8-full', data['8']);
+                    renderText('preview-step2-full', data['2']);
+                })
+                .catch(function () {
+                    renderText('preview-step8-full', 'Полный текст не загрузился в статическом preview.');
+                    renderText('preview-step2-full', 'Полный текст не загрузился в статическом preview.');
+                });
+        })();
+    </script>
 </body>
 </html>

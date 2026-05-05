@@ -7,15 +7,16 @@
 
 get_header();
 
-$embed = pauza_get_option('calculator_embed');
 $intro = pauza_get_option('calculator_intro');
 $instruction_url = pauza_get_option('calculator_instruction_url');
+$calculator_telegram_url = pauza_get_option('calculator_telegram_url');
+$calculator_max_url = pauza_get_option('calculator_max_url');
 ?>
 
 <section class="pauza-page-hero">
     <div class="pauza-container">
-        <p class="pauza-eyebrow"><?php esc_html_e('Ежедневная практика', 'pauza-rabotaet'); ?></p>
-        <h1><?php the_title(); ?></h1>
+        <p class="pauza-eyebrow"><?php esc_html_e('Внешние инструменты', 'pauza-rabotaet'); ?></p>
+        <h1><?php esc_html_e('Калькуляторы', 'pauza-rabotaet'); ?></h1>
         <p class="pauza-lead"><?php echo esc_html($intro); ?></p>
     </div>
 </section>
@@ -23,16 +24,20 @@ $instruction_url = pauza_get_option('calculator_instruction_url');
 <section class="pauza-section">
     <div class="pauza-container pauza-content-grid">
         <div class="pauza-content">
-            <?php if ($embed) : ?>
-                <div class="pauza-embed">
-                    <?php echo do_shortcode($embed); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-                </div>
-            <?php else : ?>
-                <div class="pauza-empty">
-                    <h2><?php esc_html_e('Готовый калькулятор подключается в админке', 'pauza-rabotaet'); ?></h2>
-                    <p><?php esc_html_e('Вставьте shortcode или HTML готового калькулятора в разделе "Пауза работает" → настройки. Пока здесь отображается понятная заглушка для MVP.', 'pauza-rabotaet'); ?></p>
-                </div>
-            <?php endif; ?>
+            <div class="pauza-card-grid">
+                <article class="pauza-card">
+                    <p class="pauza-tag"><?php esc_html_e('Telegram', 'pauza-rabotaet'); ?></p>
+                    <h2><?php esc_html_e('Калькулятор в Telegram', 'pauza-rabotaet'); ?></h2>
+                    <p><?php esc_html_e('Откройте бот, заполните данные и отправьте результат спонсору или в группу шага.', 'pauza-rabotaet'); ?></p>
+                    <?php echo pauza_button($calculator_telegram_url, __('Открыть Telegram-бот', 'pauza-rabotaet'), 'pauza-button pauza-button--primary'); ?>
+                </article>
+                <article class="pauza-card">
+                    <p class="pauza-tag"><?php esc_html_e('MAX', 'pauza-rabotaet'); ?></p>
+                    <h2><?php esc_html_e('Калькулятор в MAX', 'pauza-rabotaet'); ?></h2>
+                    <p><?php esc_html_e('Если удобнее MAX, используйте отдельную ссылку на бот калькулятора.', 'pauza-rabotaet'); ?></p>
+                    <?php echo pauza_button($calculator_max_url, __('Открыть MAX-бот', 'pauza-rabotaet')); ?>
+                </article>
+            </div>
 
             <?php while (have_posts()) : the_post(); ?>
                 <?php if (trim(get_the_content())) : ?>
@@ -51,7 +56,7 @@ $instruction_url = pauza_get_option('calculator_instruction_url');
                     <li><?php esc_html_e('Смотреть итоговую цифру по сферам.', 'pauza-rabotaet'); ?></li>
                     <li><?php esc_html_e('Отправлять результат спонсору или в группу текущего шага.', 'pauza-rabotaet'); ?></li>
                 </ol>
-                <?php echo pauza_button($instruction_url, __('Инструкция к калькулятору', 'pauza-rabotaet'), 'pauza-button pauza-button--primary'); ?>
+                <?php echo pauza_button($instruction_url, __('Открыть инструкцию', 'pauza-rabotaet'), 'pauza-button pauza-button--primary'); ?>
             </div>
         </aside>
     </div>
@@ -59,4 +64,3 @@ $instruction_url = pauza_get_option('calculator_instruction_url');
 
 <?php
 get_footer();
-

@@ -39,6 +39,15 @@ function pauza_add_meta_boxes(): void
     );
 
     add_meta_box(
+        'pauza_news_details',
+        __('Параметры новости', 'pauza-rabotaet'),
+        'pauza_render_news_meta_box',
+        'pauza_news',
+        'side',
+        'default'
+    );
+
+    add_meta_box(
         'pauza_material_details',
         __('Параметры материала', 'pauza-rabotaet'),
         'pauza_render_material_meta_box',
@@ -118,7 +127,7 @@ function pauza_render_sponsor_meta_box(WP_Post $post): void
         'female' => __('Женщины', 'pauza-rabotaet'),
         'male'   => __('Мужчины', 'pauza-rabotaet'),
     ]);
-    pauza_admin_text_input('_pauza_sponsor_phone', __('Телефон для сообщения', 'pauza-rabotaet'), pauza_meta($post->ID, '_pauza_sponsor_phone'), 'text', __('На сайте телефон используется для SMS/мессенджеров, не для звонка.', 'pauza-rabotaet'));
+    pauza_admin_text_input('_pauza_sponsor_phone', __('Телефон для ручного сообщения', 'pauza-rabotaet'), pauza_meta($post->ID, '_pauza_sponsor_phone'), 'text', __('На сайте телефон показывается текстом. Пользователь сам пишет с телефона или из мессенджера.', 'pauza-rabotaet'));
     pauza_admin_text_input('_pauza_sponsor_telegram_url', __('Telegram-ссылка', 'pauza-rabotaet'), pauza_meta($post->ID, '_pauza_sponsor_telegram_url'), 'url');
     pauza_admin_text_input('_pauza_sponsor_whatsapp_url', __('WhatsApp-ссылка', 'pauza-rabotaet'), pauza_meta($post->ID, '_pauza_sponsor_whatsapp_url'), 'url');
     pauza_admin_text_input('_pauza_sponsor_max_url', __('MAX-ссылка', 'pauza-rabotaet'), pauza_meta($post->ID, '_pauza_sponsor_max_url'), 'url');
@@ -131,17 +140,26 @@ function pauza_render_today_meta_box(WP_Post $post): void
     pauza_admin_text_input('_pauza_today_date', __('Дата/метка', 'pauza-rabotaet'), pauza_meta($post->ID, '_pauza_today_date'), 'text', __('Например: 5 мая или Неделя 1.', 'pauza-rabotaet'));
 }
 
+function pauza_render_news_meta_box(WP_Post $post): void
+{
+    wp_nonce_field('pauza_save_news_meta', 'pauza_news_nonce');
+    pauza_admin_text_input('_pauza_news_type', __('Тип новости', 'pauza-rabotaet'), pauza_meta($post->ID, '_pauza_news_type'), 'text', __('Например: Видео, Группы, Важно.', 'pauza-rabotaet'));
+    pauza_admin_text_input('_pauza_news_url', __('Ссылка', 'pauza-rabotaet'), pauza_meta($post->ID, '_pauza_news_url'), 'url');
+    pauza_admin_text_input('_pauza_news_button_label', __('Текст кнопки', 'pauza-rabotaet'), pauza_meta($post->ID, '_pauza_news_button_label', __('Открыть', 'pauza-rabotaet')), 'text');
+}
+
 function pauza_render_material_meta_box(WP_Post $post): void
 {
     wp_nonce_field('pauza_save_material_meta', 'pauza_material_nonce');
 
     pauza_admin_select('_pauza_material_type', __('Тип', 'pauza-rabotaet'), pauza_meta($post->ID, '_pauza_material_type', 'video'), [
-        'calculator'  => __('Калькулятор', 'pauza-rabotaet'),
-        'bot'         => __('Бот', 'pauza-rabotaet'),
-        'video'       => __('Видео/канал', 'pauza-rabotaet'),
-        'download'    => __('Скачать', 'pauza-rabotaet'),
-        'instruction' => __('Инструкция', 'pauza-rabotaet'),
-        'other'       => __('Другое', 'pauza-rabotaet'),
+        'project_channel' => __('Канал проекта', 'pauza-rabotaet'),
+        'step_group'      => __('Группа шага', 'pauza-rabotaet'),
+        'bot'             => __('Бот', 'pauza-rabotaet'),
+        'video'           => __('Видео', 'pauza-rabotaet'),
+        'calculator'      => __('Калькулятор', 'pauza-rabotaet'),
+        'download'        => __('Скачать', 'pauza-rabotaet'),
+        'instruction'     => __('Инструкция', 'pauza-rabotaet'),
     ]);
     pauza_admin_text_input('_pauza_material_url', __('Внешняя ссылка', 'pauza-rabotaet'), pauza_meta($post->ID, '_pauza_material_url'), 'url');
     pauza_admin_text_input('_pauza_material_button_label', __('Текст кнопки', 'pauza-rabotaet'), pauza_meta($post->ID, '_pauza_material_button_label', __('Открыть', 'pauza-rabotaet')), 'text');
@@ -192,6 +210,15 @@ function pauza_save_meta_boxes(int $post_id): void
 
     if ('pauza_today' === $post_type && isset($_POST['pauza_today_nonce']) && wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['pauza_today_nonce'])), 'pauza_save_today_meta')) {
         pauza_save_fields($post_id, ['_pauza_today_date' => 'text']);
+    }
+
+    if ('pauza_news' === $post_type && isset($_POST['pauza_news_nonce']) && wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['pauza_news_nonce'])), 'pauza_save_news_meta')) {
+        $fields = [
+            '_pauza_news_type'         => 'text',
+            '_pauza_news_url'          => 'url',
+            '_pauza_news_button_label' => 'text',
+        ];
+        pauza_save_fields($post_id, $fields);
     }
 
     if ('pauza_material' === $post_type && isset($_POST['pauza_material_nonce']) && wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['pauza_material_nonce'])), 'pauza_save_material_meta')) {

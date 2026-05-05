@@ -26,8 +26,8 @@ function pauza_seed_default_content(): void
 
     $calculator_id = pauza_seed_page(
         'calculator',
-        'Калькулятор выздоровления',
-        'Калькулятор помогает ежедневно фиксировать состояние и отправлять результат спонсору или в группу.',
+        'Калькуляторы',
+        'Калькуляторы открываются во внешних ботах Telegram и MAX. Сайт дает ссылки и объясняет, куда отправлять результат.',
         ''
     );
 
@@ -62,16 +62,20 @@ add_action('admin_init', 'pauza_ensure_default_menu_items');
 
 function pauza_ensure_news_seeded(): void
 {
-    if (get_option('pauza_news_seeded_v1')) {
+    if (get_option('pauza_news_seeded_v2')) {
         return;
     }
 
     pauza_seed_news();
-    update_option('pauza_news_seeded_v1', current_time('mysql'));
+    update_option('pauza_news_seeded_v2', current_time('mysql'));
 }
 
 function pauza_ensure_default_menu_items(): void
 {
+    if (get_option('pauza_menu_seeded_v2')) {
+        return;
+    }
+
     $home = get_page_by_path('glavnaya', OBJECT, 'page');
     $calculator = get_page_by_path('calculator', OBJECT, 'page');
     $bot = get_page_by_path('bot-4-shaga', OBJECT, 'page');
@@ -113,7 +117,7 @@ function pauza_seed_step_full_texts_for_existing_posts(): void
 
 function pauza_seed_step_structured_blocks_for_existing_posts(): void
 {
-    if (get_option('pauza_step_blocks_seeded_v1')) {
+    if (get_option('pauza_step_blocks_seeded_v2')) {
         return;
     }
 
@@ -144,7 +148,7 @@ function pauza_seed_step_structured_blocks_for_existing_posts(): void
         }
     }
 
-    update_option('pauza_step_blocks_seeded_v1', current_time('mysql'));
+    update_option('pauza_step_blocks_seeded_v2', current_time('mysql'));
 }
 
 function pauza_seed_options(): void
@@ -158,8 +162,9 @@ function pauza_seed_options(): void
         'yandex_disk_url'            => 'https://disk.yandex.ru/d/N2hLvMMUeXxsjg',
         'four_step_bot_url'          => 'https://t.me/FourStepForAllBot',
         'calculator_instruction_url' => '',
-        'calculator_intro'           => 'Работайте в калькуляторе каждый день. Результат отправляйте спонсору или в группу шага, если спонсор пока не выбран.',
-        'calculator_embed'           => '',
+        'calculator_telegram_url'    => '',
+        'calculator_max_url'         => '',
+        'calculator_intro'           => 'Калькуляторы открываются как внешние боты в Telegram или MAX. На сайте мы только объясняем, когда ими пользоваться и куда отправлять результат.',
         'privacy_notice'             => 'Публично показываются только подтвержденные контакты. Большая просьба не звонить: сначала напишите сообщение, представьтесь и коротко расскажите о себе.',
         'footer_note'                => 'Сайт помогает ориентироваться в программе и ведет во внешние группы, боты и видеоматериалы. Он не заменяет работу со спонсором.',
     ];
@@ -522,9 +527,9 @@ function pauza_step_structured_blocks(): array
         ],
         '2' => [
             'materials' => [
-                'Видео 011-020 по второму шагу.',
-                'Группа 2 шага в Telegram и MAX.',
-                'Длинный текст про похоть оставлен в полном тексте шага.',
+                'День 9-18: видео 011-020 по второму шагу смотреть по порядку.',
+                'Группа 2 шага в Telegram и MAX используется для вопросов по текущему шагу.',
+                'Длинный текст про похоть и отношения оставлен во вкладке "Полный текст" для проверки большого prose-блока.',
             ],
             'exercises' => "Ответить по каждой из пяти зависимостей: какими станут мои отношения в свободе от этой зависимости.\n\nПодвести итоги и зачитать работу спонсору.",
         ],
@@ -538,8 +543,9 @@ function pauza_step_structured_blocks(): array
         ],
         '4' => [
             'materials' => [
-                'Telegram-бот 4 шага.',
-                'Страница сайта только объясняет момент перехода.',
+                'Telegram-бот 4 шага: внешний инструмент для письменной инвентаризации.',
+                'Страница сайта только объясняет момент перехода и не хранит личные ответы.',
+                'Группы проекта и каналы не заменяют бот: бот используется именно на четвертом шаге.',
             ],
             'exercises' => "Рабочие вопросы и ответы выполняются во внешнем боте. Сайт не должен хранить личные ответы четвертого шага.",
         ],
@@ -566,11 +572,12 @@ function pauza_step_structured_blocks(): array
         ],
         '8' => [
             'materials' => [
-                'Видео восьмого шага.',
-                'Группа 8 шага в Telegram и MAX.',
-                'Ссылка ЦБ для курса валют: https://www.cbr.ru/currency_base/daily/',
+                'День 8 шага: смотреть видео восьмого шага по порядку, не переносить их в общую свалку материалов.',
+                'Группа 8 шага в Telegram и MAX: вопросы по текущей работе и спискам вреда.',
+                'Ссылка ЦБ для курса валют при материальном ущербе: https://www.cbr.ru/currency_base/daily/',
+                'Переход в 9 шаг показывается только после завершения списков и согласования со спонсором.',
             ],
-            'exercises' => "Списки вреда: физический себе, физический другим, косвенный физический, психический себе, психический другим, материальный организациям, материальный людям, материальный друзьям/партнерам, материальный родным.\n\nУпражнение ВДА из документа хранится в полном тексте шага.",
+            'exercises' => "Списки вреда из документа:\nфизический себе;\nфизический другим;\nкосвенный физический;\nпсихический себе;\nпсихический другим;\nматериальный организациям;\nматериальный людям;\nматериальный друзьям и партнерам;\nматериальный родным.\n\nДля материального ущерба отдельно фиксируется сумма, дата, курс валюты и понятное объяснение, как считался вред.\n\nУпражнение ВДА остается внутри восьмого шага. Его не нужно выносить в общий раздел материалов: человек открывает вкладку шага, читает инструкцию и работает со спонсором.\n\nПосле завершения восьмого шага человек переходит к девятому шагу: письма и план выхода согласуются со спонсором.",
         ],
         '9' => [
             'materials' => [
@@ -642,16 +649,16 @@ function pauza_seed_materials(): void
     $materials = [
         [
             'slug' => 'telegram-video',
-            'title' => 'Видео в Telegram',
-            'content' => 'Основной Telegram-канал с видеоматериалами программы.',
-            'type' => 'video',
+            'title' => 'Telegram-канал проекта',
+            'content' => 'Основной канал проекта с видео и объявлениями. Это канал проекта, а не бот.',
+            'type' => 'project_channel',
             'url' => 'https://t.me/neporukovodstvu',
             'label' => 'Открыть Telegram',
         ],
         [
             'slug' => 'rutube-video',
             'title' => 'Видео на Rutube',
-            'content' => 'Дублирующий канал видеоматериалов на Rutube.',
+            'content' => 'Дублирующий видеоканал. Конкретные видео лучше показывать внутри нужного шага.',
             'type' => 'video',
             'url' => 'https://rutube.ru/channel/44350949/',
             'label' => 'Открыть Rutube',
@@ -667,10 +674,34 @@ function pauza_seed_materials(): void
         [
             'slug' => 'bot-4-shaga-telegram',
             'title' => 'Telegram-бот 4 шага',
-            'content' => 'Внешний бот для работы по четвертому шагу.',
+            'content' => 'Внешний бот для работы по четвертому шагу. Показывается как инструмент шага, а не как постоянный пункт меню.',
             'type' => 'bot',
             'url' => 'https://t.me/FourStepForAllBot',
             'label' => 'Открыть бота',
+        ],
+        [
+            'slug' => 'vosmoy-shag-telegram-group',
+            'title' => 'Telegram-группа 8 шага',
+            'content' => 'Группа конкретного шага. Ее не смешиваем с общими каналами проекта и ботами.',
+            'type' => 'step_group',
+            'url' => 'https://t.me/+25xg0R3EbdExMTUy',
+            'label' => 'Открыть группу',
+        ],
+        [
+            'slug' => 'calculator-telegram-bot',
+            'title' => 'Калькулятор в Telegram',
+            'content' => 'Внешний бот-калькулятор. Сайт не хранит ответы и не встраивает калькулятор в админку.',
+            'type' => 'calculator',
+            'url' => '',
+            'label' => 'Открыть Telegram-бот',
+        ],
+        [
+            'slug' => 'calculator-max-bot',
+            'title' => 'Калькулятор в MAX',
+            'content' => 'Внешний MAX-инструмент для ежедневного расчета, когда ссылка будет подтверждена владельцем.',
+            'type' => 'calculator',
+            'url' => '',
+            'label' => 'Открыть MAX-бот',
         ],
     ];
 
@@ -697,14 +728,40 @@ function pauza_seed_today(): void
 
 function pauza_seed_news(): void
 {
-    pauza_seed_post(
-        'pauza_news',
-        'novosti-start',
-        'Раздел новостей готов',
-        'Здесь можно публиковать объявления, новые видео, изменения ссылок групп и важные сообщения для участников программы.',
-        [],
-        'publish'
-    );
+    $news = [
+        [
+            'slug' => 'novoe-video-vosmoy-shag',
+            'title' => 'Новое видео для 8 шага',
+            'content' => 'Добавлено видео к восьмому шагу: как не смешивать списки вреда, материальный ущерб и упражнение ВДА. Ссылка также дублируется внутри страницы 8 шага.',
+            'type' => 'Видео',
+            'url' => 'https://rutube.ru/channel/44350949/',
+            'label' => 'Открыть видео',
+        ],
+        [
+            'slug' => 'obnovleny-ssylki-grupp',
+            'title' => 'Обновлены ссылки групп',
+            'content' => 'Проверены ссылки Telegram и MAX для шаговых групп. Если ссылка не открывается, используйте раздел материалов или напишите спонсору.',
+            'type' => 'Группы',
+            'url' => home_url('/materialy/'),
+            'label' => 'Открыть материалы',
+        ],
+        [
+            'slug' => 'snachala-vybrat-sponsora',
+            'title' => 'Перед началом: сначала выберите спонсора',
+            'content' => 'Новичку лучше не проходить программу в одиночку. Откройте список, выберите свой пол и сначала напишите короткое сообщение. Звонить без предварительной переписки не нужно.',
+            'type' => 'Важно',
+            'url' => home_url('/sponsory/'),
+            'label' => 'Выбрать спонсора',
+        ],
+    ];
+
+    foreach ($news as $item) {
+        pauza_seed_post('pauza_news', $item['slug'], $item['title'], $item['content'], [
+            '_pauza_news_type'         => $item['type'],
+            '_pauza_news_url'          => $item['url'],
+            '_pauza_news_button_label' => $item['label'],
+        ], 'publish');
+    }
 }
 
 function pauza_seed_sponsors(): void
@@ -720,6 +777,8 @@ function pauza_seed_menu(int $home_id, int $calculator_id, int $bot_id): void
         return;
     }
 
+    pauza_remove_menu_items((int) $menu_id, ['Калькулятор', 'Калькуляторы', 'Материалы', 'Только сегодня', 'Бот 4 шага', 'Еще']);
+
     if ($home_id && !pauza_menu_has_item((int) $menu_id, 'Начать')) {
         wp_update_nav_menu_item($menu_id, 0, [
             'menu-item-title'     => 'Начать',
@@ -730,17 +789,13 @@ function pauza_seed_menu(int $home_id, int $calculator_id, int $bot_id): void
         ]);
     }
 
-    $links = [
-        ['Спонсоры', home_url('/sponsory/')],
+    $top_links = [
         ['12 шагов', home_url('/12-shagov/')],
-        ['Калькулятор', $calculator_id ? get_permalink($calculator_id) : home_url('/calculator/')],
+        ['Спонсоры', home_url('/sponsory/')],
         ['Новости', home_url('/novosti/')],
-        ['Материалы', home_url('/materialy/')],
-        ['Только сегодня', home_url('/tolko-segodnya/')],
-        ['Бот 4 шага', $bot_id ? get_permalink($bot_id) : home_url('/bot-4-shaga/')],
     ];
 
-    foreach ($links as $link) {
+    foreach ($top_links as $link) {
         if (pauza_menu_has_item((int) $menu_id, $link[0])) {
             continue;
         }
@@ -753,10 +808,51 @@ function pauza_seed_menu(int $home_id, int $calculator_id, int $bot_id): void
         ]);
     }
 
+    $more_id = wp_update_nav_menu_item($menu_id, 0, [
+        'menu-item-title'  => 'Еще',
+        'menu-item-url'    => '#',
+        'menu-item-type'   => 'custom',
+        'menu-item-status' => 'publish',
+    ]);
+
+    if (!is_wp_error($more_id) && $more_id) {
+        $secondary_links = [
+            ['Материалы', home_url('/materialy/')],
+            ['Только сегодня', home_url('/tolko-segodnya/')],
+            ['Калькуляторы', $calculator_id ? get_permalink($calculator_id) : home_url('/calculator/')],
+        ];
+
+        foreach ($secondary_links as $link) {
+            wp_update_nav_menu_item($menu_id, 0, [
+                'menu-item-title'     => $link[0],
+                'menu-item-url'       => $link[1],
+                'menu-item-type'      => 'custom',
+                'menu-item-status'    => 'publish',
+                'menu-item-parent-id' => (int) $more_id,
+            ]);
+        }
+    }
+
     set_theme_mod('nav_menu_locations', [
         'primary' => (int) $menu_id,
         'footer'  => (int) $menu_id,
     ]);
+
+    update_option('pauza_menu_seeded_v2', current_time('mysql'));
+}
+
+function pauza_remove_menu_items(int $menu_id, array $titles): void
+{
+    $items = wp_get_nav_menu_items($menu_id);
+    if (!is_array($items)) {
+        return;
+    }
+
+    foreach ($items as $item) {
+        if (in_array($item->title, $titles, true)) {
+            wp_delete_post((int) $item->ID, true);
+        }
+    }
 }
 
 function pauza_menu_has_item(int $menu_id, string $title): bool

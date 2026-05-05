@@ -15,6 +15,11 @@
     filterButtons.forEach(function (button) {
         button.addEventListener('click', function () {
             const filter = button.getAttribute('data-sponsor-filter');
+            const sponsorList = document.querySelector('[data-sponsor-list]');
+
+            if (sponsorList) {
+                sponsorList.classList.remove('is-collapsed');
+            }
 
             filterButtons.forEach(function (item) {
                 item.classList.toggle('is-active', item === button);
@@ -22,7 +27,7 @@
 
             sponsorCards.forEach(function (card) {
                 const gender = card.getAttribute('data-sponsor-gender');
-                card.classList.toggle('is-hidden', filter !== 'all' && gender !== filter);
+                card.classList.toggle('is-hidden', gender !== filter);
             });
         });
     });

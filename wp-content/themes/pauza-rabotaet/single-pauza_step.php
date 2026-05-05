@@ -55,10 +55,11 @@ while (have_posts()) :
 
                 <div class="pauza-tabs" data-pauza-tabs>
                     <div class="pauza-tabs__nav" role="tablist" aria-label="<?php esc_attr_e('Разделы шага', 'pauza-rabotaet'); ?>">
-                        <button class="is-active" type="button" role="tab" id="pauza-tab-overview" aria-selected="true" aria-controls="pauza-panel-overview" data-tab-target="overview"><?php esc_html_e('Обзор', 'pauza-rabotaet'); ?></button>
+                        <button class="is-active" type="button" role="tab" id="pauza-tab-overview" aria-selected="true" aria-controls="pauza-panel-overview" data-tab-target="overview"><?php esc_html_e('Коротко', 'pauza-rabotaet'); ?></button>
                         <button type="button" role="tab" id="pauza-tab-requirements" aria-selected="false" aria-controls="pauza-panel-requirements" data-tab-target="requirements"><?php esc_html_e('Условия', 'pauza-rabotaet'); ?></button>
-                        <button type="button" role="tab" id="pauza-tab-tasks" aria-selected="false" aria-controls="pauza-panel-tasks" data-tab-target="tasks"><?php esc_html_e('Что делать', 'pauza-rabotaet'); ?></button>
-                        <button type="button" role="tab" id="pauza-tab-materials" aria-selected="false" aria-controls="pauza-panel-materials" data-tab-target="materials"><?php esc_html_e('Материалы', 'pauza-rabotaet'); ?></button>
+                        <button type="button" role="tab" id="pauza-tab-tasks" aria-selected="false" aria-controls="pauza-panel-tasks" data-tab-target="tasks"><?php esc_html_e('Задания', 'pauza-rabotaet'); ?></button>
+                        <button type="button" role="tab" id="pauza-tab-materials" aria-selected="false" aria-controls="pauza-panel-materials" data-tab-target="materials"><?php esc_html_e('Видео и ссылки', 'pauza-rabotaet'); ?></button>
+                        <button type="button" role="tab" id="pauza-tab-exercises" aria-selected="false" aria-controls="pauza-panel-exercises" data-tab-target="exercises"><?php esc_html_e('Упражнения', 'pauza-rabotaet'); ?></button>
                         <button type="button" role="tab" id="pauza-tab-full" aria-selected="false" aria-controls="pauza-panel-full" data-tab-target="full"><?php esc_html_e('Полный текст', 'pauza-rabotaet'); ?></button>
                         <button type="button" role="tab" id="pauza-tab-next" aria-selected="false" aria-controls="pauza-panel-next" data-tab-target="next"><?php esc_html_e('Дальше', 'pauza-rabotaet'); ?></button>
                     </div>
@@ -100,7 +101,7 @@ while (have_posts()) :
                     </div>
 
                     <div class="pauza-tabs__panel" role="tabpanel" id="pauza-panel-materials" aria-labelledby="pauza-tab-materials" data-tab-panel="materials" hidden>
-                        <h2><?php esc_html_e('Материалы шага', 'pauza-rabotaet'); ?></h2>
+                        <h2><?php esc_html_e('Видео и ссылки', 'pauza-rabotaet'); ?></h2>
                         <?php if ($materials) : ?>
                             <ul class="pauza-check-list">
                                 <?php foreach ($materials as $item) : ?>
@@ -109,15 +110,25 @@ while (have_posts()) :
                             </ul>
                         <?php endif; ?>
 
-                        <?php if ($exercises) : ?>
-                            <h3><?php esc_html_e('Упражнения и важные блоки', 'pauza-rabotaet'); ?></h3>
-                            <div class="pauza-content">
-                                <?php pauza_render_plain_text($exercises); ?>
+                        <?php if ('4' === (string) $number) : ?>
+                            <div class="pauza-actions">
+                                <?php echo pauza_button(pauza_get_option('four_step_bot_url'), __('Открыть бот 4 шага', 'pauza-rabotaet'), 'pauza-button pauza-button--primary'); ?>
                             </div>
                         <?php endif; ?>
 
-                        <?php if (!$materials && !$exercises) : ?>
+                        <?php if (!$materials) : ?>
                             <p><?php esc_html_e('Материалы для этого шага пока не добавлены.', 'pauza-rabotaet'); ?></p>
+                        <?php endif; ?>
+                    </div>
+
+                    <div class="pauza-tabs__panel" role="tabpanel" id="pauza-panel-exercises" aria-labelledby="pauza-tab-exercises" data-tab-panel="exercises" hidden>
+                        <h2><?php esc_html_e('Упражнения', 'pauza-rabotaet'); ?></h2>
+                        <?php if ($exercises) : ?>
+                            <div class="pauza-content">
+                                <?php pauza_render_plain_text($exercises); ?>
+                            </div>
+                        <?php else : ?>
+                            <p><?php esc_html_e('Упражнения для этого шага пока не добавлены.', 'pauza-rabotaet'); ?></p>
                         <?php endif; ?>
                     </div>
 

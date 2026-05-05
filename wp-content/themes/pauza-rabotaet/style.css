@@ -178,6 +178,36 @@ p {
     background: var(--pauza-surface-alt);
 }
 
+.pauza-nav .menu-item-has-children {
+    position: relative;
+}
+
+.pauza-nav .sub-menu {
+    position: absolute;
+    top: calc(100% + 0.35rem);
+    right: 0;
+    z-index: 20;
+    display: none;
+    min-width: 220px;
+    padding: 0.45rem;
+    margin: 0;
+    border: 1px solid var(--pauza-line);
+    border-radius: 8px;
+    background: var(--pauza-surface);
+    box-shadow: var(--pauza-shadow);
+    list-style: none;
+}
+
+.pauza-nav .menu-item-has-children:hover > .sub-menu,
+.pauza-nav .menu-item-has-children:focus-within > .sub-menu {
+    display: block;
+}
+
+.pauza-nav .sub-menu a {
+    justify-content: flex-start;
+    width: 100%;
+}
+
 .pauza-menu-toggle {
     display: none;
     width: 44px;
@@ -202,7 +232,7 @@ p {
     padding: clamp(3rem, 8vw, 7rem) 0;
     background:
         linear-gradient(120deg, rgba(247, 244, 238, 0.96), rgba(255, 253, 248, 0.78)),
-        url("assets/program-route.png") center / cover no-repeat,
+        url("assets/program-route.png") right center / min(920px, 74vw) auto no-repeat,
         var(--pauza-bg);
 }
 
@@ -633,6 +663,22 @@ p {
     display: none;
 }
 
+.pauza-sponsor-grid.is-collapsed {
+    display: none;
+}
+
+.pauza-phone {
+    color: var(--pauza-text);
+    font-size: 1.15rem;
+    font-weight: 850;
+    word-break: break-word;
+}
+
+.pauza-muted-line {
+    color: var(--pauza-muted);
+    font-size: 0.95rem;
+}
+
 .pauza-empty {
     text-align: left;
 }
@@ -690,8 +736,11 @@ p {
         position: absolute;
         top: 74px;
         right: 1rem;
-        left: 1rem;
+        left: auto;
         display: none;
+        width: min(340px, calc(100vw - 2rem));
+        max-height: calc(100vh - 92px);
+        overflow: auto;
         padding: 0.8rem;
         border: 1px solid var(--pauza-line);
         border-radius: 8px;
@@ -710,6 +759,22 @@ p {
 
     .pauza-nav a {
         width: 100%;
+    }
+
+    .pauza-nav .sub-menu {
+        position: static;
+        display: block;
+        min-width: 0;
+        padding: 0 0 0 0.7rem;
+        border: 0;
+        background: transparent;
+        box-shadow: none;
+    }
+
+    .pauza-nav .sub-menu a {
+        min-height: 38px;
+        color: var(--pauza-muted);
+        font-size: 0.95rem;
     }
 
     .pauza-home-hero__grid,
@@ -741,6 +806,9 @@ p {
     .pauza-home-hero,
     .pauza-page-hero {
         padding: 2.4rem 0;
+        background:
+            linear-gradient(120deg, rgba(247, 244, 238, 0.96), rgba(255, 253, 248, 0.9)),
+            var(--pauza-bg);
     }
 
     .pauza-card-grid,

@@ -41,7 +41,7 @@
                 'container'      => false,
                 'menu_class'     => 'pauza-nav__list',
                 'fallback_cb'    => 'pauza_fallback_menu',
-                'depth'          => 1,
+                'depth'          => 2,
             ]);
             ?>
         </nav>

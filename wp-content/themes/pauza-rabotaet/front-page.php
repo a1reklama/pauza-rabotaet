@@ -16,8 +16,8 @@ $news = pauza_latest_news_query(2);
     <div class="pauza-container pauza-home-hero__grid">
         <div class="pauza-home-hero__copy">
             <p class="pauza-eyebrow"><?php esc_html_e('12 шагов за 360 дней', 'pauza-rabotaet'); ?></p>
-            <h1><?php esc_html_e('Начните спокойно. Сайт подскажет следующий шаг', 'pauza-rabotaet'); ?></h1>
-            <p class="pauza-lead"><?php esc_html_e('Здесь не нужно разбираться во всем сразу. Выберите спонсора, откройте первый шаг и переходите дальше по простым кнопкам.', 'pauza-rabotaet'); ?></p>
+            <h1><?php esc_html_e('Пауза работает', 'pauza-rabotaet'); ?></h1>
+            <p class="pauza-lead"><?php esc_html_e('Выберите спонсора и начните первый шаг. Остальные материалы открывайте по мере прохождения.', 'pauza-rabotaet'); ?></p>
             <div class="pauza-actions">
                 <?php echo pauza_internal_button(home_url('/sponsory/'), __('Выбрать спонсора', 'pauza-rabotaet'), 'pauza-button pauza-button--primary'); ?>
                 <?php echo pauza_internal_button(home_url('/12-shagov/pervyy-shag/'), __('Начать 1 шаг', 'pauza-rabotaet')); ?>
@@ -81,10 +81,16 @@ $news = pauza_latest_news_query(2);
         <div class="pauza-card-grid">
             <?php if ($news->have_posts()) : ?>
                 <?php while ($news->have_posts()) : $news->the_post(); ?>
+                    <?php
+                    $news_type = pauza_meta(get_the_ID(), '_pauza_news_type');
+                    $news_url = pauza_meta(get_the_ID(), '_pauza_news_url');
+                    $news_button = pauza_meta(get_the_ID(), '_pauza_news_button_label', __('Открыть', 'pauza-rabotaet'));
+                    ?>
                     <article class="pauza-card">
-                        <p class="pauza-tag"><?php echo esc_html(get_the_date()); ?></p>
+                        <p class="pauza-tag"><?php echo esc_html(trim(($news_type ? $news_type . ' · ' : '') . get_the_date())); ?></p>
                         <h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
                         <p><?php echo esc_html(wp_trim_words(get_the_excerpt() ?: get_the_content(), 18)); ?></p>
+                        <?php echo pauza_smart_button($news_url, $news_button); ?>
                     </article>
                 <?php endwhile; wp_reset_postdata(); ?>
             <?php else : ?>
