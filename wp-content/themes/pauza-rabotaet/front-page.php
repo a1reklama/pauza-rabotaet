@@ -17,9 +17,10 @@ $news = pauza_latest_news_query(2);
         <div class="pauza-home-hero__copy">
             <p class="pauza-eyebrow"><?php esc_html_e('12 шагов за 360 дней', 'pauza-rabotaet'); ?></p>
             <h1><?php esc_html_e('Пауза работает', 'pauza-rabotaet'); ?></h1>
-            <p class="pauza-lead"><?php esc_html_e('Выберите спонсора и начните первый шаг. Остальные материалы открывайте только тогда, когда они нужны по шагу.', 'pauza-rabotaet'); ?></p>
+            <p class="pauza-lead"><?php esc_html_e('Сначала выберите спонсора, потом откройте 360 видео и материалы, затем начинайте первый шаг.', 'pauza-rabotaet'); ?></p>
             <div class="pauza-actions">
                 <?php echo pauza_internal_button(home_url('/sponsory/'), __('Выбрать спонсора', 'pauza-rabotaet'), 'pauza-button pauza-button--primary'); ?>
+                <?php echo pauza_internal_button(home_url('/materialy/'), __('Открыть 360 видео', 'pauza-rabotaet')); ?>
                 <?php echo pauza_internal_button(home_url('/12-shagov/pervyy-shag/'), __('Начать 1 шаг', 'pauza-rabotaet')); ?>
             </div>
         </div>
@@ -30,11 +31,15 @@ $news = pauza_latest_news_query(2);
             </div>
             <div class="pauza-route__item">
                 <span>2</span>
-                <strong><?php esc_html_e('Начать 1 шаг', 'pauza-rabotaet'); ?></strong>
+                <strong><?php esc_html_e('Открыть 360 видео и материалы', 'pauza-rabotaet'); ?></strong>
             </div>
             <div class="pauza-route__item">
                 <span>3</span>
-                <strong><?php esc_html_e('Открыть группу или инструмент шага', 'pauza-rabotaet'); ?></strong>
+                <strong><?php esc_html_e('Начать 1 шаг', 'pauza-rabotaet'); ?></strong>
+            </div>
+            <div class="pauza-route__item">
+                <span>4</span>
+                <strong><?php esc_html_e('Дальше идти только по переходу шага', 'pauza-rabotaet'); ?></strong>
             </div>
         </div>
     </div>
@@ -67,13 +72,19 @@ $news = pauza_latest_news_query(2);
             </article>
             <article class="pauza-card">
                 <span class="pauza-card__number">02</span>
+                <h3><?php esc_html_e('Открыть 360 видео', 'pauza-rabotaet'); ?></h3>
+                <p><?php esc_html_e('В DOCX перед первым шагом указаны Telegram, Rutube и Яндекс.Диск с видео. Показываем их до карты шагов.', 'pauza-rabotaet'); ?> <?php echo pauza_origin_badge('source'); ?></p>
+                <?php echo pauza_internal_button(home_url('/materialy/'), __('Открыть материалы', 'pauza-rabotaet')); ?>
+            </article>
+            <article class="pauza-card">
+                <span class="pauza-card__number">03</span>
                 <h3><?php esc_html_e('Начать 1 шаг', 'pauza-rabotaet'); ?></h3>
                 <p><?php esc_html_e('На странице шага сначала видны пункты работы из DOCX. Длинный текст руководителя открыт отдельной вкладкой.', 'pauza-rabotaet'); ?> <?php echo pauza_origin_badge('editorial'); ?></p>
                 <?php echo pauza_internal_button(home_url('/12-shagov/pervyy-shag/'), __('Начать 1 шаг', 'pauza-rabotaet')); ?>
             </article>
             <article class="pauza-card">
-                <span class="pauza-card__number">03</span>
-                <h3><?php esc_html_e('Открыть группу или инструмент', 'pauza-rabotaet'); ?></h3>
+                <span class="pauza-card__number">04</span>
+                <h3><?php esc_html_e('Идти по переходу шага', 'pauza-rabotaet'); ?></h3>
                 <p><?php esc_html_e('Группы, боты и калькуляторы показываются внутри того шага, где они действительно нужны.', 'pauza-rabotaet'); ?> <?php echo pauza_origin_badge('editorial'); ?></p>
                 <?php echo pauza_internal_button(home_url('/12-shagov/'), __('Открыть карту шагов', 'pauza-rabotaet')); ?>
             </article>
@@ -81,7 +92,34 @@ $news = pauza_latest_news_query(2);
     </div>
 </section>
 
-<section class="pauza-section" id="steps">
+<section class="pauza-section">
+    <div class="pauza-container">
+        <div class="pauza-section__heading">
+            <p class="pauza-eyebrow"><?php esc_html_e('Материалы до начала', 'pauza-rabotaet'); ?></p>
+            <h2><?php esc_html_e('360 видео можно скачать здесь', 'pauza-rabotaet'); ?></h2>
+            <p><?php esc_html_e('Этот блок стоит перед шагами, потому что в DOCX он идет до первого шага.', 'pauza-rabotaet'); ?> <?php echo pauza_origin_badge('source'); ?></p>
+        </div>
+        <div class="pauza-card-grid pauza-card-grid--three">
+            <article class="pauza-card">
+                <p class="pauza-tag"><?php esc_html_e('Telegram', 'pauza-rabotaet'); ?></p>
+                <h3><?php esc_html_e('Telegram-канал 360 видео', 'pauza-rabotaet'); ?></h3>
+                <?php echo pauza_button(pauza_get_option('telegram_channel_url'), __('Открыть Telegram-канал 360 видео', 'pauza-rabotaet'), 'pauza-button pauza-button--primary'); ?>
+            </article>
+            <article class="pauza-card">
+                <p class="pauza-tag"><?php esc_html_e('Rutube', 'pauza-rabotaet'); ?></p>
+                <h3><?php esc_html_e('Rutube-канал', 'pauza-rabotaet'); ?></h3>
+                <?php echo pauza_button(pauza_get_option('rutube_channel_url'), __('Открыть Rutube-канал', 'pauza-rabotaet')); ?>
+            </article>
+            <article class="pauza-card">
+                <p class="pauza-tag"><?php esc_html_e('Яндекс.Диск', 'pauza-rabotaet'); ?></p>
+                <h3><?php esc_html_e('Скачать видео', 'pauza-rabotaet'); ?></h3>
+                <?php echo pauza_button(pauza_get_option('yandex_disk_url'), __('Открыть Яндекс.Диск', 'pauza-rabotaet')); ?>
+            </article>
+        </div>
+    </div>
+</section>
+
+<section class="pauza-section pauza-section--muted" id="steps">
     <div class="pauza-container">
         <div class="pauza-section__heading">
             <p class="pauza-eyebrow"><?php esc_html_e('Карта программы', 'pauza-rabotaet'); ?></p>

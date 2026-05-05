@@ -372,15 +372,16 @@ p {
     border-radius: 8px;
     color: #fff;
     background: var(--pauza-primary);
-    font-weight: 850;
+    font-weight: 700;
 }
 
 .pauza-step-icon {
     display: block;
-    width: 64px;
-    height: 64px;
+    width: 72px;
+    height: 72px;
     object-fit: contain;
-    border-radius: 50%;
+    object-position: center center;
+    border-radius: 0;
     flex: 0 0 auto;
 }
 
@@ -388,10 +389,11 @@ p {
     display: grid;
     place-items: center;
     border: 5px solid #c90000;
+    border-radius: 50%;
     color: #c90000;
     background: #fff;
     font-size: 2.25rem;
-    font-weight: 900;
+    font-weight: 700;
     line-height: 1;
 }
 
@@ -448,7 +450,7 @@ p {
     margin-bottom: 0.8rem;
     color: var(--pauza-amber);
     font-size: 0.82rem;
-    font-weight: 850;
+    font-weight: 700;
     text-transform: uppercase;
 }
 
@@ -463,7 +465,7 @@ p {
     color: var(--pauza-muted);
     background: #f7f7f2;
     font-size: 0.76rem;
-    font-weight: 850;
+    font-weight: 700;
     line-height: 1.1;
     text-transform: uppercase;
     vertical-align: middle;
@@ -598,6 +600,9 @@ p {
 
 .pauza-step-hero__icon {
     display: grid;
+    width: 72px;
+    min-width: 72px;
+    min-height: 72px;
     gap: 0.35rem;
     place-items: center;
 }
@@ -634,6 +639,7 @@ p {
 
 .pauza-step-folder__summary h3 {
     margin-bottom: 0.2rem;
+    font-weight: 650;
 }
 
 .pauza-step-folder__summary p {
@@ -643,7 +649,7 @@ p {
 
 .pauza-step-folder__chevron {
     color: var(--pauza-primary);
-    font-weight: 900;
+    font-weight: 650;
 }
 
 .pauza-step-folder[open] .pauza-step-folder__chevron {
@@ -676,7 +682,7 @@ p {
     border-radius: 8px;
     color: #fff;
     background: var(--pauza-blue);
-    font-weight: 800;
+    font-weight: 650;
 }
 
 .pauza-simple-step {
@@ -726,7 +732,7 @@ p {
     color: var(--pauza-muted);
     background: transparent;
     font: inherit;
-    font-weight: 800;
+    font-weight: 650;
     cursor: pointer;
 }
 
@@ -794,7 +800,7 @@ p {
 
 .pauza-details summary {
     padding: 1rem 1.2rem;
-    font-weight: 850;
+    font-weight: 650;
     cursor: pointer;
 }
 
@@ -827,10 +833,17 @@ p {
 .pauza-task-list li,
 .pauza-source-list li {
     margin-bottom: 0.7rem;
+    font-weight: 400;
 }
 
 .pauza-source-list {
     list-style: none;
+}
+
+.pauza-source-list a,
+.pauza-content a {
+    color: var(--pauza-primary-dark);
+    font-weight: 600;
 }
 
 .pauza-sidebar {
@@ -863,7 +876,7 @@ p {
 .pauza-phone {
     color: var(--pauza-text);
     font-size: 1.15rem;
-    font-weight: 850;
+    font-weight: 700;
     word-break: break-word;
 }
 
@@ -1027,8 +1040,14 @@ p {
     }
 
     .pauza-step-icon {
-        width: 52px;
-        height: 52px;
+        width: 56px;
+        height: 56px;
+    }
+
+    .pauza-step-hero__icon {
+        width: 56px;
+        min-width: 56px;
+        min-height: 56px;
     }
 
     .pauza-step-icon--fallback {

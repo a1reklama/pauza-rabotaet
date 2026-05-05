@@ -22,13 +22,13 @@
             <nav class="pauza-nav" id="pauza-primary-menu" aria-label="Основное меню">
                 <ul class="pauza-nav__list">
                     <li><a href="#start">Начать</a></li>
-                    <li><a href="#steps">12 шагов</a></li>
                     <li><a href="#sponsors">Спонсоры</a></li>
+                    <li><a href="#materials">Материалы</a></li>
+                    <li><a href="#steps">12 шагов</a></li>
                     <li><a href="#news">Новости</a></li>
                     <li class="menu-item-has-children">
                         <a href="#more">Еще</a>
                         <ul class="sub-menu">
-                            <li><a href="#materials">Материалы</a></li>
                             <li><a href="#today">Только сегодня</a></li>
                             <li><a href="#calculator">Калькуляторы</a></li>
                         </ul>
@@ -44,17 +44,19 @@
                 <div class="pauza-home-hero__copy">
                     <p class="pauza-eyebrow">12 шагов за 360 дней</p>
                     <h1>Пауза работает</h1>
-                    <p class="pauza-lead">Выберите спонсора и начните первый шаг. Все 12 шагов ниже идут строго по порядку и открываются как папки.</p>
+                    <p class="pauza-lead">Сначала выберите спонсора, потом откройте 360 видео и материалы, затем начинайте первый шаг.</p>
                     <div class="pauza-actions">
                         <a class="pauza-button pauza-button--primary" href="#sponsors">Выбрать спонсора</a>
+                        <a class="pauza-button" href="#materials">Открыть 360 видео</a>
                         <a class="pauza-button" href="#step-1">Начать 1 шаг</a>
                     </div>
                     <span class="pauza-origin pauza-origin--editorial">Редакционный слой</span>
                 </div>
                 <div class="pauza-route" aria-label="Маршрут новичка">
                     <div class="pauza-route__item"><span>1</span><strong>Выбрать спонсора</strong></div>
-                    <div class="pauza-route__item"><span>2</span><strong>Открыть 1 шаг</strong></div>
-                    <div class="pauza-route__item"><span>3</span><strong>Перейти дальше только по тексту шага</strong></div>
+                    <div class="pauza-route__item"><span>2</span><strong>Открыть 360 видео и материалы</strong></div>
+                    <div class="pauza-route__item"><span>3</span><strong>Начать 1 шаг</strong></div>
+                    <div class="pauza-route__item"><span>4</span><strong>Дальше идти только по переходу шага</strong></div>
                 </div>
             </div>
         </section>
@@ -71,7 +73,52 @@
             </div>
         </section>
 
-        <section class="pauza-section pauza-section--muted" id="steps">
+        <section class="pauza-section" id="sponsors">
+            <div class="pauza-container">
+                <div class="pauza-section__heading">
+                    <p class="pauza-eyebrow">Спонсоры и проводники</p>
+                    <h2>Сначала выберите спонсора своего пола</h2>
+                    <p>Этот блок идет до шагов, потому что в DOCX выбор спонсора указан до начала работы.</p>
+                    <span class="pauza-origin pauza-origin--source">Из DOCX</span>
+                </div>
+                <div class="pauza-next-box">
+                    <div>
+                        <p class="pauza-eyebrow">Перед контактом</p>
+                        <h2>Выберите свой пол</h2>
+                        <p>БОЛЬШАЯ ПРОСЬБА НЕ ЗВОНИТЬ, НАПИСАТЬ СООБЩЕНИЕ В ДОСТУПНЫЙ МЕССЕНДЖЕР ИЛИ СМС, ПРЕДСТАВИТЬСЯ И КОРОТКО РАССКАЗАТЬ О СЕБЕ</p>
+                        <span class="pauza-origin pauza-origin--source">Из DOCX</span>
+                    </div>
+                </div>
+                <div class="pauza-filter" role="group" aria-label="Выбор списка спонсоров">
+                    <button type="button" data-sponsor-filter="female">Женщины</button>
+                    <button type="button" data-sponsor-filter="male">Мужчины</button>
+                </div>
+                <div class="pauza-sponsor-grid is-collapsed" data-sponsor-list>
+                    <p>Выберите список выше.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="pauza-section pauza-section--muted" id="materials">
+            <div class="pauza-container">
+                <div class="pauza-section__heading">
+                    <p class="pauza-eyebrow">Материалы до начала</p>
+                    <h2>360 видео можно скачать здесь</h2>
+                    <p>Этот блок из DOCX стоит до первого шага, поэтому в маршруте он идет перед картой шагов.</p>
+                    <span class="pauza-origin pauza-origin--source">Из DOCX</span>
+                </div>
+                <div class="pauza-card-grid pauza-card-grid--three">
+                    <article class="pauza-card"><p class="pauza-tag">Telegram</p><h3>Telegram-канал 360 видео</h3><p>ТЕЛЕГРАМ</p><a class="pauza-button pauza-button--primary" href="https://t.me/neporukovodstvu" target="_blank" rel="noopener noreferrer">Открыть Telegram-канал 360 видео</a></article>
+                    <article class="pauza-card"><p class="pauza-tag">Rutube</p><h3>Rutube-канал</h3><p>RUTUBE</p><a class="pauza-button" href="https://rutube.ru/channel/44350949/" target="_blank" rel="noopener noreferrer">Открыть Rutube-канал</a></article>
+                    <article class="pauza-card"><p class="pauza-tag">Яндекс.Диск</p><h3>Скачать видео</h3><p>ЯНДЕКС ДИСК</p><a class="pauza-button" href="https://disk.yandex.ru/d/N2hLvMMUeXxsjg" target="_blank" rel="noopener noreferrer">Открыть Яндекс.Диск</a></article>
+                    <article class="pauza-card"><p class="pauza-tag">Группы шагов</p><h3>Внутри конкретного шага</h3><p>Telegram/MAX-группы показываются в том шаге, где они указаны.</p><span class="pauza-origin pauza-origin--editorial">Редакционный слой</span></article>
+                    <article class="pauza-card"><p class="pauza-tag">Боты шагов</p><h3>Внутри нужного шага</h3><p>Конкретный бот показывается в том шаге, где он указан в документе.</p><span class="pauza-origin pauza-origin--editorial">Редакционный слой</span></article>
+                    <article class="pauza-card"><p class="pauza-tag">Калькулятор</p><h3>В первом шаге</h3><p>Калькулятор остается внешним инструментом и появляется в 1 шаге.</p><span class="pauza-origin pauza-origin--editorial">Редакционный слой</span></article>
+                </div>
+            </div>
+        </section>
+
+        <section class="pauza-section" id="steps">
             <div class="pauza-container">
                 <div class="pauza-section__heading">
                     <p class="pauza-eyebrow">Полный маршрут</p>
@@ -81,77 +128,6 @@
                 </div>
                 <div class="pauza-step-folders" id="full-step-folders">
                     <p>Загрузка всех 12 шагов...</p>
-                </div>
-            </div>
-        </section>
-
-        <section class="pauza-section" id="sponsors">
-            <div class="pauza-container">
-                <div class="pauza-section__heading">
-                    <p class="pauza-eyebrow">Спонсоры и проводники</p>
-                    <h2>Список скрыт, пока человек не выберет свой пол</h2>
-                    <span class="pauza-origin pauza-origin--editorial">Редакционный слой</span>
-                </div>
-                <div class="pauza-next-box">
-                    <div>
-                        <p class="pauza-eyebrow">Перед контактом</p>
-                        <h2>Выберите свой пол</h2>
-                        <p>Сначала напишите, не звоните. Представьтесь и коротко расскажите о себе.</p>
-                        <span class="pauza-origin pauza-origin--editorial">Редакционный слой</span>
-                    </div>
-                </div>
-                <div class="pauza-filter" role="group" aria-label="Выбор списка спонсоров">
-                    <button type="button" data-sponsor-filter="female">Женщины</button>
-                    <button type="button" data-sponsor-filter="male">Мужчины</button>
-                </div>
-                <div class="pauza-sponsor-grid is-collapsed" data-sponsor-list>
-                    <article class="pauza-sponsor-card is-hidden" data-sponsor-gender="female">
-                        <p class="pauza-tag">Женщины</p>
-                        <h2>Спонсор</h2>
-                        <p class="pauza-phone">Контакт скрыт</p>
-                        <p>Контакт показан как тест формата. В WordPress реальные контакты публикуются только после подтверждения.</p>
-                        <span class="pauza-origin pauza-origin--verify">Нужно подтвердить</span>
-                    </article>
-                    <article class="pauza-sponsor-card is-hidden" data-sponsor-gender="female">
-                        <p class="pauza-tag">Женщины</p>
-                        <h2>Спонсор</h2>
-                        <p class="pauza-phone">Контакт скрыт</p>
-                        <p>Пользователь сам пишет с телефона или из мессенджера. Кнопки SMS на сайте нет.</p>
-                        <span class="pauza-origin pauza-origin--verify">Нужно подтвердить</span>
-                    </article>
-                    <article class="pauza-sponsor-card is-hidden" data-sponsor-gender="male">
-                        <p class="pauza-tag">Мужчины</p>
-                        <h2>Спонсор</h2>
-                        <p class="pauza-phone">Контакт скрыт</p>
-                        <p>Сначала короткое сообщение, звонить без переписки не нужно.</p>
-                        <span class="pauza-origin pauza-origin--verify">Нужно подтвердить</span>
-                    </article>
-                    <article class="pauza-sponsor-card is-hidden" data-sponsor-gender="male">
-                        <p class="pauza-tag">Мужчины</p>
-                        <h2>Спонсор</h2>
-                        <p class="pauza-phone">Контакт скрыт</p>
-                        <p>Так выглядит карточка после публикации подтвержденного контакта.</p>
-                        <span class="pauza-origin pauza-origin--verify">Нужно подтвердить</span>
-                    </article>
-                </div>
-            </div>
-        </section>
-
-        <section class="pauza-section pauza-section--muted" id="materials">
-            <div class="pauza-container">
-                <div class="pauza-section__heading">
-                    <p class="pauza-eyebrow">Материалы</p>
-                    <h2>Справочник типов, а не свалка</h2>
-                    <p>Глобально показываем каналы и инструменты. Конкретные видео, группы, боты и калькуляторы находятся внутри нужного шага.</p>
-                    <span class="pauza-origin pauza-origin--editorial">Редакционный слой</span>
-                </div>
-                <div class="pauza-card-grid pauza-card-grid--three">
-                    <article class="pauza-card"><p class="pauza-tag">Канал проекта</p><h3>Telegram-канал</h3><p>Общие видео и объявления проекта.</p></article>
-                    <article class="pauza-card"><p class="pauza-tag">Видео</p><h3>Rutube</h3><p>Дублирующий видеоканал, а конкретные видео привязаны к шагам.</p></article>
-                    <article class="pauza-card"><p class="pauza-tag">Скачать</p><h3>Яндекс.Диск</h3><p>Архив видео и файлов.</p></article>
-                    <article class="pauza-card"><p class="pauza-tag">Группа шага</p><h3>Telegram/MAX-группы</h3><p>Группы общения по конкретным шагам.</p></article>
-                    <article class="pauza-card"><p class="pauza-tag">Боты шагов</p><h3>Внутри нужного шага</h3><p>Конкретный бот показывается в том шаге, где он указан в документе.</p></article>
-                    <article class="pauza-card"><p class="pauza-tag">Калькулятор</p><h3>Telegram/MAX-боты</h3><p>Внешние инструменты, указанные в первом шаге.</p></article>
                 </div>
             </div>
         </section>
@@ -254,8 +230,9 @@
             <nav aria-label="Меню в подвале">
                 <ul class="pauza-footer__links">
                     <li><a href="#start">Начать</a></li>
-                    <li><a href="#steps">12 шагов</a></li>
                     <li><a href="#sponsors">Спонсоры</a></li>
+                    <li><a href="#materials">Материалы</a></li>
+                    <li><a href="#steps">12 шагов</a></li>
                     <li><a href="#news">Новости</a></li>
                 </ul>
             </nav>
@@ -279,6 +256,10 @@
                 12: 'Двенадцатый шаг'
             };
             var sourceIconSteps = { 1: true, 2: true, 3: true, 6: true, 7: true, 8: true, 9: true, 10: true, 11: true, 12: true };
+            var sponsors = [
+                ['female', 'Женщина-спонсор', 'Контакт скрыт в preview'],
+                ['male', 'Мужчина-спонсор', 'Контакт скрыт в preview']
+            ];
 
             function splitLines(text) {
                 return String(text || '').split(/\r?\n/).map(function (line) {
@@ -299,6 +280,24 @@
 
             function badge(type, label) {
                 return createElement('span', 'pauza-origin pauza-origin--' + type, label);
+            }
+
+            function renderSponsors() {
+                var target = document.querySelector('[data-sponsor-list]');
+                if (!target) {
+                    return;
+                }
+
+                target.textContent = '';
+                sponsors.forEach(function (sponsor) {
+                    var card = createElement('article', 'pauza-sponsor-card is-hidden');
+                    card.dataset.sponsorGender = sponsor[0];
+                    card.appendChild(createElement('p', 'pauza-tag', sponsor[0] === 'male' ? 'Мужчины' : 'Женщины'));
+                    card.appendChild(createElement('h2', '', sponsor[1]));
+                    card.appendChild(createElement('p', 'pauza-phone', sponsor[2]));
+                    card.appendChild(badge('source', 'Из DOCX'));
+                    target.appendChild(card);
+                });
             }
 
             function iconForStep(stepNumber) {
@@ -337,20 +336,60 @@
                 });
             }
 
-            function urlLabel(url) {
+            function urlLabel(url, context) {
+                var stepMatch = String(context || '').match(/группа\s+(\d+)\s+шага/i);
+                var step = stepMatch ? stepMatch[1] : '';
                 if (/FourStepForAllBot/i.test(url)) {
                     return 'Открыть бот 4 шага';
                 }
                 if (/cbr\.ru/i.test(url)) {
                     return 'Открыть курс ЦБ';
                 }
+                if (/rutube\.ru/i.test(url)) {
+                    return 'Открыть Rutube-канал';
+                }
+                if (/disk\.yandex\.ru/i.test(url)) {
+                    return 'Открыть Яндекс.Диск';
+                }
+                if (/t\.me\/neporukovodstvu/i.test(url)) {
+                    return 'Открыть Telegram-канал 360 видео';
+                }
                 if (/t\.me/i.test(url)) {
-                    return 'Открыть Telegram';
+                    return step ? 'Открыть Telegram-группу ' + step + ' шага' : 'Открыть Telegram';
                 }
                 if (/max\.ru/i.test(url)) {
-                    return 'Открыть MAX';
+                    return step ? 'Открыть MAX-группу ' + step + ' шага' : 'Открыть MAX';
                 }
                 return 'Открыть ссылку';
+            }
+
+            function appendLinkedText(target, text, replaceUrls) {
+                var source = String(text || '');
+                var regex = /https?:\/\/[^\s)]+/g;
+                var lastIndex = 0;
+                var match;
+
+                while ((match = regex.exec(source)) !== null) {
+                    var rawUrl = match[0];
+                    var url = rawUrl.replace(/[.,;:]+$/, '');
+                    var suffix = rawUrl.slice(url.length);
+                    if (match.index > lastIndex) {
+                        target.appendChild(document.createTextNode(source.slice(lastIndex, match.index)));
+                    }
+                    var link = createElement('a', '', replaceUrls ? urlLabel(url, source) : url);
+                    link.href = url;
+                    link.target = '_blank';
+                    link.rel = 'noopener noreferrer';
+                    target.appendChild(link);
+                    if (suffix) {
+                        target.appendChild(document.createTextNode(suffix));
+                    }
+                    lastIndex = match.index + rawUrl.length;
+                }
+
+                if (lastIndex < source.length) {
+                    target.appendChild(document.createTextNode(source.slice(lastIndex)));
+                }
             }
 
             function appendButtons(target, text) {
@@ -361,7 +400,7 @@
 
                 var actions = createElement('div', 'pauza-actions');
                 urls.forEach(function (url, index) {
-                    var link = createElement('a', 'pauza-button' + (index === 0 ? ' pauza-button--primary' : ''), urlLabel(url));
+                    var link = createElement('a', 'pauza-button' + (index === 0 ? ' pauza-button--primary' : ''), urlLabel(url, text));
                     link.href = url;
                     link.target = '_blank';
                     link.rel = 'noopener noreferrer';
@@ -373,15 +412,19 @@
             function renderSourceList(items) {
                 var list = createElement('ul', 'pauza-source-list');
                 items.forEach(function (item) {
-                    list.appendChild(createElement('li', '', item));
+                    var li = createElement('li');
+                    appendLinkedText(li, item, true);
+                    list.appendChild(li);
                 });
                 return list;
             }
 
-            function paragraphize(lines) {
+            function paragraphize(lines, replaceUrls) {
                 var fragment = document.createDocumentFragment();
                 lines.forEach(function (line) {
-                    fragment.appendChild(createElement('p', '', line));
+                    var paragraph = createElement('p');
+                    appendLinkedText(paragraph, line, Boolean(replaceUrls));
+                    fragment.appendChild(paragraph);
                 });
                 return fragment;
             }
@@ -461,9 +504,6 @@
                 var summary = createElement('summary', 'pauza-step-folder__summary');
                 var iconWrap = createElement('div', 'pauza-step-hero__icon');
                 iconWrap.appendChild(iconForStep(stepNumber));
-                if (!sourceIconSteps[stepNumber]) {
-                    iconWrap.appendChild(badge('verify', 'Нужно подтвердить'));
-                }
                 summary.appendChild(iconWrap);
 
                 var heading = createElement('div');
@@ -478,12 +518,12 @@
                 intro.appendChild(createElement('p', 'pauza-tag', 'Текущий шаг'));
                 intro.appendChild(createElement('h2', '', title));
                 var headerLines = lines.slice(0, Math.max(1, lines.findIndex(function (line) { return /^\d+\.\s+/.test(line); })));
-                intro.appendChild(paragraphize(headerLines));
+                intro.appendChild(paragraphize(headerLines, true));
                 appendButtons(intro, headerLines.join('\n'));
                 body.appendChild(intro);
 
                 var work = numberedLines(text);
-                body.appendChild(detailsBlock('Работа по шагу', work.length ? renderSourceList(work) : paragraphize(lines), true));
+                body.appendChild(detailsBlock('Работа по шагу', work.length ? renderSourceList(work) : paragraphize(lines, true), true));
 
                 var materials = materialLines(text);
                 var materialsContent = createElement('div');
@@ -532,7 +572,7 @@
                 var transition = createElement('div', 'pauza-step-transition');
                 transition.appendChild(createElement('p', 'pauza-tag', 'Переход дальше'));
                 var transitionContent = transitionLines(text, stepNumber);
-                transition.appendChild(paragraphize(transitionContent));
+                transition.appendChild(paragraphize(transitionContent, true));
                 transition.appendChild(badge(stepNumber === 12 ? 'editorial' : 'source', stepNumber === 12 ? 'Редакционный слой' : 'Из DOCX'));
                 appendButtons(transition, transitionContent.join('\n'));
                 body.appendChild(transition);
@@ -540,6 +580,8 @@
                 details.appendChild(body);
                 return details;
             }
+
+            renderSponsors();
 
             fetch('inc/step-full-texts.json')
                 .then(function (response) { return response.json(); })

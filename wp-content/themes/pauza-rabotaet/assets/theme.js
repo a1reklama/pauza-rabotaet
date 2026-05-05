@@ -10,12 +10,11 @@
     }
 
     const filterButtons = document.querySelectorAll('[data-sponsor-filter]');
-    const sponsorCards = document.querySelectorAll('[data-sponsor-gender]');
-
     filterButtons.forEach(function (button) {
         button.addEventListener('click', function () {
             const filter = button.getAttribute('data-sponsor-filter');
             const sponsorList = document.querySelector('[data-sponsor-list]');
+            const sponsorCards = document.querySelectorAll('[data-sponsor-gender]');
 
             if (sponsorList) {
                 sponsorList.classList.remove('is-collapsed');

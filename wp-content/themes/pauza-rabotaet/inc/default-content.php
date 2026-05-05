@@ -72,7 +72,7 @@ function pauza_ensure_news_seeded(): void
 
 function pauza_ensure_default_menu_items(): void
 {
-    if (get_option('pauza_menu_seeded_v2')) {
+    if (get_option('pauza_menu_seeded_v3')) {
         return;
     }
 
@@ -798,8 +798,9 @@ function pauza_seed_menu(int $home_id, int $calculator_id, int $bot_id): void
     }
 
     $top_links = [
-        ['12 шагов', home_url('/12-shagov/')],
         ['Спонсоры', home_url('/sponsory/')],
+        ['Материалы', home_url('/materialy/')],
+        ['12 шагов', home_url('/12-shagov/')],
         ['Новости', home_url('/novosti/')],
     ];
 
@@ -825,7 +826,6 @@ function pauza_seed_menu(int $home_id, int $calculator_id, int $bot_id): void
 
     if (!is_wp_error($more_id) && $more_id) {
         $secondary_links = [
-            ['Материалы', home_url('/materialy/')],
             ['Только сегодня', home_url('/tolko-segodnya/')],
             ['Калькуляторы', $calculator_id ? get_permalink($calculator_id) : home_url('/calculator/')],
         ];
@@ -846,7 +846,7 @@ function pauza_seed_menu(int $home_id, int $calculator_id, int $bot_id): void
         'footer'  => (int) $menu_id,
     ]);
 
-    update_option('pauza_menu_seeded_v2', current_time('mysql'));
+    update_option('pauza_menu_seeded_v3', current_time('mysql'));
 }
 
 function pauza_remove_menu_items(int $menu_id, array $titles): void

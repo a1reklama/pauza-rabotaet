@@ -32,9 +32,6 @@ while (have_posts()) :
             <div class="pauza-container pauza-step-hero">
                 <div class="pauza-step-hero__icon">
                     <?php echo pauza_step_icon_html($number); ?>
-                    <?php if (in_array((int) $number, [4, 5], true)) : ?>
-                        <?php echo pauza_origin_badge('verify'); ?>
-                    <?php endif; ?>
                 </div>
                 <div>
                     <p class="pauza-eyebrow"><?php echo esc_html(sprintf(__('Шаг %s', 'pauza-rabotaet'), $number)); ?></p>

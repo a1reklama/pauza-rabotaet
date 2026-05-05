@@ -84,10 +84,77 @@ function pauza_smart_button(string $url, string $label, string $class = 'pauza-b
     return pauza_button($url, $label, $class);
 }
 
-function pauza_render_plain_text(string $text): void
+function pauza_url_label(string $url, string $context = ''): string
+{
+    $step = '';
+    if (preg_match('/группа\s+(\d+)\s+шага/iu', $context, $matches)) {
+        $step = $matches[1];
+    }
+
+    if (preg_match('/FourStepForAllBot/i', $url)) {
+        return __('Открыть бот 4 шага', 'pauza-rabotaet');
+    }
+
+    if (preg_match('/cbr\.ru/i', $url)) {
+        return __('Открыть курс ЦБ', 'pauza-rabotaet');
+    }
+
+    if (preg_match('/rutube\.ru/i', $url)) {
+        return __('Открыть Rutube-канал', 'pauza-rabotaet');
+    }
+
+    if (preg_match('/disk\.yandex\.ru/i', $url)) {
+        return __('Открыть Яндекс.Диск', 'pauza-rabotaet');
+    }
+
+    if (preg_match('/t\.me\/neporukovodstvu/i', $url)) {
+        return __('Открыть Telegram-канал 360 видео', 'pauza-rabotaet');
+    }
+
+    if (preg_match('/t\.me/i', $url)) {
+        return $step ? sprintf(__('Открыть Telegram-группу %s шага', 'pauza-rabotaet'), $step) : __('Открыть Telegram', 'pauza-rabotaet');
+    }
+
+    if (preg_match('/max\.ru/i', $url)) {
+        return $step ? sprintf(__('Открыть MAX-группу %s шага', 'pauza-rabotaet'), $step) : __('Открыть MAX', 'pauza-rabotaet');
+    }
+
+    return __('Открыть ссылку', 'pauza-rabotaet');
+}
+
+function pauza_linkify_text(string $text, bool $replace_urls = false): string
+{
+    if ('' === $text || !preg_match('/https?:\/\//i', $text)) {
+        return esc_html($text);
+    }
+
+    $result = '';
+    $offset = 0;
+    preg_match_all('/https?:\/\/[^\s)]+/i', $text, $matches, PREG_OFFSET_CAPTURE);
+
+    foreach ($matches[0] as $match) {
+        [$raw_url, $position] = $match;
+        $url = rtrim($raw_url, '.,;:');
+        $suffix = substr($raw_url, strlen($url));
+        $result .= esc_html(substr($text, $offset, $position - $offset));
+        $result .= sprintf(
+            '<a href="%1$s" target="_blank" rel="noopener noreferrer">%2$s</a>',
+            esc_url($url),
+            esc_html($replace_urls ? pauza_url_label($url, $text) : $url)
+        );
+        $result .= esc_html($suffix);
+        $offset = $position + strlen($raw_url);
+    }
+
+    $result .= esc_html(substr($text, $offset));
+
+    return $result;
+}
+
+function pauza_render_plain_text(string $text, bool $replace_urls = false): void
 {
     foreach (pauza_paragraphs($text) as $paragraph) {
-        echo '<p>' . nl2br(esc_html($paragraph)) . '</p>';
+        echo '<p>' . nl2br(pauza_linkify_text($paragraph, $replace_urls)) . '</p>';
     }
 }
 
@@ -218,7 +285,7 @@ function pauza_render_source_list(array $items, string $type = 'ol'): void
 
     printf('<%1$s class="%2$s">', esc_html($tag), esc_attr($class));
     foreach ($items as $item) {
-        echo '<li>' . esc_html((string) $item) . '</li>';
+        echo '<li>' . pauza_linkify_text((string) $item, true) . '</li>';
     }
     printf('</%s>', esc_html($tag));
 }
@@ -352,8 +419,9 @@ function pauza_fallback_menu(): void
 {
     $items = [
         ['Начать', home_url('/')],
-        ['12 шагов', home_url('/12-shagov/')],
         ['Спонсоры', home_url('/sponsory/')],
+        ['Материалы', home_url('/materialy/')],
+        ['12 шагов', home_url('/12-shagov/')],
         ['Новости', home_url('/novosti/')],
     ];
 
@@ -362,7 +430,7 @@ function pauza_fallback_menu(): void
         printf('<li><a href="%s">%s</a></li>', esc_url($item[1]), esc_html($item[0]));
     }
     echo '<li class="menu-item-has-children"><a href="#">Еще</a><ul class="sub-menu">';
-    foreach ([['Материалы', home_url('/materialy/')], ['Только сегодня', home_url('/tolko-segodnya/')], ['Калькуляторы', home_url('/calculator/')]] as $item) {
+    foreach ([['Только сегодня', home_url('/tolko-segodnya/')], ['Калькуляторы', home_url('/calculator/')]] as $item) {
         printf('<li><a href="%s">%s</a></li>', esc_url($item[1]), esc_html($item[0]));
     }
     echo '</ul></li>';
@@ -373,8 +441,9 @@ function pauza_footer_menu(): void
 {
     $items = [
         ['Начать', home_url('/')],
-        ['12 шагов', home_url('/12-shagov/')],
         ['Спонсоры', home_url('/sponsory/')],
+        ['Материалы', home_url('/materialy/')],
+        ['12 шагов', home_url('/12-shagov/')],
         ['Новости', home_url('/novosti/')],
     ];
 
