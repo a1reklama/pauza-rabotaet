@@ -57,7 +57,18 @@ add_action('after_switch_theme', 'pauza_seed_step_full_texts_for_existing_posts'
 add_action('after_switch_theme', 'pauza_seed_step_structured_blocks_for_existing_posts', 31);
 add_action('admin_init', 'pauza_seed_step_full_texts_for_existing_posts');
 add_action('admin_init', 'pauza_seed_step_structured_blocks_for_existing_posts');
+add_action('admin_init', 'pauza_ensure_news_seeded');
 add_action('admin_init', 'pauza_ensure_default_menu_items');
+
+function pauza_ensure_news_seeded(): void
+{
+    if (get_option('pauza_news_seeded_v1')) {
+        return;
+    }
+
+    pauza_seed_news();
+    update_option('pauza_news_seeded_v1', current_time('mysql'));
+}
 
 function pauza_ensure_default_menu_items(): void
 {
