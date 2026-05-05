@@ -33,6 +33,7 @@ Text Domain: pauza-rabotaet
 
 html {
     scroll-behavior: smooth;
+    scroll-padding-top: 96px;
 }
 
 body {
@@ -134,7 +135,7 @@ p {
     gap: 0.7rem;
     min-width: max-content;
     color: var(--pauza-text);
-    font-weight: 800;
+    font-weight: 700;
     text-decoration: none;
 }
 
@@ -169,7 +170,7 @@ p {
     padding: 0.55rem 0.75rem;
     border-radius: 8px;
     color: var(--pauza-muted);
-    font-weight: 650;
+    font-weight: 550;
     text-decoration: none;
 }
 
@@ -252,7 +253,7 @@ p {
     margin-bottom: 0.9rem;
     color: var(--pauza-primary);
     font-size: 0.86rem;
-    font-weight: 800;
+    font-weight: 650;
     text-transform: uppercase;
 }
 
@@ -285,7 +286,7 @@ p {
     color: var(--pauza-text);
     background: var(--pauza-surface);
     font: inherit;
-    font-weight: 750;
+    font-weight: 600;
     text-align: center;
     text-decoration: none;
     cursor: pointer;
@@ -301,6 +302,12 @@ p {
     color: #fff;
     border-color: var(--pauza-primary);
     background: var(--pauza-primary);
+}
+
+.pauza-button--neutral {
+    color: var(--pauza-text);
+    border-color: var(--pauza-line);
+    background: var(--pauza-surface);
 }
 
 .pauza-button--primary:hover {
@@ -344,7 +351,7 @@ p {
     position: relative;
     display: grid;
     align-items: center;
-    grid-template-columns: 44px 1fr;
+    grid-template-columns: 44px minmax(0, 1fr);
     gap: 0.9rem;
     min-height: 74px;
     padding: 1rem;
@@ -362,6 +369,12 @@ p {
     overflow-wrap: anywhere;
 }
 
+.pauza-route__item strong {
+    display: block;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}
+
 .pauza-route__item span,
 .pauza-step-tile span,
 .pauza-step-row__number {
@@ -372,7 +385,7 @@ p {
     border-radius: 8px;
     color: #fff;
     background: var(--pauza-primary);
-    font-weight: 700;
+    font-weight: 650;
 }
 
 .pauza-step-icon {
@@ -398,6 +411,7 @@ p {
 }
 
 .pauza-section {
+    scroll-margin-top: 96px;
     padding: clamp(3rem, 7vw, 6rem) 0;
 }
 
@@ -450,7 +464,7 @@ p {
     margin-bottom: 0.8rem;
     color: var(--pauza-amber);
     font-size: 0.82rem;
-    font-weight: 700;
+    font-weight: 600;
     text-transform: uppercase;
 }
 
@@ -465,7 +479,7 @@ p {
     color: var(--pauza-muted);
     background: #f7f7f2;
     font-size: 0.76rem;
-    font-weight: 700;
+    font-weight: 600;
     line-height: 1.1;
     text-transform: uppercase;
     vertical-align: middle;
@@ -613,6 +627,7 @@ p {
 }
 
 .pauza-step-folder {
+    scroll-margin-top: 96px;
     overflow: hidden;
     border: 1px solid var(--pauza-line);
     border-radius: 8px;
@@ -639,7 +654,7 @@ p {
 
 .pauza-step-folder__summary h3 {
     margin-bottom: 0.2rem;
-    font-weight: 650;
+    font-weight: 600;
 }
 
 .pauza-step-folder__summary p {
@@ -649,7 +664,7 @@ p {
 
 .pauza-step-folder__chevron {
     color: var(--pauza-primary);
-    font-weight: 650;
+    font-weight: 500;
 }
 
 .pauza-step-folder[open] .pauza-step-folder__chevron {
@@ -682,7 +697,7 @@ p {
     border-radius: 8px;
     color: #fff;
     background: var(--pauza-blue);
-    font-weight: 650;
+    font-weight: 600;
 }
 
 .pauza-simple-step {
@@ -732,7 +747,7 @@ p {
     color: var(--pauza-muted);
     background: transparent;
     font: inherit;
-    font-weight: 650;
+    font-weight: 600;
     cursor: pointer;
 }
 
@@ -770,7 +785,7 @@ p {
     border-radius: 8px;
     color: var(--pauza-primary-dark);
     background: #eef8f3;
-    font-weight: 750;
+    font-weight: 600;
 }
 
 .pauza-content-grid {
@@ -800,7 +815,7 @@ p {
 
 .pauza-details summary {
     padding: 1rem 1.2rem;
-    font-weight: 650;
+    font-weight: 550;
     cursor: pointer;
 }
 
@@ -838,12 +853,55 @@ p {
 
 .pauza-source-list {
     list-style: none;
+    display: grid;
+    gap: 0.6rem;
+    padding-left: 0;
 }
 
 .pauza-source-list a,
 .pauza-content a {
     color: var(--pauza-primary-dark);
+    font-weight: 500;
+}
+
+.pauza-source-item {
+    display: grid;
+    grid-template-columns: 34px minmax(0, 1fr);
+    gap: 0.75rem;
+    margin-bottom: 0;
+    padding: 0.75rem;
+    border: 1px solid rgba(216, 221, 215, 0.75);
+    border-radius: 8px;
+    background: rgba(255, 253, 248, 0.72);
+}
+
+.pauza-source-item__number {
+    display: grid;
+    width: 34px;
+    height: 34px;
+    place-items: center;
+    border-radius: 8px;
+    color: var(--pauza-primary-dark);
+    background: #eaf5ef;
+    font-size: 0.9rem;
     font-weight: 600;
+}
+
+.pauza-source-item__body {
+    min-width: 0;
+}
+
+.pauza-source-item__body p {
+    margin-bottom: 0;
+}
+
+.pauza-source-item__type {
+    display: inline-flex;
+    margin-bottom: 0.25rem;
+    color: var(--pauza-muted);
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
 }
 
 .pauza-sidebar {
@@ -873,10 +931,31 @@ p {
     display: none;
 }
 
+.pauza-sponsor-grid[data-sponsor-list] {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 0.55rem;
+}
+
+.pauza-sponsor-card[data-sponsor-gender],
+.pauza-sponsor-card--compact {
+    padding: 0.72rem 0.85rem;
+}
+
+.pauza-sponsor-card[data-sponsor-gender] h2,
+.pauza-sponsor-card[data-sponsor-gender] h3 {
+    margin-bottom: 0.3rem;
+    font-size: 1.05rem;
+    font-weight: 600;
+}
+
+.pauza-sponsor-card[data-sponsor-gender] p {
+    margin-bottom: 0;
+}
+
 .pauza-phone {
     color: var(--pauza-text);
-    font-size: 1.15rem;
-    font-weight: 700;
+    font-size: 1rem;
+    font-weight: 500;
     word-break: break-word;
 }
 
@@ -990,6 +1069,14 @@ p {
         grid-template-columns: 1fr;
     }
 
+    .pauza-home-hero__grid,
+    .pauza-home-hero__copy,
+    .pauza-route,
+    .pauza-route__item {
+        width: 100%;
+        min-width: 0;
+    }
+
     .pauza-sidebar {
         position: static;
     }
@@ -1086,7 +1173,20 @@ p {
     }
 
     .pauza-actions {
+        align-items: stretch;
+        flex-direction: column;
         width: 100%;
+    }
+
+    .pauza-lead {
+        max-width: 100%;
+        font-size: 1.04rem;
+    }
+
+    .pauza-route__item strong {
+        font-size: 0.92rem;
+        line-height: 1.35;
+        white-space: normal;
     }
 
     .pauza-route::before {

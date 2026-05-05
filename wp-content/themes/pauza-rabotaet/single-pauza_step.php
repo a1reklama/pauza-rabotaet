@@ -26,6 +26,8 @@ while (have_posts()) :
     $calculator_instruction = pauza_get_option('calculator_instruction_url');
     $calculator_telegram = pauza_get_option('calculator_telegram_url');
     $calculator_max = pauza_get_option('calculator_max_url');
+    $is_final_step = '12' === (string) $number;
+    $group_primary_class = $is_final_step ? 'pauza-button' : 'pauza-button pauza-button--primary';
     ?>
     <article>
         <section class="pauza-page-hero">
@@ -117,7 +119,7 @@ while (have_posts()) :
                             <?php endif; ?>
 
                             <div class="pauza-actions">
-                                <?php echo pauza_button($telegram, __('Группа Telegram этого шага', 'pauza-rabotaet'), 'pauza-button pauza-button--primary'); ?>
+                                <?php echo pauza_button($telegram, __('Группа Telegram этого шага', 'pauza-rabotaet'), $group_primary_class); ?>
                                 <?php echo pauza_button($max, __('Группа MAX этого шага', 'pauza-rabotaet')); ?>
                                 <?php echo pauza_button($video, __('Открыть видео', 'pauza-rabotaet')); ?>
                             </div>
@@ -145,8 +147,8 @@ while (have_posts()) :
                         <p><?php esc_html_e('Ответы и отчеты не отправляются через сайт. Используйте спонсора, группу или внешний бот, если он указан в этом шаге.', 'pauza-rabotaet'); ?> <?php echo pauza_origin_badge('editorial'); ?></p>
                     </div>
                     <div class="pauza-actions">
-                        <?php echo $next_url && $next_label ? pauza_smart_button($next_url, $next_label, 'pauza-button pauza-button--accent') : ''; ?>
-                        <?php echo pauza_button($telegram, __('Открыть группу Telegram', 'pauza-rabotaet'), 'pauza-button pauza-button--primary'); ?>
+                        <?php echo $next_url && $next_label ? pauza_smart_button($next_url, $next_label, $is_final_step ? 'pauza-button' : 'pauza-button pauza-button--accent') : ''; ?>
+                        <?php echo pauza_button($telegram, __('Открыть группу Telegram', 'pauza-rabotaet'), $group_primary_class); ?>
                         <?php echo pauza_button($max, __('Открыть группу MAX', 'pauza-rabotaet')); ?>
                     </div>
                 </div>

@@ -111,9 +111,6 @@
                     <article class="pauza-card"><p class="pauza-tag">Telegram</p><h3>Telegram-канал 360 видео</h3><p>ТЕЛЕГРАМ</p><a class="pauza-button pauza-button--primary" href="https://t.me/neporukovodstvu" target="_blank" rel="noopener noreferrer">Открыть Telegram-канал 360 видео</a></article>
                     <article class="pauza-card"><p class="pauza-tag">Rutube</p><h3>Rutube-канал</h3><p>RUTUBE</p><a class="pauza-button" href="https://rutube.ru/channel/44350949/" target="_blank" rel="noopener noreferrer">Открыть Rutube-канал</a></article>
                     <article class="pauza-card"><p class="pauza-tag">Яндекс.Диск</p><h3>Скачать видео</h3><p>ЯНДЕКС ДИСК</p><a class="pauza-button" href="https://disk.yandex.ru/d/N2hLvMMUeXxsjg" target="_blank" rel="noopener noreferrer">Открыть Яндекс.Диск</a></article>
-                    <article class="pauza-card"><p class="pauza-tag">Группы шагов</p><h3>Внутри конкретного шага</h3><p>Telegram/MAX-группы показываются в том шаге, где они указаны.</p><span class="pauza-origin pauza-origin--editorial">Редакционный слой</span></article>
-                    <article class="pauza-card"><p class="pauza-tag">Боты шагов</p><h3>Внутри нужного шага</h3><p>Конкретный бот показывается в том шаге, где он указан в документе.</p><span class="pauza-origin pauza-origin--editorial">Редакционный слой</span></article>
-                    <article class="pauza-card"><p class="pauza-tag">Калькулятор</p><h3>В первом шаге</h3><p>Калькулятор остается внешним инструментом и появляется в 1 шаге.</p><span class="pauza-origin pauza-origin--editorial">Редакционный слой</span></article>
                 </div>
             </div>
         </section>
@@ -207,14 +204,14 @@
             <div class="pauza-container pauza-split">
                 <div>
                     <p class="pauza-eyebrow">Только сегодня</p>
-                    <h2>Отдельные тексты владельца</h2>
-                    <p>Периодические тексты не смешиваются с заданиями шагов и новостями. В WordPress это отдельный редактируемый раздел.</p>
-                    <span class="pauza-origin pauza-origin--editorial">Редакционный слой</span>
+                    <h2>Тексты от меня</h2>
+                    <p>В DOCX этот раздел указан как «Только сегодня (тексты от меня)». Реальные тексты нужно перенести отдельно, не смешивая их с заданиями шагов и новостями.</p>
+                    <span class="pauza-origin pauza-origin--source">Из DOCX</span>
                 </div>
                 <article class="pauza-card">
-                    <p class="pauza-tag">Пример формата</p>
+                    <p class="pauza-tag">Нужно заполнить</p>
                     <h3>Текст на сегодня</h3>
-                    <p>Здесь будет исходный текст владельца, когда мы перенесем соответствующий блок из DOCX.</p>
+                    <p>Здесь будет исходный текст руководителя, когда появятся сами тексты для этого раздела.</p>
                     <span class="pauza-origin pauza-origin--verify">Нужно подтвердить</span>
                 </article>
             </div>
@@ -282,6 +279,17 @@
                 return createElement('span', 'pauza-origin pauza-origin--' + type, label);
             }
 
+            function shuffle(items) {
+                var copy = items.slice();
+                for (var i = copy.length - 1; i > 0; i -= 1) {
+                    var j = Math.floor(Math.random() * (i + 1));
+                    var temp = copy[i];
+                    copy[i] = copy[j];
+                    copy[j] = temp;
+                }
+                return copy;
+            }
+
             function renderSponsors() {
                 var target = document.querySelector('[data-sponsor-list]');
                 if (!target) {
@@ -289,13 +297,11 @@
                 }
 
                 target.textContent = '';
-                sponsors.forEach(function (sponsor) {
-                    var card = createElement('article', 'pauza-sponsor-card is-hidden');
+                shuffle(sponsors).forEach(function (sponsor) {
+                    var card = createElement('article', 'pauza-sponsor-card pauza-sponsor-card--compact is-hidden');
                     card.dataset.sponsorGender = sponsor[0];
-                    card.appendChild(createElement('p', 'pauza-tag', sponsor[0] === 'male' ? 'Мужчины' : 'Женщины'));
-                    card.appendChild(createElement('h2', '', sponsor[1]));
+                    card.appendChild(createElement('h3', '', sponsor[1]));
                     card.appendChild(createElement('p', 'pauza-phone', sponsor[2]));
-                    card.appendChild(badge('source', 'Из DOCX'));
                     target.appendChild(card);
                 });
             }
@@ -392,15 +398,16 @@
                 }
             }
 
-            function appendButtons(target, text) {
+            function appendButtons(target, text, options) {
                 var urls = Array.from(new Set(extractUrls(text)));
+                var neutral = options && options.neutral;
                 if (!urls.length) {
                     return;
                 }
 
                 var actions = createElement('div', 'pauza-actions');
                 urls.forEach(function (url, index) {
-                    var link = createElement('a', 'pauza-button' + (index === 0 ? ' pauza-button--primary' : ''), urlLabel(url, text));
+                    var link = createElement('a', 'pauza-button' + (!neutral && index === 0 ? ' pauza-button--primary' : ''), urlLabel(url, text));
                     link.href = url;
                     link.target = '_blank';
                     link.rel = 'noopener noreferrer';
@@ -412,8 +419,20 @@
             function renderSourceList(items) {
                 var list = createElement('ul', 'pauza-source-list');
                 items.forEach(function (item) {
-                    var li = createElement('li');
-                    appendLinkedText(li, item, true);
+                    var li = createElement('li', 'pauza-source-item');
+                    var match = String(item).match(/^(\d+)\.\s+(.*)$/);
+                    if (match) {
+                        li.appendChild(createElement('span', 'pauza-source-item__number', match[1]));
+                        var body = createElement('div', 'pauza-source-item__body');
+                        var label = /видео/i.test(item) ? 'Видео' : (/калькулятор/i.test(item) ? 'Калькулятор' : (/бот/i.test(item) ? 'Бот' : (/перехожу|переходи|группа\s+\d+\s+шага/i.test(item) ? 'Переход' : 'Задание')));
+                        body.appendChild(createElement('span', 'pauza-source-item__type', label));
+                        var text = createElement('p');
+                        appendLinkedText(text, match[2], true);
+                        body.appendChild(text);
+                        li.appendChild(body);
+                    } else {
+                        appendLinkedText(li, item, true);
+                    }
                     list.appendChild(li);
                 });
                 return list;
@@ -519,7 +538,7 @@
                 intro.appendChild(createElement('h2', '', title));
                 var headerLines = lines.slice(0, Math.max(1, lines.findIndex(function (line) { return /^\d+\.\s+/.test(line); })));
                 intro.appendChild(paragraphize(headerLines, true));
-                appendButtons(intro, headerLines.join('\n'));
+                appendButtons(intro, headerLines.join('\n'), { neutral: stepNumber === 12 });
                 body.appendChild(intro);
 
                 var work = numberedLines(text);
@@ -529,7 +548,7 @@
                 var materialsContent = createElement('div');
                 if (materials.length) {
                     materialsContent.appendChild(renderSourceList(materials));
-                    appendButtons(materialsContent, materials.join('\n'));
+                    appendButtons(materialsContent, materials.join('\n'), { neutral: stepNumber === 12 });
                 } else {
                     materialsContent.appendChild(createElement('p', '', 'В тексте этого шага внешние ссылки не указаны.'));
                     materialsContent.appendChild(badge('editorial', 'Редакционный слой'));
@@ -547,7 +566,7 @@
                     bot.appendChild(createElement('h3', '', 'Бот 4 шага'));
                     bot.appendChild(createElement('p', '', 'Работа по четвертому шагу вынесена во внешний Telegram-бот.'));
                     bot.appendChild(badge('source', 'Из DOCX'));
-                    appendButtons(bot, text);
+                    appendButtons(bot, extractUrls(text).filter(function (url) { return /FourStepForAllBot/i.test(url); }).join('\n'));
                     materialsContent.appendChild(bot);
                 }
                 body.appendChild(detailsBlock('Материалы шага', materialsContent, false));
@@ -560,7 +579,6 @@
                     }
                     var itemSummary = createElement('summary');
                     itemSummary.textContent = chunk[0].slice(0, 120) + (chunk[0].length > 120 ? '...' : '') + ' ';
-                    itemSummary.appendChild(badge('source', 'Из DOCX'));
                     item.appendChild(itemSummary);
                     var itemBody = createElement('div', 'pauza-content');
                     itemBody.appendChild(paragraphize(chunk));
@@ -574,7 +592,7 @@
                 var transitionContent = transitionLines(text, stepNumber);
                 transition.appendChild(paragraphize(transitionContent, true));
                 transition.appendChild(badge(stepNumber === 12 ? 'editorial' : 'source', stepNumber === 12 ? 'Редакционный слой' : 'Из DOCX'));
-                appendButtons(transition, transitionContent.join('\n'));
+                appendButtons(transition, transitionContent.join('\n'), { neutral: stepNumber === 12 });
                 body.appendChild(transition);
 
                 details.appendChild(body);
@@ -604,6 +622,8 @@
                             });
                         });
                     });
+
+                    document.dispatchEvent(new CustomEvent('pauza:steps-ready'));
                 })
                 .catch(function () {
                     var target = document.getElementById('full-step-folders');

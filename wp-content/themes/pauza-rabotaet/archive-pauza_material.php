@@ -6,7 +6,7 @@
  */
 
 get_header();
-pauza_archive_title('Материалы', 'Сначала 360 видео из DOCX: Telegram, Rutube и Яндекс.Диск. Боты, группы и калькуляторы остаются внутри нужного шага.');
+pauza_archive_title('Материалы', 'Основной вход к 360 видео из DOCX: Telegram, Rutube и Яндекс.Диск. Остальные инструменты показываются внутри нужного шага.');
 ?>
 
 <section class="pauza-section">

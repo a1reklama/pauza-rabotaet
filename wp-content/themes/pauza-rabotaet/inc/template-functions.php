@@ -243,7 +243,7 @@ function pauza_render_step_source_sections(string $full_text): void
         }
 
         echo '<details class="pauza-details">';
-        echo '<summary>' . esc_html($summary) . ' ' . pauza_origin_badge('source') . '</summary>';
+        echo '<summary>' . esc_html($summary) . '</summary>';
         echo '<div class="pauza-content">';
         pauza_render_plain_text(implode("\n", $chunk));
         echo '</div>';
@@ -285,7 +285,32 @@ function pauza_render_source_list(array $items, string $type = 'ol'): void
 
     printf('<%1$s class="%2$s">', esc_html($tag), esc_attr($class));
     foreach ($items as $item) {
-        echo '<li>' . pauza_linkify_text((string) $item, true) . '</li>';
+        $item = (string) $item;
+
+        if (preg_match('/^(\d+)\.\s+(.*)$/u', $item, $matches)) {
+            $label = __('Задание', 'pauza-rabotaet');
+
+            if (preg_match('/видео/iu', $item)) {
+                $label = __('Видео', 'pauza-rabotaet');
+            } elseif (preg_match('/калькулятор/iu', $item)) {
+                $label = __('Калькулятор', 'pauza-rabotaet');
+            } elseif (preg_match('/бот/iu', $item)) {
+                $label = __('Бот', 'pauza-rabotaet');
+            } elseif (preg_match('/перехожу|переходи|группа\s+\d+\s+шага/iu', $item)) {
+                $label = __('Переход', 'pauza-rabotaet');
+            }
+
+            echo '<li class="pauza-source-item">';
+            echo '<span class="pauza-source-item__number">' . esc_html($matches[1]) . '</span>';
+            echo '<div class="pauza-source-item__body">';
+            echo '<span class="pauza-source-item__type">' . esc_html($label) . '</span>';
+            echo '<p>' . pauza_linkify_text($matches[2], true) . '</p>';
+            echo '</div>';
+            echo '</li>';
+            continue;
+        }
+
+        echo '<li>' . pauza_linkify_text($item, true) . '</li>';
     }
     printf('</%s>', esc_html($tag));
 }
@@ -332,7 +357,7 @@ function pauza_render_step8_source_sections(string $full_text): void
 
     foreach ($sections as $title => $content) {
         echo '<details class="pauza-details">';
-        echo '<summary>' . esc_html($title) . ' ' . pauza_origin_badge('source') . '</summary>';
+        echo '<summary>' . esc_html($title) . '</summary>';
         echo '<div class="pauza-content">';
 
         if (is_array($content)) {
@@ -486,6 +511,16 @@ function pauza_order_archives(WP_Query $query): void
         $query->set('orderby', ['menu_order' => 'ASC', 'title' => 'ASC']);
         $query->set('order', 'ASC');
         $query->set('posts_per_page', -1);
+    }
+
+    if ($query->is_post_type_archive('pauza_material')) {
+        $query->set('meta_query', [
+            [
+                'key'     => '_pauza_material_type',
+                'value'   => ['project_channel', 'video', 'download'],
+                'compare' => 'IN',
+            ],
+        ]);
     }
 }
 add_action('pre_get_posts', 'pauza_order_archives');

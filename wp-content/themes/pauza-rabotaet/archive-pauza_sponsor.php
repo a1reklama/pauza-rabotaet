@@ -36,9 +36,8 @@ pauza_archive_title('Спонсоры и проводники', 'Сначала 
                     $max = pauza_meta($sponsor_id, '_pauza_sponsor_max_url');
                     $note = pauza_meta($sponsor_id, '_pauza_sponsor_note');
                     ?>
-                    <article class="pauza-sponsor-card is-hidden" data-sponsor-gender="<?php echo esc_attr($gender); ?>">
-                        <p class="pauza-tag"><?php echo 'male' === $gender ? esc_html__('Мужчины', 'pauza-rabotaet') : esc_html__('Женщины', 'pauza-rabotaet'); ?></p>
-                        <h2><?php the_title(); ?></h2>
+                    <article class="pauza-sponsor-card pauza-sponsor-card--compact is-hidden" data-sponsor-gender="<?php echo esc_attr($gender); ?>">
+                        <h3><?php the_title(); ?></h3>
                         <?php if ($phone) : ?>
                             <p class="pauza-phone"><?php echo esc_html($phone); ?></p>
                         <?php endif; ?>
