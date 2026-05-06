@@ -23,7 +23,6 @@ while (have_posts()) :
     $next_url = pauza_meta($step_id, '_pauza_step_next_url');
     $source_work = pauza_step_numbered_lines($full_text);
     $source_materials = pauza_step_material_lines($full_text);
-    $calculator_instruction = pauza_get_option('calculator_instruction_url');
     $calculator_telegram = pauza_get_option('calculator_telegram_url');
     $calculator_max = pauza_get_option('calculator_max_url');
     $is_final_step = '12' === (string) $number;
@@ -96,21 +95,19 @@ while (have_posts()) :
                             <?php endif; ?>
 
                             <?php if ('1' === (string) $number) : ?>
-                                <div class="pauza-source-card">
-                                    <h3><?php esc_html_e('Калькулятор выздоровления', 'pauza-rabotaet'); ?> <?php echo pauza_origin_badge('source'); ?></h3>
-                                    <p><?php esc_html_e('В DOCX калькулятор указан внутри первого шага: сначала инструкция, затем ежедневная работа и отправка результата спонсору или в группу.', 'pauza-rabotaet'); ?> <?php echo pauza_origin_badge('editorial'); ?></p>
-                                    <div class="pauza-actions">
-                                        <?php echo pauza_button($calculator_instruction, __('Инструкция к калькулятору', 'pauza-rabotaet'), 'pauza-button pauza-button--primary'); ?>
-                                        <?php echo pauza_button($calculator_telegram, __('Открыть Telegram-бот', 'pauza-rabotaet')); ?>
-                                        <?php echo pauza_button($calculator_max, __('Открыть MAX-бот', 'pauza-rabotaet')); ?>
-                                        <?php if (!$calculator_instruction && !$calculator_telegram && !$calculator_max) : ?>
-                                            <?php echo pauza_origin_badge('verify', __('Ссылки на калькулятор нужно подтвердить', 'pauza-rabotaet')); ?>
-                                        <?php endif; ?>
+                                <?php if ($calculator_telegram || $calculator_max) : ?>
+                                    <div class="pauza-source-card">
+                                        <h3><?php esc_html_e('Калькулятор выздоровления', 'pauza-rabotaet'); ?> <?php echo pauza_origin_badge('source'); ?></h3>
+                                        <p><?php esc_html_e('Инструкция уже указана в пунктах первого шага. Здесь остаются только подтвержденные ссылки на внешние боты калькулятора.', 'pauza-rabotaet'); ?> <?php echo pauza_origin_badge('editorial'); ?></p>
+                                        <div class="pauza-actions">
+                                            <?php echo pauza_button($calculator_telegram, __('Открыть Telegram-бот', 'pauza-rabotaet'), 'pauza-button pauza-button--primary'); ?>
+                                            <?php echo pauza_button($calculator_max, __('Открыть MAX-бот', 'pauza-rabotaet')); ?>
+                                        </div>
                                     </div>
-                                </div>
+                                <?php endif; ?>
                             <?php endif; ?>
 
-                            <?php if ('4' === (string) $number) : ?>
+                            <?php if ('4' === (string) $number && !$source_materials) : ?>
                                 <div class="pauza-source-card">
                                     <h3><?php esc_html_e('Бот 4 шага', 'pauza-rabotaet'); ?> <?php echo pauza_origin_badge('source'); ?></h3>
                                     <p><?php esc_html_e('Этот бот показывается как инструмент конкретного четвертого шага, а не как общий пункт сайта.', 'pauza-rabotaet'); ?> <?php echo pauza_origin_badge('editorial'); ?></p>
@@ -121,11 +118,13 @@ while (have_posts()) :
                                 </div>
                             <?php endif; ?>
 
-                            <div class="pauza-actions">
-                                <?php echo pauza_button($telegram, __('Группа Telegram этого шага', 'pauza-rabotaet'), $group_primary_class); ?>
-                                <?php echo pauza_button($max, __('Группа MAX этого шага', 'pauza-rabotaet')); ?>
-                                <?php echo pauza_button($video, __('Открыть видео', 'pauza-rabotaet')); ?>
-                            </div>
+                            <?php if (!$source_materials) : ?>
+                                <div class="pauza-actions">
+                                    <?php echo pauza_button($telegram, __('Группа Telegram этого шага', 'pauza-rabotaet'), $group_primary_class); ?>
+                                    <?php echo pauza_button($max, __('Группа MAX этого шага', 'pauza-rabotaet')); ?>
+                                    <?php echo pauza_button($video, __('Открыть видео', 'pauza-rabotaet')); ?>
+                                </div>
+                            <?php endif; ?>
                         </div>
                     </div>
 
@@ -151,8 +150,6 @@ while (have_posts()) :
                     </div>
                     <div class="pauza-actions">
                         <?php echo $next_url && $next_label ? pauza_smart_button($next_url, $next_label, $is_final_step ? 'pauza-button' : 'pauza-button pauza-button--accent') : ''; ?>
-                        <?php echo pauza_button($telegram, __('Открыть группу Telegram', 'pauza-rabotaet'), $group_primary_class); ?>
-                        <?php echo pauza_button($max, __('Открыть группу MAX', 'pauza-rabotaet')); ?>
                     </div>
                 </div>
             </div>

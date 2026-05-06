@@ -588,7 +588,6 @@
                 intro.appendChild(createElement('h2', '', title));
                 var headerLines = lines.slice(0, Math.max(1, lines.findIndex(function (line) { return /^\d+\.\s+/.test(line); })));
                 intro.appendChild(paragraphize(headerLines, true));
-                appendButtons(intro, headerLines.join('\n'), { neutral: stepNumber === 12 });
                 body.appendChild(intro);
 
                 var work = numberedLines(text);
@@ -598,35 +597,15 @@
                 var materialsContent = createElement('div');
                 if (materials.length) {
                     materialsContent.appendChild(renderSourceList(materials));
-                    appendButtons(materialsContent, materials.join('\n'), { neutral: stepNumber === 12 });
                 } else {
                     materialsContent.appendChild(createElement('p', '', 'В тексте этого шага внешние ссылки не указаны.'));
                     materialsContent.appendChild(badge('editorial', 'Редакционный слой'));
-                }
-                if (stepNumber === 1) {
-                    var calculator = createElement('div', 'pauza-source-card');
-                    calculator.appendChild(createElement('h3', '', 'Калькулятор выздоровления'));
-                    calculator.appendChild(createElement('p', '', 'В первом шаге прямо указаны инструкция к калькулятору и ежедневная работа с отправкой результата спонсору или в группу.'));
-                    calculator.appendChild(badge('source', 'Из DOCX'));
-                    calculator.appendChild(badge('verify', 'Ссылки на боты нужно подтвердить'));
-                    materialsContent.appendChild(calculator);
-                }
-                if (stepNumber === 4) {
-                    var bot = createElement('div', 'pauza-source-card');
-                    bot.appendChild(createElement('h3', '', 'Бот 4 шага'));
-                    bot.appendChild(createElement('p', '', 'Работа по четвертому шагу вынесена во внешний Telegram-бот.'));
-                    bot.appendChild(badge('source', 'Из DOCX'));
-                    appendButtons(bot, extractUrls(text).filter(function (url) { return /FourStepForAllBot|id860230186705_bot/i.test(url); }).join('\n'));
-                    materialsContent.appendChild(bot);
                 }
                 body.appendChild(detailsBlock('Материалы шага', materialsContent, false));
 
                 var sourceContent = createElement('div');
                 sourceChunks(text).forEach(function (chunk, index) {
                     var item = createElement('details', 'pauza-details');
-                    if (index === 0) {
-                        item.open = true;
-                    }
                     var itemSummary = createElement('summary');
                     itemSummary.textContent = chunk[0].slice(0, 120) + (chunk[0].length > 120 ? '...' : '') + ' ';
                     item.appendChild(itemSummary);
@@ -642,7 +621,6 @@
                 var transitionContent = transitionLines(text, stepNumber);
                 transition.appendChild(paragraphize(transitionContent, true));
                 transition.appendChild(badge(stepNumber === 12 ? 'editorial' : 'source', stepNumber === 12 ? 'Редакционный слой' : 'Из DOCX'));
-                appendButtons(transition, transitionContent.join('\n'), { neutral: stepNumber === 12 });
                 body.appendChild(transition);
 
                 details.appendChild(body);
