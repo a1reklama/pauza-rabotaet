@@ -15,4 +15,4 @@ sqlite-database/
 *.log
 .cache/
 node_modules/
-
+dist/
