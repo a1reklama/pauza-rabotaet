@@ -797,6 +797,8 @@ p {
 
 .pauza-content {
     min-width: 0;
+    max-width: 100%;
+    overflow-wrap: anywhere;
 }
 
 .pauza-content > * + * {
@@ -811,12 +813,15 @@ p {
     border: 1px solid var(--pauza-line);
     border-radius: 8px;
     background: var(--pauza-surface);
+    min-width: 0;
+    max-width: 100%;
 }
 
 .pauza-details summary {
     padding: 1rem 1.2rem;
     font-weight: 550;
     cursor: pointer;
+    overflow-wrap: anywhere;
 }
 
 .pauza-details > *:not(summary) {
@@ -825,7 +830,13 @@ p {
 
 .pauza-details > .pauza-content {
     min-width: 0;
+    max-width: 100%;
     padding-bottom: 1.2rem;
+}
+
+.pauza-details .pauza-details {
+    max-width: 100%;
+    overflow: hidden;
 }
 
 .pauza-source-card {
@@ -868,6 +879,7 @@ p {
 .pauza-content a {
     color: var(--pauza-primary-dark);
     font-weight: 500;
+    overflow-wrap: anywhere;
 }
 
 .pauza-source-item {

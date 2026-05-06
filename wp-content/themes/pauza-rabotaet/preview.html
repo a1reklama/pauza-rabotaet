@@ -631,7 +631,7 @@
                     itemSummary.textContent = chunk[0].slice(0, 120) + (chunk[0].length > 120 ? '...' : '') + ' ';
                     item.appendChild(itemSummary);
                     var itemBody = createElement('div', 'pauza-content');
-                    itemBody.appendChild(paragraphize(chunk));
+                    itemBody.appendChild(paragraphize(chunk, true));
                     item.appendChild(itemBody);
                     sourceContent.appendChild(item);
                 });

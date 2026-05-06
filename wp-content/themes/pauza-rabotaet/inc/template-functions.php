@@ -278,7 +278,7 @@ function pauza_render_step_source_sections(string $full_text): void
         echo '<details class="pauza-details">';
         echo '<summary>' . esc_html($summary) . '</summary>';
         echo '<div class="pauza-content">';
-        pauza_render_plain_text(implode("\n", $chunk));
+        pauza_render_plain_text(implode("\n", $chunk), true);
         echo '</div>';
         echo '</details>';
     }
@@ -407,7 +407,7 @@ function pauza_render_step8_source_sections(string $full_text): void
         if (is_array($content)) {
             pauza_render_source_list($content);
         } elseif ('' !== trim((string) $content)) {
-            pauza_render_plain_text((string) $content);
+            pauza_render_plain_text((string) $content, true);
         } else {
             echo '<p>' . esc_html__('Этот фрагмент не найден в сохраненном тексте шага.', 'pauza-rabotaet') . '</p>';
         }
