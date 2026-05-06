@@ -399,6 +399,36 @@
                 return 'Открыть ссылку';
             }
 
+            function summaryLinkLabel(url) {
+                if (/rutube\.ru\/video/i.test(url)) {
+                    return 'ссылка на видео';
+                }
+                if (/rutube\.ru/i.test(url)) {
+                    return 'ссылка на Rutube';
+                }
+                if (/t\.me/i.test(url)) {
+                    return 'ссылка на Telegram';
+                }
+                if (/max\.ru/i.test(url)) {
+                    return 'ссылка на MAX';
+                }
+                if (/cbr\.ru/i.test(url)) {
+                    return 'ссылка на ЦБ';
+                }
+                if (/disk\.yandex\.ru/i.test(url)) {
+                    return 'ссылка на Яндекс.Диск';
+                }
+                return 'ссылка';
+            }
+
+            function compactSummaryText(text) {
+                return String(text || '').replace(/https?:\/\/[^\s)]+/gi, function (rawUrl) {
+                    var url = rawUrl.replace(/[.,;:]+$/, '');
+                    var suffix = rawUrl.slice(url.length);
+                    return summaryLinkLabel(url) + suffix;
+                }).replace(/\s+/g, ' ').trim();
+            }
+
             function appendLinkedText(target, text, replaceUrls) {
                 var source = String(text || '');
                 var regex = /https?:\/\/[^\s)]+/g;
@@ -607,7 +637,8 @@
                 sourceChunks(text).forEach(function (chunk, index) {
                     var item = createElement('details', 'pauza-details');
                     var itemSummary = createElement('summary');
-                    itemSummary.textContent = chunk[0].slice(0, 120) + (chunk[0].length > 120 ? '...' : '') + ' ';
+                    var summaryText = compactSummaryText(chunk[0]);
+                    itemSummary.textContent = summaryText.slice(0, 120) + (summaryText.length > 120 ? '...' : '') + ' ';
                     item.appendChild(itemSummary);
                     var itemBody = createElement('div', 'pauza-content');
                     itemBody.appendChild(paragraphize(chunk, true));

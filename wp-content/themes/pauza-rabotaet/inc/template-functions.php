@@ -265,12 +265,57 @@ function pauza_step_source_chunks(string $text): array
     return $result;
 }
 
+function pauza_summary_link_label(string $url): string
+{
+    if (preg_match('/rutube\.ru\/video/i', $url)) {
+        return __('ссылка на видео', 'pauza-rabotaet');
+    }
+
+    if (preg_match('/rutube\.ru/i', $url)) {
+        return __('ссылка на Rutube', 'pauza-rabotaet');
+    }
+
+    if (preg_match('/t\.me/i', $url)) {
+        return __('ссылка на Telegram', 'pauza-rabotaet');
+    }
+
+    if (preg_match('/max\.ru/i', $url)) {
+        return __('ссылка на MAX', 'pauza-rabotaet');
+    }
+
+    if (preg_match('/cbr\.ru/i', $url)) {
+        return __('ссылка на ЦБ', 'pauza-rabotaet');
+    }
+
+    if (preg_match('/disk\.yandex\.ru/i', $url)) {
+        return __('ссылка на Яндекс.Диск', 'pauza-rabotaet');
+    }
+
+    return __('ссылка', 'pauza-rabotaet');
+}
+
+function pauza_compact_summary_text(string $text): string
+{
+    $text = preg_replace_callback('/https?:\/\/[^\s)]+/i', static function ($matches) {
+        $raw_url = (string) $matches[0];
+        $url = rtrim($raw_url, '.,;:');
+        $suffix = substr($raw_url, strlen($url));
+
+        return pauza_summary_link_label($url) . $suffix;
+    }, $text);
+
+    $text = wp_strip_all_tags((string) $text);
+    $text = preg_replace('/\s+/u', ' ', $text);
+
+    return trim((string) $text);
+}
+
 function pauza_render_step_source_sections(string $full_text): void
 {
     $chunks = pauza_step_source_chunks($full_text);
 
     foreach ($chunks as $index => $chunk) {
-        $summary = wp_trim_words(wp_strip_all_tags($chunk[0] ?? ''), 12, '...');
+        $summary = wp_trim_words(pauza_compact_summary_text((string) ($chunk[0] ?? '')), 12, '...');
         if ('' === $summary) {
             $summary = sprintf(__('Фрагмент %d', 'pauza-rabotaet'), $index + 1);
         }
