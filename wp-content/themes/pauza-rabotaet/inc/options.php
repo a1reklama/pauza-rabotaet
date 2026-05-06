@@ -43,6 +43,7 @@ function pauza_sanitize_options(array $input): array
         'calculator_telegram_url',
         'calculator_max_url',
         'four_step_bot_url',
+        'four_step_max_bot_url',
     ];
 
     $text_fields = [
@@ -99,7 +100,8 @@ function pauza_render_options_page(): void
             <?php pauza_options_text('telegram_channel_url', __('Telegram-канал с видео', 'pauza-rabotaet'), $options, 'url'); ?>
             <?php pauza_options_text('rutube_channel_url', __('Rutube-канал', 'pauza-rabotaet'), $options, 'url'); ?>
             <?php pauza_options_text('yandex_disk_url', __('Яндекс.Диск', 'pauza-rabotaet'), $options, 'url'); ?>
-            <?php pauza_options_text('four_step_bot_url', __('Бот 4 шага', 'pauza-rabotaet'), $options, 'url'); ?>
+            <?php pauza_options_text('four_step_bot_url', __('Telegram-бот 4 шага', 'pauza-rabotaet'), $options, 'url'); ?>
+            <?php pauza_options_text('four_step_max_bot_url', __('MAX-бот 4 шага', 'pauza-rabotaet'), $options, 'url'); ?>
 
             <h2><?php esc_html_e('Калькулятор', 'pauza-rabotaet'); ?></h2>
             <?php pauza_options_textarea('calculator_intro', __('Пояснение на странице калькулятора', 'pauza-rabotaet'), $options, 4); ?>

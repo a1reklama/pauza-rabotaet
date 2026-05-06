@@ -84,6 +84,30 @@ function pauza_smart_button(string $url, string $label, string $class = 'pauza-b
     return pauza_button($url, $label, $class);
 }
 
+function pauza_video_label_from_context(string $context): string
+{
+    $context = preg_replace('/https?:\/\/[^\s)]+/i', '', $context);
+    $context = is_string($context) ? trim($context) : '';
+
+    if ('' === $context) {
+        return '';
+    }
+
+    if (preg_match('/инструкц[^\n\r.]*калькулятор/iu', $context)) {
+        return __('инструкцию к калькулятору', 'pauza-rabotaet');
+    }
+
+    if (preg_match('/видео\s+(ИНТРО|ПРО БЕССИЛИЕ|\d{3}\s+ШАГ\s+\d+\s+ДЕНЬ\s+\d+|по\s+4\s+и\s+5\s+шагам)/iu', $context, $matches)) {
+        return trim($matches[1]);
+    }
+
+    if (preg_match('/видео\s+([^.,;\n\r()]{1,80})/iu', $context, $matches)) {
+        return trim($matches[1]);
+    }
+
+    return '';
+}
+
 function pauza_url_label(string $url, string $context = ''): string
 {
     $step = '';
@@ -92,7 +116,11 @@ function pauza_url_label(string $url, string $context = ''): string
     }
 
     if (preg_match('/FourStepForAllBot/i', $url)) {
-        return __('Открыть бот 4 шага', 'pauza-rabotaet');
+        return __('Открыть Telegram-бот 4 шага', 'pauza-rabotaet');
+    }
+
+    if (preg_match('/max\.ru\/id860230186705_bot/i', $url)) {
+        return __('Открыть MAX-бот 4 шага', 'pauza-rabotaet');
     }
 
     if (preg_match('/cbr\.ru/i', $url)) {
@@ -100,7 +128,12 @@ function pauza_url_label(string $url, string $context = ''): string
     }
 
     if (preg_match('/rutube\.ru/i', $url)) {
-        return __('Открыть Rutube-канал', 'pauza-rabotaet');
+        if (preg_match('/\/channel\//i', $url)) {
+            return __('Открыть Rutube-канал', 'pauza-rabotaet');
+        }
+
+        $video_label = pauza_video_label_from_context($context);
+        return $video_label ? sprintf(__('Открыть видео %s', 'pauza-rabotaet'), $video_label) : __('Открыть видео', 'pauza-rabotaet');
     }
 
     if (preg_match('/disk\.yandex\.ru/i', $url)) {
@@ -265,15 +298,7 @@ function pauza_step_material_lines(string $text): array
     foreach (pauza_lines($text) as $line) {
         $has_url = (bool) preg_match('/https?:\/\//i', $line);
 
-        if (!$has_url && preg_match('/^\(\d+\)/u', $line)) {
-            continue;
-        }
-
-        if (
-            $has_url ||
-            preg_match('/(группа\s+\d+\s+шага|телеграм|telegram|макс|max|видео|бот|rutube|яндекс|диск|cbr\.ru)/iu', $line) ||
-            (preg_match('/калькулятор/iu', $line) && (preg_match('/^\d+\.\s+/u', $line) || preg_match('/инструкц|выздоровления/iu', $line)))
-        ) {
+        if ($has_url) {
             $items[] = $line;
         }
     }

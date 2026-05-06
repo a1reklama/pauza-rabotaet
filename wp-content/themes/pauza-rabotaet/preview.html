@@ -327,12 +327,7 @@
                 var seen = {};
                 return splitLines(text).filter(function (line) {
                     var hasUrl = /https?:\/\//i.test(line);
-                    if (!hasUrl && /^\(\d+\)/.test(line)) {
-                        return false;
-                    }
-                    return hasUrl ||
-                        /(группа\s+\d+\s+шага|телеграм|telegram|макс|max|видео|бот|rutube|яндекс|диск|cbr\.ru)/i.test(line) ||
-                        (/калькулятор/i.test(line) && (/^\d+\.\s+/.test(line) || /инструкц|выздоровления/i.test(line)));
+                    return hasUrl;
                 }).filter(function (line) {
                     if (seen[line]) {
                         return false;
@@ -344,21 +339,50 @@
 
             function extractUrls(text) {
                 return Array.from(String(text || '').matchAll(/https?:\/\/[^\s)]+/g)).map(function (match) {
-                    return match[0].replace(/[.,;]+$/, '');
+                    return match[0].replace(/[.,;:]+$/, '');
                 });
+            }
+
+            function videoLabelFromContext(context) {
+                var clean = String(context || '').replace(/https?:\/\/[^\s)]+/gi, '').trim();
+                var match;
+
+                if (!clean) {
+                    return '';
+                }
+
+                if (/инструкц[^\n\r.]*калькулятор/i.test(clean)) {
+                    return 'инструкцию к калькулятору';
+                }
+
+                match = clean.match(/видео\s+(ИНТРО|ПРО БЕССИЛИЕ|\d{3}\s+ШАГ\s+\d+\s+ДЕНЬ\s+\d+|по\s+4\s+и\s+5\s+шагам)/i);
+                if (match) {
+                    return match[1].trim();
+                }
+
+                match = clean.match(/видео\s+([^.,;\n\r()]{1,80})/i);
+                return match ? match[1].trim() : '';
             }
 
             function urlLabel(url, context) {
                 var stepMatch = String(context || '').match(/группа\s+(\d+)\s+шага/i);
                 var step = stepMatch ? stepMatch[1] : '';
                 if (/FourStepForAllBot/i.test(url)) {
-                    return 'Открыть бот 4 шага';
+                    return 'Открыть Telegram-бот 4 шага';
+                }
+                if (/max\.ru\/id860230186705_bot/i.test(url)) {
+                    return 'Открыть MAX-бот 4 шага';
                 }
                 if (/cbr\.ru/i.test(url)) {
                     return 'Открыть курс ЦБ';
                 }
                 if (/rutube\.ru/i.test(url)) {
-                    return 'Открыть Rutube-канал';
+                    if (/\/channel\//i.test(url)) {
+                        return 'Открыть Rutube-канал';
+                    }
+
+                    var videoLabel = videoLabelFromContext(context);
+                    return videoLabel ? 'Открыть видео ' + videoLabel : 'Открыть видео';
                 }
                 if (/disk\.yandex\.ru/i.test(url)) {
                     return 'Открыть Яндекс.Диск';
@@ -592,7 +616,7 @@
                     bot.appendChild(createElement('h3', '', 'Бот 4 шага'));
                     bot.appendChild(createElement('p', '', 'Работа по четвертому шагу вынесена во внешний Telegram-бот.'));
                     bot.appendChild(badge('source', 'Из DOCX'));
-                    appendButtons(bot, extractUrls(text).filter(function (url) { return /FourStepForAllBot/i.test(url); }).join('\n'));
+                    appendButtons(bot, extractUrls(text).filter(function (url) { return /FourStepForAllBot|id860230186705_bot/i.test(url); }).join('\n'));
                     materialsContent.appendChild(bot);
                 }
                 body.appendChild(detailsBlock('Материалы шага', materialsContent, false));

@@ -115,7 +115,8 @@ while (have_posts()) :
                                     <h3><?php esc_html_e('Бот 4 шага', 'pauza-rabotaet'); ?> <?php echo pauza_origin_badge('source'); ?></h3>
                                     <p><?php esc_html_e('Этот бот показывается как инструмент конкретного четвертого шага, а не как общий пункт сайта.', 'pauza-rabotaet'); ?> <?php echo pauza_origin_badge('editorial'); ?></p>
                                     <div class="pauza-actions">
-                                        <?php echo pauza_button(pauza_get_option('four_step_bot_url'), __('Открыть бот 4 шага', 'pauza-rabotaet'), 'pauza-button pauza-button--primary'); ?>
+                                        <?php echo pauza_button(pauza_get_option('four_step_bot_url'), __('Открыть Telegram-бот 4 шага', 'pauza-rabotaet'), 'pauza-button pauza-button--primary'); ?>
+                                        <?php echo pauza_button(pauza_get_option('four_step_max_bot_url'), __('Открыть MAX-бот 4 шага', 'pauza-rabotaet')); ?>
                                     </div>
                                 </div>
                             <?php endif; ?>

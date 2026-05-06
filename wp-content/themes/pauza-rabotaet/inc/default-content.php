@@ -89,7 +89,7 @@ function pauza_ensure_default_menu_items(): void
 
 function pauza_seed_step_full_texts_for_existing_posts(): void
 {
-    if (get_option('pauza_full_text_seeded_v1')) {
+    if (get_option('pauza_full_text_seeded_v2')) {
         return;
     }
 
@@ -107,17 +107,17 @@ function pauza_seed_step_full_texts_for_existing_posts(): void
 
     foreach ($query->posts as $post_id) {
         $number = pauza_meta((int) $post_id, '_pauza_step_number');
-        if ($number && isset($full_texts[$number]) && !pauza_meta((int) $post_id, '_pauza_step_full_text')) {
+        if ($number && isset($full_texts[$number])) {
             update_post_meta((int) $post_id, '_pauza_step_full_text', $full_texts[$number]);
         }
     }
 
-    update_option('pauza_full_text_seeded_v1', current_time('mysql'));
+    update_option('pauza_full_text_seeded_v2', current_time('mysql'));
 }
 
 function pauza_seed_step_structured_blocks_for_existing_posts(): void
 {
-    if (get_option('pauza_step_blocks_seeded_v2')) {
+    if (get_option('pauza_step_blocks_seeded_v3')) {
         return;
     }
 
@@ -139,16 +139,11 @@ function pauza_seed_step_structured_blocks_for_existing_posts(): void
             continue;
         }
 
-        if (!pauza_meta((int) $post_id, '_pauza_step_materials')) {
-            update_post_meta((int) $post_id, '_pauza_step_materials', implode("\n", $blocks[$number]['materials']));
-        }
-
-        if (!pauza_meta((int) $post_id, '_pauza_step_exercises')) {
-            update_post_meta((int) $post_id, '_pauza_step_exercises', $blocks[$number]['exercises']);
-        }
+        update_post_meta((int) $post_id, '_pauza_step_materials', implode("\n", $blocks[$number]['materials']));
+        update_post_meta((int) $post_id, '_pauza_step_exercises', $blocks[$number]['exercises']);
     }
 
-    update_option('pauza_step_blocks_seeded_v2', current_time('mysql'));
+    update_option('pauza_step_blocks_seeded_v3', current_time('mysql'));
 }
 
 function pauza_seed_options(): void
@@ -161,7 +156,8 @@ function pauza_seed_options(): void
         'rutube_channel_url'         => 'https://rutube.ru/channel/44350949/',
         'yandex_disk_url'            => 'https://disk.yandex.ru/d/N2hLvMMUeXxsjg',
         'four_step_bot_url'          => 'https://t.me/FourStepForAllBot',
-        'calculator_instruction_url' => '',
+        'four_step_max_bot_url'      => 'https://max.ru/id860230186705_bot',
+        'calculator_instruction_url' => 'https://rutube.ru/video/7e631d8d1d40f7cbe4f68d1a321a3f10/',
         'calculator_telegram_url'    => '',
         'calculator_max_url'         => '',
         'calculator_intro'           => 'Калькуляторы открываются как внешние боты в Telegram или MAX. На сайте мы только объясняем, когда ими пользоваться и куда отправлять результат.',
@@ -515,96 +511,24 @@ function pauza_seed_steps(): void
 
 function pauza_step_structured_blocks(): array
 {
-    return [
-        '1' => [
-            'materials' => [
-                'Вводное видео INTRO.',
-                'Инструкция к калькулятору выздоровления.',
-                'Видео 003-010 по первому шагу.',
-                'Группа 1 шага в Telegram и MAX.',
-            ],
-            'exercises' => "Топ-5 зависимостей: главная зависимость, курение и еще три зависимости.\n\nВарианты зависимостей из документа: порно, кофеин, еда, контроль, созависимость, гнев, схемы, игры, сплетни, ничегонеделание, антидепрессанты, транжирство, диеты, соцсети, секс, новости, кредиты, ставки, успех, трудоголизм.\n\nПять вопросов по зависимости: что говорит сделать голова; беру ли паузу и наношу ли вред; как не вижу интересов других; как вру другим и себе; какая цифра получается на калькуляторе.",
-        ],
-        '2' => [
-            'materials' => [
-                'День 9-18: видео 011-020 по второму шагу смотреть по порядку.',
-                'Группа 2 шага в Telegram и MAX используется для вопросов по текущему шагу.',
-                'Длинный текст про похоть и отношения оставлен во вкладке "Текст руководителя" для проверки большого prose-блока.',
-            ],
-            'exercises' => "Ответить по каждой из пяти зависимостей: какими станут мои отношения в свободе от этой зависимости.\n\nПодвести итоги и зачитать работу спонсору.",
-        ],
-        '3' => [
-            'materials' => [
-                'Видео 021-030 по третьему шагу.',
-                'Группа 3 шага в Telegram и MAX.',
-                'Переход в Telegram-бот 4 шага после завершения.',
-            ],
-            'exercises' => "Текст третьего шага.\n\nВолшебные слова: короткая фраза для возвращения к паузе после ошибки.\n\nУпражнение на знание глоссария: бессилие, зависимость, одержимость, компульсивность, эгоцентризм, отрицание, жизнь, неуправляемость, здравомыслие, могущественная сила, вред, Бог, воля Бога, выздоровление, исцеление, препоручение, пауза, молитва.",
-        ],
-        '4' => [
-            'materials' => [
-                'Telegram-бот 4 шага: внешний инструмент для письменной инвентаризации.',
-                'Страница сайта только объясняет момент перехода и не хранит личные ответы.',
-                'Группы проекта и каналы не заменяют бот: бот используется именно на четвертом шаге.',
-            ],
-            'exercises' => "Рабочие вопросы и ответы выполняются во внешнем боте. Сайт не должен хранить личные ответы четвертого шага.",
-        ],
-        '5' => [
-            'materials' => [
-                'Работа со спонсором после четвертого шага.',
-                'На сайте остается короткая навигационная страница.',
-            ],
-            'exercises' => "Прочитать работу по четвертому шагу спонсору и согласовать переход к шестому шагу.",
-        ],
-        '6' => [
-            'materials' => [
-                'Видео шестого шага.',
-                'Группа 6 шага в Telegram и MAX.',
-            ],
-            'exercises' => "Работа с дефектами из финального текста пятого шага.\n\nПять вопросов по каждому дефекту: как проявляется; чего заставляет бояться; как будет выглядеть жизнь без него; готов ли я, чтобы Бог избавил; что делаю дальше.",
-        ],
-        '7' => [
-            'materials' => [
-                'Видео седьмого шага.',
-                'Группа 7 шага в Telegram и MAX.',
-            ],
-            'exercises' => "Утро: написать молитву своими словами и попросить сил не совершать действия под дефектом.\n\nВечер: написать опыт дня по дефекту.\n\nСвязки дефектов и принципов из документа остаются в полном тексте шага.",
-        ],
-        '8' => [
-            'materials' => [
-                'День 8 шага: смотреть видео восьмого шага по порядку, не переносить их в общую свалку материалов.',
-                'Группа 8 шага в Telegram и MAX: вопросы по текущей работе и спискам вреда.',
-                'Ссылка ЦБ для курса валют при материальном ущербе: https://www.cbr.ru/currency_base/daily/',
-                'Переход в 9 шаг показывается только после завершения списков и согласования со спонсором.',
-            ],
-            'exercises' => "Списки вреда из документа:\nфизический себе;\nфизический другим;\nкосвенный физический;\nпсихический себе;\nпсихический другим;\nматериальный организациям;\nматериальный людям;\nматериальный друзьям и партнерам;\nматериальный родным.\n\nДля материального ущерба отдельно фиксируется сумма, дата, курс валюты и понятное объяснение, как считался вред.\n\nУпражнение ВДА остается внутри восьмого шага. Его не нужно выносить в общий раздел материалов: человек открывает вкладку шага, читает инструкцию и работает со спонсором.\n\nПосле завершения восьмого шага человек переходит к девятому шагу: письма и план выхода согласуются со спонсором.",
-        ],
-        '9' => [
-            'materials' => [
-                'Группа 9 шага в Telegram и MAX.',
-            ],
-            'exercises' => "Письмо каждому человеку из списка восьмого шага.\n\nПлан выхода на человека согласуется со спонсором.\n\nГрафик встреч, звонков, посещений кладбищ или прочтения письма Богу. График материальных возмещений отдельно.",
-        ],
-        '10' => [
-            'materials' => [
-                'Группа 10 шага в Telegram и MAX.',
-            ],
-            'exercises' => "Каждый вечер выбрать одну главную ситуацию дня.\n\nРазобрать по 4 шагу: был ли вред и какой дефект.\n\nРазобрать по 9 шагу: возместить ущерб до конца дня, если был.\n\nРазобрать по 7 шагу: какие дефекты и страхи видны, на какие принципы просить заменить.",
-        ],
-        '11' => [
-            'materials' => [
-                'Группа 11 шага в Telegram и MAX.',
-                'Спикерские на канале.',
-            ],
-            'exercises' => "Слушать спикерские по одной в день.\n\nЕжедневно просить знать волю Бога и силы ее исполнить.\n\nПосле прослушивания ответить на вопросы о религии, понимании Бога, молитве, медитации и воле Бога.",
-        ],
-        '12' => [
-            'materials' => [
-                'Группа 12 шага в Telegram и MAX.',
-            ],
-            'exercises' => "Писать в группе только слова или действия, прямо связанные с несением вести и работой с подспонсорными, учениками, поднаставными и реабилитационными центрами.",
-        ],
-    ];
+    $full_texts = pauza_load_step_full_texts();
+    $blocks = [];
+
+    foreach (range(1, 12) as $number) {
+        $key = (string) $number;
+        $text = isset($full_texts[$key]) ? (string) $full_texts[$key] : '';
+        $numbered = $text ? pauza_step_numbered_lines($text) : [];
+        $exercises = array_values(array_filter($numbered, static function ($line) {
+            return !preg_match('/https?:\/\//i', (string) $line);
+        }));
+
+        $blocks[$key] = [
+            'materials' => $text ? pauza_step_material_lines($text) : [],
+            'exercises' => implode("\n", $exercises),
+        ];
+    }
+
+    return $blocks;
 }
 
 function pauza_load_step_full_texts(): array
