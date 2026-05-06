@@ -110,17 +110,21 @@ function pauza_video_label_from_context(string $context): string
 
 function pauza_url_label(string $url, string $context = ''): string
 {
+    if (pauza_context_describes_url($url, $context)) {
+        return __('Открыть', 'pauza-rabotaet');
+    }
+
     $step = '';
     if (preg_match('/группа\s+(\d+)\s+шага/iu', $context, $matches)) {
         $step = $matches[1];
     }
 
     if (preg_match('/FourStepForAllBot/i', $url)) {
-        return __('Открыть Telegram-бот 4 шага', 'pauza-rabotaet');
+        return __('Открыть Telegram-бот', 'pauza-rabotaet');
     }
 
     if (preg_match('/max\.ru\/id860230186705_bot/i', $url)) {
-        return __('Открыть MAX-бот 4 шага', 'pauza-rabotaet');
+        return __('Открыть MAX-бот', 'pauza-rabotaet');
     }
 
     if (preg_match('/cbr\.ru/i', $url)) {
@@ -153,6 +157,46 @@ function pauza_url_label(string $url, string $context = ''): string
     }
 
     return __('Открыть ссылку', 'pauza-rabotaet');
+}
+
+function pauza_context_describes_url(string $url, string $context): bool
+{
+    if ('' === trim($context)) {
+        return false;
+    }
+
+    $without_urls = trim((string) preg_replace('/https?:\/\/[^\s)]+/iu', ' ', $context));
+    $without_urls = trim((string) preg_replace('/\s+/u', ' ', $without_urls));
+
+    if ('' === $without_urls || !preg_match('/[а-яa-z0-9]/iu', $without_urls)) {
+        return false;
+    }
+
+    if (preg_match('/rutube\.ru\/video/i', $url)) {
+        return (bool) preg_match('/(смотрю|смотреть|посмотреть|видео|интро)/iu', $without_urls);
+    }
+
+    if (preg_match('/cbr\.ru/i', $url)) {
+        return (bool) preg_match('/(цб|курс|доллар|валют)/iu', $without_urls);
+    }
+
+    if (preg_match('/disk\.yandex\.ru/i', $url)) {
+        return (bool) preg_match('/(яндекс|диск|скачать|материал)/iu', $without_urls);
+    }
+
+    if (preg_match('/t\.me/i', $url)) {
+        return (bool) preg_match('/(телеграм|telegram|группа|канал|бот)/iu', $without_urls);
+    }
+
+    if (preg_match('/max\.ru/i', $url)) {
+        return (bool) preg_match('/(макс|max|группа|бот)/iu', $without_urls);
+    }
+
+    if (preg_match('/rutube\.ru/i', $url)) {
+        return (bool) preg_match('/(rutube|рутуб|канал|видео)/iu', $without_urls);
+    }
+
+    return false;
 }
 
 function pauza_linkify_text(string $text, bool $replace_urls = false): string

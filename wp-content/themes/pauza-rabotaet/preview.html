@@ -365,13 +365,17 @@
             }
 
             function urlLabel(url, context) {
+                if (contextDescribesUrl(url, context)) {
+                    return 'Открыть';
+                }
+
                 var stepMatch = String(context || '').match(/группа\s+(\d+)\s+шага/i);
                 var step = stepMatch ? stepMatch[1] : '';
                 if (/FourStepForAllBot/i.test(url)) {
-                    return 'Открыть Telegram-бот 4 шага';
+                    return 'Открыть Telegram-бот';
                 }
                 if (/max\.ru\/id860230186705_bot/i.test(url)) {
-                    return 'Открыть MAX-бот 4 шага';
+                    return 'Открыть MAX-бот';
                 }
                 if (/cbr\.ru/i.test(url)) {
                     return 'Открыть курс ЦБ';
@@ -397,6 +401,33 @@
                     return step ? 'Открыть MAX-группу ' + step + ' шага' : 'Открыть MAX';
                 }
                 return 'Открыть ссылку';
+            }
+
+            function contextDescribesUrl(url, context) {
+                var text = String(context || '').replace(/https?:\/\/[^\s)]+/gi, ' ').replace(/\s+/g, ' ').trim();
+                if (!text || !/[а-яa-z0-9]/i.test(text)) {
+                    return false;
+                }
+
+                if (/rutube\.ru\/video/i.test(url)) {
+                    return /(смотрю|смотреть|посмотреть|видео|интро)/i.test(text);
+                }
+                if (/cbr\.ru/i.test(url)) {
+                    return /(цб|курс|доллар|валют)/i.test(text);
+                }
+                if (/disk\.yandex\.ru/i.test(url)) {
+                    return /(яндекс|диск|скачать|материал)/i.test(text);
+                }
+                if (/t\.me/i.test(url)) {
+                    return /(телеграм|telegram|группа|канал|бот)/i.test(text);
+                }
+                if (/max\.ru/i.test(url)) {
+                    return /(макс|max|группа|бот)/i.test(text);
+                }
+                if (/rutube\.ru/i.test(url)) {
+                    return /(rutube|рутуб|канал|видео)/i.test(text);
+                }
+                return false;
             }
 
             function summaryLinkLabel(url) {
