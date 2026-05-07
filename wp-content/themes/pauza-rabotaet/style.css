@@ -144,8 +144,10 @@ p {
     width: 42px;
     height: 42px;
     place-items: center;
-    border-radius: 8px;
+    border-radius: 50%;
     color: #fff;
+    font-size: 0.95rem;
+    line-height: 1;
     background: var(--pauza-primary);
 }
 
@@ -240,7 +242,7 @@ p {
 .pauza-home-hero__grid {
     display: grid;
     align-items: center;
-    grid-template-columns: minmax(0, 1fr) minmax(320px, 0.55fr);
+    grid-template-columns: minmax(0, 1fr);
     gap: clamp(2rem, 5vw, 5rem);
 }
 

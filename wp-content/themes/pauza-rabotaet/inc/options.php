@@ -22,8 +22,8 @@ add_action('admin_init', 'pauza_register_options');
 function pauza_add_options_page(): void
 {
     add_menu_page(
-        __('Пауза работает', 'pauza-rabotaet'),
-        __('Пауза работает', 'pauza-rabotaet'),
+        __('12 шагов для ВСЕХ', 'pauza-rabotaet'),
+        __('12 шагов для ВСЕХ', 'pauza-rabotaet'),
         'manage_options',
         'pauza-settings',
         'pauza_render_options_page',
@@ -92,7 +92,7 @@ function pauza_render_options_page(): void
     $options = is_array($options) ? $options : [];
     ?>
     <div class="wrap">
-        <h1><?php esc_html_e('Настройки сайта "Пауза работает"', 'pauza-rabotaet'); ?></h1>
+        <h1><?php esc_html_e('Настройки сайта "12 шагов для ВСЕХ"', 'pauza-rabotaet'); ?></h1>
         <form method="post" action="options.php">
             <?php settings_fields('pauza_options_group'); ?>
 

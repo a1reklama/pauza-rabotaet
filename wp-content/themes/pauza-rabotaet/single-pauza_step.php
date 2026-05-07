@@ -36,7 +36,7 @@ while (have_posts()) :
                 </div>
                 <div>
                     <p class="pauza-eyebrow"><?php echo esc_html(sprintf(__('Шаг %s', 'pauza-rabotaet'), $number)); ?></p>
-                    <h1><?php the_title(); ?></h1>
+                    <h1><?php echo esc_html(pauza_step_display_title($number)); ?></h1>
                     <?php if ($goal) : ?>
                         <p class="pauza-lead"><?php echo esc_html($goal); ?> <?php echo pauza_origin_badge('editorial'); ?></p>
                     <?php endif; ?>

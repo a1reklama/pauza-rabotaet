@@ -84,6 +84,11 @@ function pauza_smart_button(string $url, string $label, string $class = 'pauza-b
     return pauza_button($url, $label, $class);
 }
 
+function pauza_step_display_title($number): string
+{
+    return sprintf(__('%s шаг для ВСЕХ', 'pauza-rabotaet'), (string) $number);
+}
+
 function pauza_video_label_from_context(string $context): string
 {
     $context = preg_replace('/https?:\/\/[^\s)]+/i', '', $context);
@@ -563,7 +568,7 @@ function pauza_archive_title(string $title, string $subtitle = ''): void
     ?>
     <section class="pauza-page-hero">
         <div class="pauza-container">
-            <p class="pauza-eyebrow"><?php esc_html_e('Пауза работает', 'pauza-rabotaet'); ?></p>
+            <p class="pauza-eyebrow"><?php esc_html_e('12 шагов для ВСЕХ', 'pauza-rabotaet'); ?></p>
             <h1><?php echo esc_html($title); ?></h1>
             <?php if ($subtitle) : ?>
                 <p class="pauza-lead"><?php echo esc_html($subtitle); ?></p>

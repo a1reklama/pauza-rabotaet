@@ -13,7 +13,7 @@ while (have_posts()) :
     <article>
         <section class="pauza-page-hero">
             <div class="pauza-container">
-                <p class="pauza-eyebrow"><?php esc_html_e('Пауза работает', 'pauza-rabotaet'); ?></p>
+                <p class="pauza-eyebrow"><?php esc_html_e('12 шагов для ВСЕХ', 'pauza-rabotaet'); ?></p>
                 <h1><?php the_title(); ?></h1>
             </div>
         </section>
@@ -29,4 +29,3 @@ while (have_posts()) :
 
 <?php
 get_footer();
-

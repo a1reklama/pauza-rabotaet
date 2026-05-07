@@ -23,7 +23,7 @@ $bot_url = pauza_get_option('four_step_bot_url', 'https://t.me/FourStepForAllBot
         <div class="pauza-content">
             <h2><?php esc_html_e('Когда переходить', 'pauza-rabotaet'); ?></h2>
             <ol class="pauza-task-list">
-                <li><?php esc_html_e('Выбран спонсор или проводник.', 'pauza-rabotaet'); ?></li>
+                <li><?php esc_html_e('Выбран спонсор.', 'pauza-rabotaet'); ?></li>
                 <li><?php esc_html_e('Первые три шага завершены и прочитаны/согласованы.', 'pauza-rabotaet'); ?></li>
                 <li><?php esc_html_e('Есть готовность выполнять письменную работу без публикации личных ответов на сайте.', 'pauza-rabotaet'); ?></li>
             </ol>

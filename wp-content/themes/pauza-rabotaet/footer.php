@@ -12,7 +12,7 @@ $footer_note = pauza_get_option('footer_note', 'Сайт помогает ори
 <footer class="pauza-footer">
     <div class="pauza-container pauza-footer__grid">
         <div>
-            <h2><?php esc_html_e('Пауза работает', 'pauza-rabotaet'); ?></h2>
+            <h2><?php esc_html_e('12 шагов для ВСЕХ', 'pauza-rabotaet'); ?></h2>
             <p><?php echo esc_html($footer_note); ?></p>
         </div>
         <nav aria-label="<?php esc_attr_e('Меню в подвале', 'pauza-rabotaet'); ?>">

@@ -22,8 +22,8 @@
             <?php if (has_custom_logo()) : ?>
                 <?php the_custom_logo(); ?>
             <?php else : ?>
-                <span class="pauza-brand__mark">П</span>
-                <span class="pauza-brand__text">Пауза работает</span>
+                <span class="pauza-brand__mark">12</span>
+                <span class="pauza-brand__text">12 шагов для ВСЕХ</span>
             <?php endif; ?>
         </a>
 

@@ -15,31 +15,12 @@ $news = pauza_latest_news_query(2);
 <section class="pauza-home-hero">
     <div class="pauza-container pauza-home-hero__grid">
         <div class="pauza-home-hero__copy">
-            <p class="pauza-eyebrow"><?php esc_html_e('12 шагов за 360 дней', 'pauza-rabotaet'); ?></p>
-            <h1><?php esc_html_e('Пауза работает', 'pauza-rabotaet'); ?></h1>
-            <p class="pauza-lead"><?php esc_html_e('Сначала выберите спонсора, потом откройте 360 видео и материалы, затем начинайте первый шаг.', 'pauza-rabotaet'); ?></p>
+            <h1><?php esc_html_e('12 шагов для ВСЕХ', 'pauza-rabotaet'); ?></h1>
+            <p class="pauza-lead"><?php esc_html_e('Сначала выбери спонсора, потом посмотри, откуда быстрее скачиваются 360 видео, начинай смотреть по одному видео в день и пройди 12 шагов за 360 дней', 'pauza-rabotaet'); ?></p>
             <div class="pauza-actions">
                 <?php echo pauza_internal_button(home_url('/sponsory/'), __('Выбрать спонсора', 'pauza-rabotaet'), 'pauza-button pauza-button--primary'); ?>
                 <?php echo pauza_internal_button(home_url('/materialy/'), __('Открыть 360 видео', 'pauza-rabotaet')); ?>
                 <?php echo pauza_internal_button(home_url('/12-shagov/pervyy-shag/'), __('Начать 1 шаг', 'pauza-rabotaet')); ?>
-            </div>
-        </div>
-        <div class="pauza-route" aria-label="<?php esc_attr_e('Маршрут новичка', 'pauza-rabotaet'); ?>">
-            <div class="pauza-route__item">
-                <span>1</span>
-                <strong><?php esc_html_e('Выбрать спонсора', 'pauza-rabotaet'); ?></strong>
-            </div>
-            <div class="pauza-route__item">
-                <span>2</span>
-                <strong><?php esc_html_e('Открыть 360 видео и материалы', 'pauza-rabotaet'); ?></strong>
-            </div>
-            <div class="pauza-route__item">
-                <span>3</span>
-                <strong><?php esc_html_e('Начать 1 шаг', 'pauza-rabotaet'); ?></strong>
-            </div>
-            <div class="pauza-route__item">
-                <span>4</span>
-                <strong><?php esc_html_e('Дальше идти только по переходу шага', 'pauza-rabotaet'); ?></strong>
             </div>
         </div>
     </div>
@@ -67,7 +48,7 @@ $news = pauza_latest_news_query(2);
             <article class="pauza-card">
                 <span class="pauza-card__number">01</span>
                 <h3><?php esc_html_e('Выбрать спонсора', 'pauza-rabotaet'); ?></h3>
-                <p><?php esc_html_e('Откройте список, выберите свой пол и сначала напишите короткое сообщение. Не звоните без предварительной переписки.', 'pauza-rabotaet'); ?> <?php echo pauza_origin_badge('editorial'); ?></p>
+                <p><?php esc_html_e('Открой список, выбери свой пол и сначала напиши короткое сообщение. Не звони без предварительной переписки.', 'pauza-rabotaet'); ?> <?php echo pauza_origin_badge('editorial'); ?></p>
                 <?php echo pauza_internal_button(home_url('/sponsory/'), __('Смотреть список', 'pauza-rabotaet')); ?>
             </article>
             <article class="pauza-card">
@@ -95,7 +76,7 @@ $news = pauza_latest_news_query(2);
 <section class="pauza-section">
     <div class="pauza-container">
         <div class="pauza-section__heading">
-            <p class="pauza-eyebrow"><?php esc_html_e('Материалы до начала', 'pauza-rabotaet'); ?></p>
+            <p class="pauza-eyebrow"><?php esc_html_e('Видео', 'pauza-rabotaet'); ?></p>
             <h2><?php esc_html_e('360 видео можно скачать здесь', 'pauza-rabotaet'); ?></h2>
             <p><?php esc_html_e('Этот блок стоит перед шагами, потому что в DOCX он идет до первого шага.', 'pauza-rabotaet'); ?> <?php echo pauza_origin_badge('source'); ?></p>
         </div>
@@ -135,7 +116,7 @@ $news = pauza_latest_news_query(2);
                     ?>
                     <a class="pauza-step-tile" href="<?php the_permalink(); ?>">
                         <span><?php echo esc_html($number); ?></span>
-                        <strong><?php the_title(); ?></strong>
+                        <strong><?php echo esc_html(pauza_step_display_title($number)); ?></strong>
                         <?php if ($status) : ?>
                             <em><?php echo esc_html($status); ?></em>
                         <?php endif; ?>
