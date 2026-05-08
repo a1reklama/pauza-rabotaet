@@ -8,8 +8,7 @@
 get_header();
 
 $steps = pauza_steps_query(12);
-$today = pauza_latest_today_query(1);
-$news = pauza_latest_news_query(2);
+$today = pauza_latest_today_query(4);
 ?>
 
 <section class="pauza-home-hero">
@@ -21,6 +20,8 @@ $news = pauza_latest_news_query(2);
                 <?php echo pauza_internal_button(home_url('/sponsory/'), __('Выбрать спонсора', 'pauza-rabotaet'), 'pauza-button pauza-button--primary'); ?>
                 <?php echo pauza_internal_button(home_url('/materialy/'), __('Открыть 360 видео', 'pauza-rabotaet')); ?>
                 <?php echo pauza_internal_button(home_url('/12-shagov/pervyy-shag/'), __('Начать 1 шаг', 'pauza-rabotaet')); ?>
+                <?php echo pauza_internal_button(home_url('/bot-4-shaga/'), __('Бот 4 шага', 'pauza-rabotaet')); ?>
+                <?php echo pauza_internal_button(home_url('/calculator/'), __('Калькулятор', 'pauza-rabotaet')); ?>
             </div>
         </div>
     </div>
@@ -32,7 +33,6 @@ $news = pauza_latest_news_query(2);
             <strong><?php esc_html_e('Метки:', 'pauza-rabotaet'); ?></strong>
             <?php echo pauza_origin_badge('source'); ?>
             <?php echo pauza_origin_badge('editorial'); ?>
-            <?php echo pauza_origin_badge('external_test'); ?>
             <?php echo pauza_origin_badge('verify'); ?>
         </div>
     </div>
@@ -130,67 +130,47 @@ $news = pauza_latest_news_query(2);
     </div>
 </section>
 
-<section class="pauza-section pauza-section--muted">
+<section class="pauza-section pauza-section--muted" id="services">
     <div class="pauza-container pauza-split">
         <div>
-            <p class="pauza-eyebrow"><?php esc_html_e('Дополнительные сервисы', 'pauza-rabotaet'); ?></p>
-            <h2><?php esc_html_e('Калькуляторы не стоят в начале маршрута', 'pauza-rabotaet'); ?></h2>
-            <p><?php esc_html_e('По DOCX калькулятор появляется в первом шаге: инструкция, ежедневная работа и отправка результата спонсору или в группу. Отдельная страница остается только справочным входом к внешним ботам.', 'pauza-rabotaet'); ?> <?php echo pauza_origin_badge('editorial'); ?></p>
-            <div class="pauza-actions">
-                <?php echo pauza_internal_button(home_url('/12-shagov/pervyy-shag/'), __('Открыть 1 шаг', 'pauza-rabotaet'), 'pauza-button pauza-button--primary'); ?>
-                <?php echo pauza_internal_button(home_url('/calculator/'), __('Калькуляторы', 'pauza-rabotaet')); ?>
-            </div>
+            <p class="pauza-eyebrow"><?php esc_html_e('Быстрые ссылки', 'pauza-rabotaet'); ?></p>
+            <h2><?php esc_html_e('Бот 4 шага и калькулятор', 'pauza-rabotaet'); ?></h2>
+            <p><?php esc_html_e('Это внешние инструменты. Сайт дает быстрый вход, но не хранит ответы и не заменяет работу со спонсором.', 'pauza-rabotaet'); ?> <?php echo pauza_origin_badge('editorial'); ?></p>
         </div>
-        <aside class="pauza-panel">
-            <h3><?php esc_html_e('Только сегодня', 'pauza-rabotaet'); ?></h3>
-            <?php if ($today->have_posts()) : ?>
-                <?php while ($today->have_posts()) : $today->the_post(); ?>
-                    <p><?php echo esc_html(wp_trim_words(get_the_excerpt() ?: get_the_content(), 26)); ?></p>
-                    <?php echo pauza_internal_button(get_permalink(), __('Читать текст', 'pauza-rabotaet')); ?>
-                <?php endwhile; wp_reset_postdata(); ?>
-            <?php else : ?>
-                <p><?php esc_html_e('Владелец сможет добавлять тексты в админке.', 'pauza-rabotaet'); ?></p>
-            <?php endif; ?>
-        </aside>
+        <div class="pauza-actions">
+            <?php echo pauza_internal_button(home_url('/bot-4-shaga/'), __('Бот 4 шага', 'pauza-rabotaet'), 'pauza-button pauza-button--primary'); ?>
+            <?php echo pauza_internal_button(home_url('/calculator/'), __('Калькулятор', 'pauza-rabotaet')); ?>
+        </div>
     </div>
 </section>
 
-<section class="pauza-section">
-    <div class="pauza-container pauza-split">
-        <div>
-            <p class="pauza-eyebrow"><?php esc_html_e('Новости', 'pauza-rabotaet'); ?></p>
-            <h2><?php esc_html_e('Новости отдельно от пути новичка', 'pauza-rabotaet'); ?></h2>
-            <p><?php esc_html_e('В этом блоке можно публиковать объявления проекта. Сейчас для проверки формата показаны внешние тематические новости с синей меткой.', 'pauza-rabotaet'); ?> <?php echo pauza_origin_badge('editorial'); ?></p>
-            <?php echo pauza_internal_button(home_url('/novosti/'), __('Открыть новости', 'pauza-rabotaet'), 'pauza-button pauza-button--primary'); ?>
+<section class="pauza-section" id="today">
+    <div class="pauza-container">
+        <div class="pauza-section__heading">
+            <p class="pauza-eyebrow"><?php esc_html_e('Только сегодня', 'pauza-rabotaet'); ?></p>
+            <h2><?php echo esc_html(sprintf(__('Только сегодня, %s', 'pauza-rabotaet'), date_i18n('j F Y'))); ?></h2>
+            <p><?php esc_html_e('Тексты редактируются в WordPress-админке в разделе «Только сегодня».', 'pauza-rabotaet'); ?> <?php echo pauza_origin_badge('source'); ?></p>
         </div>
-        <div class="pauza-card-grid">
-            <?php if ($news->have_posts()) : ?>
-                <?php while ($news->have_posts()) : $news->the_post(); ?>
-                    <?php
-                    $news_type = pauza_meta(get_the_ID(), '_pauza_news_type');
-                    $news_origin = pauza_meta(get_the_ID(), '_pauza_news_origin', 'project');
-                    $news_source = pauza_meta(get_the_ID(), '_pauza_news_source');
-                    $news_url = pauza_meta(get_the_ID(), '_pauza_news_url');
-                    $news_button = pauza_meta(get_the_ID(), '_pauza_news_button_label', __('Открыть', 'pauza-rabotaet'));
-                    ?>
+        <?php if ($today->have_posts()) : ?>
+            <div class="pauza-card-grid">
+                <?php while ($today->have_posts()) : $today->the_post(); ?>
                     <article class="pauza-card">
-                        <?php echo 'external_test' === $news_origin ? pauza_origin_badge('external_test') : pauza_origin_badge('source', __('Новость проекта', 'pauza-rabotaet')); ?>
-                        <p class="pauza-tag"><?php echo esc_html(trim(($news_type ? $news_type . ' · ' : '') . get_the_date())); ?></p>
-                        <h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
-                        <?php if ($news_source) : ?>
-                            <p class="pauza-muted-line"><?php echo esc_html($news_source); ?></p>
+                        <?php $date_label = pauza_meta(get_the_ID(), '_pauza_today_date'); ?>
+                        <?php if ($date_label) : ?>
+                            <p class="pauza-tag"><?php echo esc_html($date_label); ?></p>
                         <?php endif; ?>
-                        <p><?php echo esc_html(wp_trim_words(get_the_excerpt() ?: get_the_content(), 18)); ?></p>
-                        <?php echo pauza_smart_button($news_url, $news_button); ?>
+                        <h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
+                        <p><?php echo esc_html(wp_trim_words(get_the_excerpt() ?: get_the_content(), 32)); ?></p>
+                        <?php echo pauza_internal_button(get_permalink(), __('Читать', 'pauza-rabotaet')); ?>
                     </article>
                 <?php endwhile; wp_reset_postdata(); ?>
-            <?php else : ?>
-                <article class="pauza-card">
-                    <h3><?php esc_html_e('Новостей пока нет', 'pauza-rabotaet'); ?></h3>
-                    <p><?php esc_html_e('Владелец сможет добавить их в админке.', 'pauza-rabotaet'); ?></p>
-                </article>
-            <?php endif; ?>
-        </div>
+            </div>
+        <?php else : ?>
+            <article class="pauza-card">
+                <h3><?php esc_html_e('Текстов пока нет', 'pauza-rabotaet'); ?></h3>
+                <p><?php esc_html_e('Владелец сможет добавить их в WordPress-админке.', 'pauza-rabotaet'); ?></p>
+            </article>
+        <?php endif; ?>
     </div>
 </section>
 

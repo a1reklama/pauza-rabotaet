@@ -25,14 +25,9 @@
                     <li><a href="#sponsors">Спонсоры</a></li>
                     <li><a href="#materials">Материалы</a></li>
                     <li><a href="#steps">12 шагов</a></li>
-                    <li><a href="#news">Новости</a></li>
-                    <li class="menu-item-has-children">
-                        <a href="#more">Еще</a>
-                        <ul class="sub-menu">
-                            <li><a href="#today">Только сегодня</a></li>
-                            <li><a href="#calculator">Калькуляторы</a></li>
-                        </ul>
-                    </li>
+                    <li><a href="#bot-4">Бот 4 шага</a></li>
+                    <li><a href="#calculator">Калькулятор</a></li>
+                    <li><a href="#today">Только сегодня</a></li>
                 </ul>
             </nav>
         </div>
@@ -48,6 +43,8 @@
                         <a class="pauza-button pauza-button--primary" href="#sponsors">Выбрать спонсора</a>
                         <a class="pauza-button" href="#materials">Открыть 360 видео</a>
                         <a class="pauza-button" href="#step-1">Начать 1 шаг</a>
+                        <a class="pauza-button" href="#bot-4">Бот 4 шага</a>
+                        <a class="pauza-button" href="#calculator">Калькулятор</a>
                     </div>
                     <span class="pauza-origin pauza-origin--editorial">Редакционный слой</span>
                 </div>
@@ -60,7 +57,6 @@
                     <strong>Метки:</strong>
                     <span class="pauza-origin pauza-origin--source">Из DOCX</span>
                     <span class="pauza-origin pauza-origin--editorial">Редакционный слой</span>
-                    <span class="pauza-origin pauza-origin--external_test">Внешняя новость для теста</span>
                     <span class="pauza-origin pauza-origin--verify">Нужно подтвердить</span>
                 </div>
             </div>
@@ -120,12 +116,27 @@
             </div>
         </section>
 
+        <section class="pauza-section pauza-section--muted" id="bot-4">
+            <div class="pauza-container pauza-split">
+                <div>
+                    <p class="pauza-eyebrow">Быстрые ссылки</p>
+                    <h2>Бот 4 шага</h2>
+                    <p>Внешний инструмент для работы по четвертому шагу. В основном маршруте он появляется после 3 шага, но теперь есть и быстрый вход с главной страницы.</p>
+                    <span class="pauza-origin pauza-origin--editorial">Редакционный слой</span>
+                </div>
+                <div class="pauza-actions">
+                    <a class="pauza-button pauza-button--primary" href="https://t.me/FourStepForAllBot" target="_blank" rel="noopener noreferrer">Открыть Telegram-бот</a>
+                    <a class="pauza-button" href="https://max.ru/id860230186705_bot" target="_blank" rel="noopener noreferrer">Открыть MAX-бот</a>
+                </div>
+            </div>
+        </section>
+
         <section class="pauza-section" id="calculator">
             <div class="pauza-container pauza-content-grid">
                 <div class="pauza-content">
                     <p class="pauza-eyebrow">Дополнительный сервис</p>
-                    <h2>Калькуляторы</h2>
-                    <p>Калькуляторы не встраиваются в WordPress. Основное место для них - 1 шаг, а эта страница остается справочным входом к внешним ботам.</p>
+                    <h2>Калькулятор</h2>
+                    <p>Калькулятор не встраивается в WordPress. Основное место для него - 1 шаг, а эта страница остается справочным входом к внешним ботам.</p>
                     <span class="pauza-origin pauza-origin--editorial">Редакционный слой</span>
                     <div class="pauza-card-grid">
                         <article class="pauza-card">
@@ -147,64 +158,72 @@
                     <ol class="pauza-task-list">
                         <li>Внутри 1 шага.</li>
                         <li>Внизу как дополнительный сервис.</li>
-                        <li>Не как главное действие первого экрана.</li>
+                        <li>Как быстрый вход на главной странице.</li>
                     </ol>
                     <span class="pauza-origin pauza-origin--editorial">Редакционный слой</span>
                 </aside>
             </div>
         </section>
 
-        <section class="pauza-section pauza-section--muted" id="news">
+        <section class="pauza-section pauza-section--muted" id="today">
             <div class="pauza-container">
                 <div class="pauza-section__heading">
-                    <p class="pauza-eyebrow">Новости</p>
-                    <h2>Новости отдельно от маршрута</h2>
-                    <p>Для проверки формата здесь показаны внешние тематические новости. Они не являются материалами программы.</p>
-                    <span class="pauza-origin pauza-origin--editorial">Редакционный слой</span>
+                    <p class="pauza-eyebrow">Только сегодня</p>
+                    <h2>Только сегодня, <span data-current-date></span></h2>
+                    <p>Эти тексты владелец сможет добавлять и редактировать в WordPress-админке в разделе «Только сегодня».</p>
+                    <span class="pauza-origin pauza-origin--source">Из DOCX</span>
                 </div>
                 <div class="pauza-card-grid pauza-card-grid--three">
                     <article class="pauza-card">
-                        <span class="pauza-origin pauza-origin--external_test">Внешняя новость для теста</span>
-                        <p class="pauza-tag">27 апреля 2026</p>
-                        <h3>Как бросить курить сигареты и электронки</h3>
-                        <p class="pauza-muted-line">МНПЦ наркологии</p>
-                        <p>Карточка проверяет формат внешней тематической новости: источник, дата, короткий текст и кнопка.</p>
-                        <a class="pauza-button" href="https://narcologos.ru/news/?year=2026">Открыть источник</a>
+                        <p class="pauza-tag">Только сегодня</p>
+                        <h3>Вопрос 082</h3>
+                        <p>Как ты понимаешь предложение про то, чтобы стать самим собой и выполнить волю Бога?</p>
+                        <details class="pauza-details">
+                            <summary>Читать</summary>
+                            <div class="pauza-content">
+                                <p>Как ты понимаешь это предложение: «Ты становишься самим собой, и вот когда ты полностью станешь тем, кто ты есть на самом деле – только тогда ты по-настоящему выполнишь волю Бога». Относится ли это к тебе?</p>
+                                <p>Нет ко мне это не относится. Волю Бога я и так могу исполнять, мне не надо для этого прямо пройти какой-то путь. Я уже полпути прошел, я знаю что такое добро, и честность с самим собой, и как поступать. Что можно по-доброму, что есть выбор как сегодня поступать: например не оценивать даже свои поступки и не мочить себя по пустякам, когда что-то не получается, а то вот раньше тоже все идеально надо было сделать, а нынче я делаю, стараюсь и получается как получается. И это тоже воля Бога - не обижаться на жизнь, а радоваться жизни и радовать других. Поэтому чтобы мне жить по законам Божьим, не надо быть кем-то, а достаточно быть самим собой.</p>
+                            </div>
+                        </details>
                     </article>
                     <article class="pauza-card">
-                        <span class="pauza-origin pauza-origin--external_test">Внешняя новость для теста</span>
-                        <p class="pauza-tag">24 апреля 2026</p>
-                        <h3>Специалист МНПЦ на конкурсе «Московские мастера 2026»</h3>
-                        <p class="pauza-muted-line">МНПЦ наркологии</p>
-                        <p>Еще один пример новости из внешней ленты, чтобы проверить сетку и длину заголовка.</p>
-                        <a class="pauza-button" href="https://narcologos.ru/news/?year=2026">Открыть источник</a>
+                        <p class="pauza-tag">Только сегодня</p>
+                        <h3>Вопрос 057</h3>
+                        <p>Чувствуешь ли ты на себе сегодня клеймо зависимости и что с ним делать?</p>
+                        <details class="pauza-details">
+                            <summary>Читать</summary>
+                            <div class="pauza-content">
+                                <p>Чувствуешь ли ты на себе сегодня клеймо – наркомана, алкоголика, игрока, вора, мошенника, шлюхи, неудачника, преступника, обманщика… продолжать можно долго? Если представить себе это клеймо как татуировку – что тебе комфортнее: набить поверх нее слова «воин света» (1), вытравить ее чем-то (2), ждать, пока ее сведет с тебя Бог (3), или вообще ее не трогать (4)?</p>
+                                <p>Когда я останавливаюсь или сбиваюсь с пути воина света, и моя одержимость берет надо мной власть тихий голосок говорит "вот ты неудачник, иди подснимись" - в такие моменты я ощущаю на себе клеймо наркомана и неудачника. Гораздо меньше стало таких моментов. Клеймо и татуировка я так понял это отметины на теле нет вен, дороги на руках, статьи 228 несколько раз, лишение прав 3 раза, как я могу изменить это? Это все останется, я не изменю прошлое, и это значит, что только Бог может помочь мне свести эту татуировку.</p>
+                            </div>
+                        </details>
                     </article>
                     <article class="pauza-card">
-                        <span class="pauza-origin pauza-origin--external_test">Внешняя новость для теста</span>
-                        <p class="pauza-tag">12 января 2026</p>
-                        <h3>Новый порядок помощи по профилю «психиатрия-наркология»</h3>
-                        <p class="pauza-muted-line">КонсультантПлюс</p>
-                        <p>Юридическая новость отделена синей меткой и не смешивается с материалами шагов.</p>
-                        <a class="pauza-button" href="https://www.consultant.ru/legalnews/30513/">Открыть источник</a>
+                        <p class="pauza-tag">Только сегодня</p>
+                        <h3>Вопрос 126</h3>
+                        <p>Почему равновесие в твоей жизни – это и есть здравомыслие?</p>
+                        <details class="pauza-details">
+                            <summary>Читать</summary>
+                            <div class="pauza-content">
+                                <p>Почему равновесие в твоей жизни – это и есть здравомыслие?</p>
+                                <p>Это действительно прекрасный день, когда реальность перестала быть опасной и жестокой. Я вижу привычные ситуации совершенно по другому. Гармония в теле, разуме и душе. Равновесие. Freedom. Откуда я это знаю. Пришел сегодня Сашка из школы, сел со мной на кухне и рассуждает, что в 10 классе у него может быть одна из двух классных руководительниц, одна строгая, вторая меньше. А я сижу напротив, слушаю, что это или физичка или информатичка. Слушаю, а пульсом с радости, нежности и благодарности Спонсор, Богу, за всё. Для меня Сашина школа была адом всегда. Не такой как все, но должен быть как все. Прошлый год я билась как могла и не могла за то, чтобы дали аттестат. И Спонсор Богу за всё. У меня не вышло и этот год повтора девять, был не дорогой к знаниям, не дорогой сравнения себя с другими, осуждением, обвинением, а поиском уважения и контакта с Высшей Силой. Путь Воина Света.</p>
+                            </div>
+                        </details>
+                    </article>
+                    <article class="pauza-card">
+                        <p class="pauza-tag">Только сегодня</p>
+                        <h3>Вопрос 125</h3>
+                        <p>Что такое фильтрация мыслей через Бога или духовный фильтр?</p>
+                        <details class="pauza-details">
+                            <summary>Читать</summary>
+                            <div class="pauza-content">
+                                <p>Понимаешь ли ты сегодня, что такое «фильтрация мыслей через Бога» или «духовный фильтр»? Как это могло бы выглядеть в твоей жизни?</p>
+                                <p>На сегодня, чем больше я практикую паузу и не ведусь в моменте на одержимые мысли, желания и эмоции, тем меньше вреда наношу людям и себе.</p>
+                                <p>Сначала получалось редко, но чем чаще я беру паузу тем фильтр включается легче. На удивление иногда стало получаться автоматически, как дышишь. Шаги помогают наладить контакт с силой внутри меня с душой, пауза даёт возможность к ней обратиться, прислушаться к своим глубинным чувствам, к совести.</p>
+                            </div>
+                        </details>
                     </article>
                 </div>
-            </div>
-        </section>
-
-        <section class="pauza-section" id="today">
-            <div class="pauza-container pauza-split">
-                <div>
-                    <p class="pauza-eyebrow">Только сегодня</p>
-                    <h2>Тексты от меня</h2>
-                    <p>В DOCX этот раздел указан как «Только сегодня (тексты от меня)». Реальные тексты нужно перенести отдельно, не смешивая их с заданиями шагов и новостями.</p>
-                    <span class="pauza-origin pauza-origin--source">Из DOCX</span>
-                </div>
-                <article class="pauza-card">
-                    <p class="pauza-tag">Нужно заполнить</p>
-                    <h3>Текст на сегодня</h3>
-                    <p>Здесь будет исходный текст руководителя, когда появятся сами тексты для этого раздела.</p>
-                    <span class="pauza-origin pauza-origin--verify">Нужно подтвердить</span>
-                </article>
             </div>
         </section>
     </main>
@@ -221,7 +240,9 @@
                     <li><a href="#sponsors">Спонсоры</a></li>
                     <li><a href="#materials">Материалы</a></li>
                     <li><a href="#steps">12 шагов</a></li>
-                    <li><a href="#news">Новости</a></li>
+                    <li><a href="#bot-4">Бот 4 шага</a></li>
+                    <li><a href="#calculator">Калькулятор</a></li>
+                    <li><a href="#today">Только сегодня</a></li>
                 </ul>
             </nav>
         </div>
@@ -229,6 +250,14 @@
     <script src="assets/theme.js"></script>
     <script>
         (function () {
+            document.querySelectorAll('[data-current-date]').forEach(function (target) {
+                target.textContent = new Intl.DateTimeFormat('ru-RU', {
+                    day: 'numeric',
+                    month: 'long',
+                    year: 'numeric'
+                }).format(new Date());
+            });
+
             var stepNames = {
                 1: '1 шаг для ВСЕХ',
                 2: '2 шаг для ВСЕХ',

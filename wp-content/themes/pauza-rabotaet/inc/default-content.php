@@ -46,7 +46,7 @@ function pauza_seed_default_content(): void
     pauza_seed_steps();
     pauza_seed_materials();
     pauza_seed_today();
-    pauza_seed_news();
+    pauza_retire_seeded_news();
     pauza_seed_sponsors();
     pauza_seed_menu($home_id, $calculator_id, $bot_id);
 
@@ -57,22 +57,23 @@ add_action('after_switch_theme', 'pauza_seed_step_full_texts_for_existing_posts'
 add_action('after_switch_theme', 'pauza_seed_step_structured_blocks_for_existing_posts', 31);
 add_action('admin_init', 'pauza_seed_step_full_texts_for_existing_posts');
 add_action('admin_init', 'pauza_seed_step_structured_blocks_for_existing_posts');
-add_action('admin_init', 'pauza_ensure_news_seeded');
+add_action('admin_init', 'pauza_ensure_today_seeded');
 add_action('admin_init', 'pauza_ensure_default_menu_items');
 
-function pauza_ensure_news_seeded(): void
+function pauza_ensure_today_seeded(): void
 {
-    if (get_option('pauza_news_seeded_v3')) {
+    if (get_option('pauza_today_seeded_v2')) {
         return;
     }
 
-    pauza_seed_news();
-    update_option('pauza_news_seeded_v3', current_time('mysql'));
+    pauza_seed_today();
+    pauza_retire_seeded_news();
+    update_option('pauza_today_seeded_v2', current_time('mysql'));
 }
 
 function pauza_ensure_default_menu_items(): void
 {
-    if (get_option('pauza_menu_seeded_v3')) {
+    if (get_option('pauza_menu_seeded_v4')) {
         return;
     }
 
@@ -640,59 +641,82 @@ function pauza_seed_materials(): void
 
 function pauza_seed_today(): void
 {
-    pauza_seed_post(
-        'pauza_today',
-        'tolko-segodnya-start',
-        'Только сегодня: стартовый текст',
-        'Тексты этого раздела редактируются владельцем сайта. Здесь можно публиковать ежедневные или периодические обращения, не смешивая их с инструкциями по шагам.',
-        ['_pauza_today_date' => 'Стартовый текст'],
-        'publish'
-    );
+    pauza_retire_seeded_post('pauza_today', 'tolko-segodnya-start');
+
+    $items = [
+        [
+            'slug' => 'tolko-segodnya-vopros-082',
+            'title' => 'Вопрос 082',
+            'content' => implode("\n\n", [
+                'Как ты понимаешь это предложение: «Ты становишься самим собой, и вот когда ты полностью станешь тем, кто ты есть на самом деле – только тогда ты по-настоящему выполнишь волю Бога». Относится ли это к тебе?',
+                'Нет ко мне это не относится. Волю Бога я и так могу исполнять, мне не надо для этого прямо пройти какой-то путь. Я уже полпути прошел, я знаю что такое добро, и честность с самим собой, и как поступать. Что можно по-доброму, что есть выбор как сегодня поступать: например не оценивать даже свои поступки и не мочить себя по пустякам, когда что-то не получается, а то вот раньше тоже все идеально надо было сделать, а нынче я делаю, стараюсь и получается как получается. И это тоже воля Бога - не обижаться на жизнь, а радоваться жизни и радовать других. Поэтому чтобы мне жить по законам Божьим, не надо быть кем-то, а достаточно быть самим собой.',
+            ]),
+        ],
+        [
+            'slug' => 'tolko-segodnya-vopros-057',
+            'title' => 'Вопрос 057',
+            'content' => implode("\n\n", [
+                'Чувствуешь ли ты на себе сегодня клеймо – наркомана, алкоголика, игрока, вора, мошенника, шлюхи, неудачника, преступника, обманщика… продолжать можно долго? Если представить себе это клеймо как татуировку – что тебе комфортнее: набить поверх нее слова «воин света» (1), вытравить ее чем-то (2), ждать, пока ее сведет с тебя Бог (3), или вообще ее не трогать (4)?',
+                'Когда я останавливаюсь или сбиваюсь с пути воина света, и моя одержимость берет надо мной власть тихий голосок говорит "вот ты неудачник, иди подснимись" - в такие моменты я ощущаю на себе клеймо наркомана и неудачника. Гораздо меньше стало таких моментов. Клеймо и татуировка я так понял это отметины на теле нет вен, дороги на руках, статьи 228 несколько раз, лишение прав 3 раза, как я могу изменить это? Это все останется, я не изменю прошлое, и это значит, что только Бог может помочь мне свести эту татуировку.',
+            ]),
+        ],
+        [
+            'slug' => 'tolko-segodnya-vopros-126',
+            'title' => 'Вопрос 126',
+            'content' => implode("\n\n", [
+                'Почему равновесие в твоей жизни – это и есть здравомыслие?',
+                'Это действительно прекрасный день, когда реальность перестала быть опасной и жестокой. Я вижу привычные ситуации совершенно по другому. Гармония в теле, разуме и душе. Равновесие. Freedom. Откуда я это знаю. Пришел сегодня Сашка из школы, сел со мной на кухне и рассуждает, что в 10 классе у него может быть одна из двух классных руководительниц, одна строгая, вторая меньше. А я сижу напротив, слушаю, что это или физичка или информатичка. Слушаю, а пульсом с радости, нежности и благодарности Спонсор, Богу, за всё. Для меня Сашина школа была адом всегда. Не такой как все, но должен быть как все. Прошлый год я билась как могла и не могла за то, чтобы дали аттестат. И Спонсор Богу за всё. У меня не вышло и этот год повтора девять, был не дорогой к знаниям, не дорогой сравнения себя с другими, осуждением, обвинением, а поиском уважения и контакта с Высшей Силой. Путь Воина Света.',
+            ]),
+        ],
+        [
+            'slug' => 'tolko-segodnya-vopros-125',
+            'title' => 'Вопрос 125',
+            'content' => implode("\n\n", [
+                'Понимаешь ли ты сегодня, что такое «фильтрация мыслей через Бога» или «духовный фильтр»? Как это могло бы выглядеть в твоей жизни?',
+                'На сегодня, чем больше я практикую паузу и не ведусь в моменте на одержимые мысли, желания и эмоции, тем меньше вреда наношу людям и себе.',
+                'Сначала получалось редко, но чем чаще я беру паузу тем фильтр включается легче. На удивление иногда стало получаться автоматически, как дышишь. Шаги помогают наладить контакт с силой внутри меня с душой, пауза даёт возможность к ней обратиться, прислушаться к своим глубинным чувствам, к совести.',
+            ]),
+        ],
+    ];
+
+    foreach ($items as $index => $item) {
+        pauza_seed_post('pauza_today', $item['slug'], $item['title'], $item['content'], [
+            '_pauza_today_date' => 'Только сегодня',
+        ], 'publish', $index + 1);
+    }
 }
 
 function pauza_seed_news(): void
 {
-    $news = [
-        [
-            'slug' => 'mnpc-kak-brosit-kurit-2026',
-            'title' => 'Как бросить курить сигареты и электронки: советы врача и работающие методики',
-            'content' => 'Внешняя тематическая новость для проверки формата раздела. Это не материал программы и не инструкция руководителя проекта.',
-            'type' => 'Внешняя тестовая новость',
-            'source' => 'МНПЦ наркологии, 27 апреля 2026',
-            'origin' => 'external_test',
-            'url' => 'https://narcologos.ru/news/?year=2026',
-            'label' => 'Открыть источник',
-        ],
-        [
-            'slug' => 'mnpc-moskovskie-mastera-2026',
-            'title' => 'Специалист МНПЦ наркологии представил Московскую наркологию на конкурсе «Московские мастера 2026»',
-            'content' => 'Внешняя тематическая новость для проверки формата карточек: дата, источник, короткий текст и кнопка.',
-            'type' => 'Внешняя тестовая новость',
-            'source' => 'МНПЦ наркологии, 24 апреля 2026',
-            'origin' => 'external_test',
-            'url' => 'https://narcologos.ru/news/?year=2026',
-            'label' => 'Открыть источник',
-        ],
-        [
-            'slug' => 'consultant-narcology-order-2026',
-            'title' => 'Новый порядок медпомощи по профилю «психиатрия-наркология» вступит в силу 1 сентября 2026 года',
-            'content' => 'Внешняя юридическая новость для проверки формата. Она не является материалом программы и должна быть визуально отделена от шагов.',
-            'type' => 'Внешняя тестовая новость',
-            'source' => 'КонсультантПлюс, 12 января 2026',
-            'origin' => 'external_test',
-            'url' => 'https://www.consultant.ru/legalnews/30513/',
-            'label' => 'Открыть источник',
-        ],
-    ];
+    pauza_retire_seeded_news();
+}
 
-    foreach ($news as $item) {
-        pauza_seed_post('pauza_news', $item['slug'], $item['title'], $item['content'], [
-            '_pauza_news_type'         => $item['type'],
-            '_pauza_news_origin'       => $item['origin'],
-            '_pauza_news_source'       => $item['source'],
-            '_pauza_news_url'          => $item['url'],
-            '_pauza_news_button_label' => $item['label'],
-        ], 'publish');
+function pauza_retire_seeded_news(): void
+{
+    foreach ([
+        'mnpc-kak-brosit-kurit-2026',
+        'mnpc-moskovskie-mastera-2026',
+        'consultant-narcology-order-2026',
+    ] as $slug) {
+        pauza_retire_seeded_post('pauza_news', $slug);
+    }
+}
+
+function pauza_retire_seeded_post(string $post_type, string $slug): void
+{
+    $query = new WP_Query([
+        'post_type'      => $post_type,
+        'name'           => $slug,
+        'post_status'    => ['publish', 'pending', 'private'],
+        'posts_per_page' => 1,
+        'fields'         => 'ids',
+    ]);
+
+    foreach ($query->posts as $post_id) {
+        wp_update_post([
+            'ID'          => (int) $post_id,
+            'post_status' => 'draft',
+        ]);
     }
 }
 
@@ -709,7 +733,7 @@ function pauza_seed_menu(int $home_id, int $calculator_id, int $bot_id): void
         return;
     }
 
-    pauza_remove_menu_items((int) $menu_id, ['Калькулятор', 'Калькуляторы', 'Материалы', 'Только сегодня', 'Бот 4 шага', 'Еще']);
+    pauza_remove_menu_items((int) $menu_id, ['Калькулятор', 'Калькуляторы', 'Материалы', 'Только сегодня', 'Бот 4 шага', 'Новости', 'Еще']);
 
     if ($home_id && !pauza_menu_has_item((int) $menu_id, 'Начать')) {
         wp_update_nav_menu_item($menu_id, 0, [
@@ -725,7 +749,9 @@ function pauza_seed_menu(int $home_id, int $calculator_id, int $bot_id): void
         ['Спонсоры', home_url('/sponsory/')],
         ['Материалы', home_url('/materialy/')],
         ['12 шагов', home_url('/12-shagov/')],
-        ['Новости', home_url('/novosti/')],
+        ['Бот 4 шага', $bot_id ? get_permalink($bot_id) : home_url('/bot-4-shaga/')],
+        ['Калькулятор', $calculator_id ? get_permalink($calculator_id) : home_url('/calculator/')],
+        ['Только сегодня', home_url('/tolko-segodnya/')],
     ];
 
     foreach ($top_links as $link) {
@@ -741,36 +767,12 @@ function pauza_seed_menu(int $home_id, int $calculator_id, int $bot_id): void
         ]);
     }
 
-    $more_id = wp_update_nav_menu_item($menu_id, 0, [
-        'menu-item-title'  => 'Еще',
-        'menu-item-url'    => '#',
-        'menu-item-type'   => 'custom',
-        'menu-item-status' => 'publish',
-    ]);
-
-    if (!is_wp_error($more_id) && $more_id) {
-        $secondary_links = [
-            ['Только сегодня', home_url('/tolko-segodnya/')],
-            ['Калькуляторы', $calculator_id ? get_permalink($calculator_id) : home_url('/calculator/')],
-        ];
-
-        foreach ($secondary_links as $link) {
-            wp_update_nav_menu_item($menu_id, 0, [
-                'menu-item-title'     => $link[0],
-                'menu-item-url'       => $link[1],
-                'menu-item-type'      => 'custom',
-                'menu-item-status'    => 'publish',
-                'menu-item-parent-id' => (int) $more_id,
-            ]);
-        }
-    }
-
     set_theme_mod('nav_menu_locations', [
         'primary' => (int) $menu_id,
         'footer'  => (int) $menu_id,
     ]);
 
-    update_option('pauza_menu_seeded_v3', current_time('mysql'));
+    update_option('pauza_menu_seeded_v4', current_time('mysql'));
 }
 
 function pauza_remove_menu_items(int $menu_id, array $titles): void

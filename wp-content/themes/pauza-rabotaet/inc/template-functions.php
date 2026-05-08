@@ -245,7 +245,6 @@ function pauza_origin_badge(string $origin, string $label = ''): string
     $labels = [
         'source'        => __('Из DOCX', 'pauza-rabotaet'),
         'editorial'     => __('Редакционный слой', 'pauza-rabotaet'),
-        'external_test' => __('Внешняя новость для теста', 'pauza-rabotaet'),
         'verify'        => __('Нужно подтвердить', 'pauza-rabotaet'),
     ];
 
@@ -585,18 +584,15 @@ function pauza_fallback_menu(): void
         ['Спонсоры', home_url('/sponsory/')],
         ['Материалы', home_url('/materialy/')],
         ['12 шагов', home_url('/12-shagov/')],
-        ['Новости', home_url('/novosti/')],
+        ['Бот 4 шага', home_url('/bot-4-shaga/')],
+        ['Калькулятор', home_url('/calculator/')],
+        ['Только сегодня', home_url('/tolko-segodnya/')],
     ];
 
     echo '<ul class="pauza-nav__list">';
     foreach ($items as $item) {
         printf('<li><a href="%s">%s</a></li>', esc_url($item[1]), esc_html($item[0]));
     }
-    echo '<li class="menu-item-has-children"><a href="#">Еще</a><ul class="sub-menu">';
-    foreach ([['Только сегодня', home_url('/tolko-segodnya/')], ['Калькуляторы', home_url('/calculator/')]] as $item) {
-        printf('<li><a href="%s">%s</a></li>', esc_url($item[1]), esc_html($item[0]));
-    }
-    echo '</ul></li>';
     echo '</ul>';
 }
 
@@ -607,7 +603,9 @@ function pauza_footer_menu(): void
         ['Спонсоры', home_url('/sponsory/')],
         ['Материалы', home_url('/materialy/')],
         ['12 шагов', home_url('/12-shagov/')],
-        ['Новости', home_url('/novosti/')],
+        ['Бот 4 шага', home_url('/bot-4-shaga/')],
+        ['Калькулятор', home_url('/calculator/')],
+        ['Только сегодня', home_url('/tolko-segodnya/')],
     ];
 
     echo '<ul class="pauza-footer__links">';
