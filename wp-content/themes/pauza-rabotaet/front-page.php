@@ -27,17 +27,6 @@ $today = pauza_latest_today_query(4);
     </div>
 </section>
 
-<section class="pauza-section">
-    <div class="pauza-container">
-        <div class="pauza-source-legend">
-            <strong><?php esc_html_e('Метки:', 'pauza-rabotaet'); ?></strong>
-            <?php echo pauza_origin_badge('source'); ?>
-            <?php echo pauza_origin_badge('editorial'); ?>
-            <?php echo pauza_origin_badge('verify'); ?>
-        </div>
-    </div>
-</section>
-
 <section class="pauza-section pauza-section--muted">
     <div class="pauza-container">
         <div class="pauza-section__heading">
@@ -48,25 +37,25 @@ $today = pauza_latest_today_query(4);
             <article class="pauza-card">
                 <span class="pauza-card__number">01</span>
                 <h3><?php esc_html_e('Выбрать спонсора', 'pauza-rabotaet'); ?></h3>
-                <p><?php esc_html_e('Открой список, выбери свой пол и сначала напиши короткое сообщение. Не звони без предварительной переписки.', 'pauza-rabotaet'); ?> <?php echo pauza_origin_badge('editorial'); ?></p>
+                <p><?php esc_html_e('Открой список, выбери свой пол и сначала напиши короткое сообщение. Не звони без предварительной переписки.', 'pauza-rabotaet'); ?></p>
                 <?php echo pauza_internal_button(home_url('/sponsory/'), __('Смотреть список', 'pauza-rabotaet')); ?>
             </article>
             <article class="pauza-card">
                 <span class="pauza-card__number">02</span>
                 <h3><?php esc_html_e('Открыть 360 видео', 'pauza-rabotaet'); ?></h3>
-                <p><?php esc_html_e('В DOCX перед первым шагом указаны Telegram, Rutube и Яндекс.Диск с видео. Показываем их до карты шагов.', 'pauza-rabotaet'); ?> <?php echo pauza_origin_badge('source'); ?></p>
+                <p><?php esc_html_e('Перед первым шагом указаны Telegram, Rutube и Яндекс.Диск с видео. Показываем их до карты шагов.', 'pauza-rabotaet'); ?></p>
                 <?php echo pauza_internal_button(home_url('/materialy/'), __('Открыть материалы', 'pauza-rabotaet')); ?>
             </article>
             <article class="pauza-card">
                 <span class="pauza-card__number">03</span>
                 <h3><?php esc_html_e('Начать 1 шаг', 'pauza-rabotaet'); ?></h3>
-                <p><?php esc_html_e('На странице шага сначала видны пункты работы из DOCX. Длинный текст руководителя открыт отдельной вкладкой.', 'pauza-rabotaet'); ?> <?php echo pauza_origin_badge('editorial'); ?></p>
+                <p><?php esc_html_e('На странице шага сначала видны пункты работы. Длинный текст руководителя открыт отдельной вкладкой.', 'pauza-rabotaet'); ?></p>
                 <?php echo pauza_internal_button(home_url('/12-shagov/pervyy-shag/'), __('Начать 1 шаг', 'pauza-rabotaet')); ?>
             </article>
             <article class="pauza-card">
                 <span class="pauza-card__number">04</span>
                 <h3><?php esc_html_e('Идти по переходу шага', 'pauza-rabotaet'); ?></h3>
-                <p><?php esc_html_e('Группы, боты и калькуляторы показываются внутри того шага, где они действительно нужны.', 'pauza-rabotaet'); ?> <?php echo pauza_origin_badge('editorial'); ?></p>
+                <p><?php esc_html_e('Группы, боты и калькуляторы показываются внутри того шага, где они действительно нужны.', 'pauza-rabotaet'); ?></p>
                 <?php echo pauza_internal_button(home_url('/12-shagov/'), __('Открыть карту шагов', 'pauza-rabotaet')); ?>
             </article>
         </div>
@@ -78,7 +67,7 @@ $today = pauza_latest_today_query(4);
         <div class="pauza-section__heading">
             <p class="pauza-eyebrow"><?php esc_html_e('Видео', 'pauza-rabotaet'); ?></p>
             <h2><?php esc_html_e('360 видео можно скачать здесь', 'pauza-rabotaet'); ?></h2>
-            <p><?php esc_html_e('Этот блок стоит перед шагами, потому что в DOCX он идет до первого шага.', 'pauza-rabotaet'); ?> <?php echo pauza_origin_badge('source'); ?></p>
+            <p><?php esc_html_e('Этот блок стоит перед шагами, потому что он нужен до первого шага.', 'pauza-rabotaet'); ?></p>
         </div>
         <div class="pauza-card-grid pauza-card-grid--three">
             <article class="pauza-card">
@@ -135,7 +124,7 @@ $today = pauza_latest_today_query(4);
         <div>
             <p class="pauza-eyebrow"><?php esc_html_e('Быстрые ссылки', 'pauza-rabotaet'); ?></p>
             <h2><?php esc_html_e('Бот 4 шага и калькулятор', 'pauza-rabotaet'); ?></h2>
-            <p><?php esc_html_e('Это внешние инструменты. Сайт дает быстрый вход, но не хранит ответы и не заменяет работу со спонсором.', 'pauza-rabotaet'); ?> <?php echo pauza_origin_badge('editorial'); ?></p>
+            <p><?php esc_html_e('Это внешние инструменты. Сайт дает быстрый вход, но не хранит ответы и не заменяет работу со спонсором.', 'pauza-rabotaet'); ?></p>
         </div>
         <div class="pauza-actions">
             <?php echo pauza_internal_button(home_url('/bot-4-shaga/'), __('Бот 4 шага', 'pauza-rabotaet'), 'pauza-button pauza-button--primary'); ?>
@@ -149,7 +138,7 @@ $today = pauza_latest_today_query(4);
         <div class="pauza-section__heading">
             <p class="pauza-eyebrow"><?php esc_html_e('Только сегодня', 'pauza-rabotaet'); ?></p>
             <h2><?php echo esc_html(sprintf(__('Только сегодня, %s', 'pauza-rabotaet'), date_i18n('j F Y'))); ?></h2>
-            <p><?php esc_html_e('Тексты редактируются в WordPress-админке в разделе «Только сегодня».', 'pauza-rabotaet'); ?> <?php echo pauza_origin_badge('source'); ?></p>
+            <p><?php esc_html_e('Тексты редактируются в WordPress-админке в разделе «Только сегодня».', 'pauza-rabotaet'); ?></p>
         </div>
         <?php if ($today->have_posts()) : ?>
             <div class="pauza-card-grid">

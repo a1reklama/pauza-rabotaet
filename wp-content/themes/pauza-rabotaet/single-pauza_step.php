@@ -53,7 +53,7 @@ while (have_posts()) :
                     <div>
                         <p class="pauza-eyebrow"><?php esc_html_e('Работа по документу', 'pauza-rabotaet'); ?></p>
                         <h2><?php esc_html_e('Сначала откройте работу по шагу', 'pauza-rabotaet'); ?></h2>
-                        <p><?php esc_html_e('Ниже фактические пункты из DOCX. Подсказки интерфейса отдельно помечены цветом.', 'pauza-rabotaet'); ?> <?php echo pauza_origin_badge('editorial'); ?></p>
+                        <p><?php esc_html_e('Ниже идут пункты работы по шагу. Двигайтесь по ним последовательно и открывайте материалы по мере прохождения.', 'pauza-rabotaet'); ?></p>
                     </div>
                     <div class="pauza-actions">
                         <?php echo pauza_button($telegram, __('Открыть Telegram', 'pauza-rabotaet'), 'pauza-button pauza-button--primary'); ?>

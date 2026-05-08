@@ -313,19 +313,7 @@ function pauza_render_plain_text(string $text, bool $replace_urls = false): void
 
 function pauza_origin_badge(string $origin, string $label = ''): string
 {
-    $labels = [
-        'source'        => __('Из DOCX', 'pauza-rabotaet'),
-        'editorial'     => __('Редакционный слой', 'pauza-rabotaet'),
-        'verify'        => __('Нужно подтвердить', 'pauza-rabotaet'),
-    ];
-
-    $label = $label ?: ($labels[$origin] ?? $origin);
-
-    return sprintf(
-        '<span class="pauza-origin pauza-origin--%1$s">%2$s</span>',
-        esc_attr($origin),
-        esc_html($label)
-    );
+    return '';
 }
 
 function pauza_step_icon_html(string $number): string

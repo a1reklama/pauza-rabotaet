@@ -10,6 +10,7 @@ const stylePath = path.join(themeDir, 'style.css');
 const themeJsPath = path.join(themeDir, 'assets', 'theme.js');
 const stepsPath = path.join(themeDir, 'inc', 'step-full-texts.json');
 const iconDir = path.join(themeDir, 'assets', 'step-icons');
+const faviconPath = path.join(themeDir, 'assets', 'favicon.svg');
 
 let html = fs.readFileSync(previewPath, 'utf8');
 const css = fs.readFileSync(stylePath, 'utf8');
@@ -43,7 +44,9 @@ html = html.replace(
 
 fs.rmSync(outDir, { recursive: true, force: true });
 fs.mkdirSync(outDir, { recursive: true });
+fs.mkdirSync(path.join(outDir, 'assets'), { recursive: true });
 fs.writeFileSync(path.join(outDir, 'index.html'), html, 'utf8');
+fs.copyFileSync(faviconPath, path.join(outDir, 'assets', 'favicon.svg'));
 fs.writeFileSync(path.join(outDir, '.nojekyll'), '', 'utf8');
 
 console.log(`Built ${path.join(outDir, 'index.html')} (${Buffer.byteLength(html)} bytes)`);
