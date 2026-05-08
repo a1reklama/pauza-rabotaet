@@ -56,3 +56,25 @@
 Тема рассчитана на обычный WordPress-хостинг REG.RU с PHP и MySQL/MariaDB. Для боевого сайта не нужен VDS, Docker, Node или отдельный backend. Все CSS/JS уже лежат готовыми файлами внутри темы.
 
 UX специально упрощен для людей с низкой технической грамотностью: крупные кнопки, короткие подписи, один следующий шаг на экране и скрытие длинных текстов во вкладках.
+
+## Локальная Отладка WordPress Через Docker
+
+Локальная WordPress-сборка нужна только для проверки темы как настоящего сайта. Для REG.RU Docker не нужен.
+
+1. Запустить Docker Desktop.
+2. В корне проекта выполнить `docker compose up -d db wordpress phpmyadmin`.
+3. Открыть сайт: `http://localhost:8080`.
+4. Открыть админку: `http://localhost:8080/wp-admin/`.
+5. Локальный администратор: `admin`, пароль: `admin`.
+6. phpMyAdmin доступен на `http://localhost:8081`.
+
+Полезные команды:
+
+```powershell
+docker compose ps
+docker compose logs -f wordpress
+docker compose down
+docker compose run --rm wpcli theme activate pauza-rabotaet --path=/var/www/html
+```
+
+База и файлы WordPress хранятся в Docker volumes `pauza_db` и `pauza_wordpress` (в Docker Desktop они могут отображаться с префиксом проекта). Текущая тема подключена как volume из `wp-content/themes/pauza-rabotaet`, поэтому изменения в теме сразу видны на локальном сайте.
