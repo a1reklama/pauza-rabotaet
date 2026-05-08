@@ -65,23 +65,19 @@ $today = pauza_latest_today_query(4);
 <section class="pauza-section">
     <div class="pauza-container">
         <div class="pauza-section__heading">
-            <p class="pauza-eyebrow"><?php esc_html_e('Видео', 'pauza-rabotaet'); ?></p>
             <h2><?php esc_html_e('360 видео можно скачать здесь', 'pauza-rabotaet'); ?></h2>
             <p><?php esc_html_e('Этот блок стоит перед шагами, потому что он нужен до первого шага.', 'pauza-rabotaet'); ?></p>
         </div>
         <div class="pauza-card-grid pauza-card-grid--three">
             <article class="pauza-card">
-                <p class="pauza-tag"><?php esc_html_e('Telegram', 'pauza-rabotaet'); ?></p>
                 <h3><?php esc_html_e('Telegram-канал 360 видео', 'pauza-rabotaet'); ?></h3>
                 <?php echo pauza_button(pauza_get_option('telegram_channel_url'), __('Открыть Telegram-канал 360 видео', 'pauza-rabotaet'), 'pauza-button pauza-button--primary'); ?>
             </article>
             <article class="pauza-card">
-                <p class="pauza-tag"><?php esc_html_e('Rutube', 'pauza-rabotaet'); ?></p>
                 <h3><?php esc_html_e('Rutube-канал', 'pauza-rabotaet'); ?></h3>
                 <?php echo pauza_button(pauza_get_option('rutube_channel_url'), __('Открыть Rutube-канал', 'pauza-rabotaet')); ?>
             </article>
             <article class="pauza-card">
-                <p class="pauza-tag"><?php esc_html_e('Яндекс.Диск', 'pauza-rabotaet'); ?></p>
                 <h3><?php esc_html_e('Скачать видео', 'pauza-rabotaet'); ?></h3>
                 <?php echo pauza_button(pauza_get_option('yandex_disk_url'), __('Открыть Яндекс.Диск', 'pauza-rabotaet')); ?>
             </article>
@@ -136,7 +132,6 @@ $today = pauza_latest_today_query(4);
 <section class="pauza-section" id="today">
     <div class="pauza-container">
         <div class="pauza-section__heading">
-            <p class="pauza-eyebrow"><?php esc_html_e('Только сегодня', 'pauza-rabotaet'); ?></p>
             <h2><?php echo esc_html(sprintf(__('Только сегодня, %s', 'pauza-rabotaet'), date_i18n('j F Y'))); ?></h2>
             <p><?php esc_html_e('Тексты редактируются в WordPress-админке в разделе «Только сегодня».', 'pauza-rabotaet'); ?></p>
         </div>
@@ -144,10 +139,6 @@ $today = pauza_latest_today_query(4);
             <div class="pauza-card-grid">
                 <?php while ($today->have_posts()) : $today->the_post(); ?>
                     <article class="pauza-card">
-                        <?php $date_label = pauza_meta(get_the_ID(), '_pauza_today_date'); ?>
-                        <?php if ($date_label) : ?>
-                            <p class="pauza-tag"><?php echo esc_html($date_label); ?></p>
-                        <?php endif; ?>
                         <h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
                         <?php echo pauza_today_question_answer_html(get_post_field('post_content', get_the_ID()), true); ?>
                         <?php echo pauza_internal_button(get_permalink(), __('Читать', 'pauza-rabotaet')); ?>

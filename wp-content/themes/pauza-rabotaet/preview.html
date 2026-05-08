@@ -54,21 +54,20 @@
         <section class="pauza-section" id="sponsors">
             <div class="pauza-container">
                 <div class="pauza-section__heading">
-                    <p class="pauza-eyebrow">Спонсоры</p>
                     <h2>Сначала выбери спонсора своего пола</h2>
                     <p>Этот блок идет до шагов, потому что выбор спонсора нужен до начала работы.</p>
                 </div>
                 <div class="pauza-next-box">
                     <div>
-                        <p class="pauza-eyebrow">Перед контактом</p>
                         <p>БОЛЬШАЯ ПРОСЬБА НЕ ЗВОНИТЬ, НАПИСАТЬ СООБЩЕНИЕ В ДОСТУПНЫЙ МЕССЕНДЖЕР ИЛИ СМС, ПРЕДСТАВИТЬСЯ И КОРОТКО РАССКАЗАТЬ О СЕБЕ</p>
                     </div>
+                    <button class="pauza-button pauza-button--primary" type="button" data-sponsor-consent aria-expanded="false">Я ознакомился</button>
                 </div>
-                <div class="pauza-filter" role="group" aria-label="Выбор списка спонсоров">
+                <div class="pauza-filter" role="group" aria-label="Выбор списка спонсоров" data-sponsor-controls hidden>
                     <button type="button" data-sponsor-filter="female">Женщины</button>
                     <button type="button" data-sponsor-filter="male">Мужчины</button>
                 </div>
-                <div class="pauza-sponsor-grid is-collapsed" data-sponsor-list>
+                <div class="pauza-sponsor-grid is-collapsed" data-sponsor-list hidden>
                     <p>Выберите список выше.</p>
                 </div>
             </div>
@@ -77,14 +76,13 @@
         <section class="pauza-section pauza-section--muted" id="materials">
             <div class="pauza-container">
                 <div class="pauza-section__heading">
-                    <p class="pauza-eyebrow">Видео</p>
                     <h2>360 видео можно скачать здесь</h2>
                     <p>Этот блок стоит до первого шага, поэтому в маршруте он идет перед картой шагов.</p>
                 </div>
                 <div class="pauza-card-grid pauza-card-grid--three">
-                    <article class="pauza-card"><p class="pauza-tag">Telegram</p><h3>Telegram-канал 360 видео</h3><p>ТЕЛЕГРАМ</p><a class="pauza-button pauza-button--primary" href="https://t.me/neporukovodstvu" target="_blank" rel="noopener noreferrer">Открыть Telegram-канал 360 видео</a></article>
-                    <article class="pauza-card"><p class="pauza-tag">Rutube</p><h3>Rutube-канал</h3><p>RUTUBE</p><a class="pauza-button" href="https://rutube.ru/channel/44350949/" target="_blank" rel="noopener noreferrer">Открыть Rutube-канал</a></article>
-                    <article class="pauza-card"><p class="pauza-tag">Яндекс.Диск</p><h3>Скачать видео</h3><p>ЯНДЕКС ДИСК</p><a class="pauza-button" href="https://disk.yandex.ru/d/N2hLvMMUeXxsjg" target="_blank" rel="noopener noreferrer">Открыть Яндекс.Диск</a></article>
+                    <article class="pauza-card"><h3>Telegram-канал 360 видео</h3><p>ТЕЛЕГРАМ</p><a class="pauza-button pauza-button--primary" href="https://t.me/neporukovodstvu" target="_blank" rel="noopener noreferrer">Открыть Telegram-канал 360 видео</a></article>
+                    <article class="pauza-card"><h3>Rutube-канал</h3><p>RUTUBE</p><a class="pauza-button" href="https://rutube.ru/channel/44350949/" target="_blank" rel="noopener noreferrer">Открыть Rutube-канал</a></article>
+                    <article class="pauza-card"><h3>Скачать видео</h3><p>ЯНДЕКС ДИСК</p><a class="pauza-button" href="https://disk.yandex.ru/d/N2hLvMMUeXxsjg" target="_blank" rel="noopener noreferrer">Открыть Яндекс.Диск</a></article>
                 </div>
             </div>
         </section>
@@ -93,7 +91,7 @@
             <div class="pauza-container">
                 <div class="pauza-section__heading">
                     <h2>12 шагов для ВСЕХ</h2>
-                    <p>Открыта только одна папка. Внутри каждого шага: работа по шагу, материалы, текст руководителя и переход дальше.</p>
+                    <p>Открыта только одна папка. Внутри каждого шага: работа по шагу, материалы, текст руководителя и следующее действие.</p>
                 </div>
                 <div class="pauza-step-folders" id="full-step-folders">
                     <p>Загрузка всех 12 шагов...</p>
@@ -104,7 +102,6 @@
         <section class="pauza-section pauza-section--muted" id="bot-4">
             <div class="pauza-container pauza-split">
                 <div>
-                    <p class="pauza-eyebrow">Быстрые ссылки</p>
                     <h2>Бот 4 шага</h2>
                     <p>Внешний инструмент для работы по четвертому шагу. В основном маршруте он появляется после 3 шага, но теперь есть и быстрый вход с главной страницы.</p>
                 </div>
@@ -116,45 +113,27 @@
         </section>
 
         <section class="pauza-section" id="calculator">
-            <div class="pauza-container pauza-content-grid">
+            <div class="pauza-container">
                 <div class="pauza-content">
-                    <p class="pauza-eyebrow">Дополнительный сервис</p>
-                    <h2>Калькулятор</h2>
-                    <p>Калькулятор не встраивается в WordPress. Основное место для него - 1 шаг, а эта страница остается справочным входом к внешним ботам.</p>
-                    <div class="pauza-card-grid">
-                        <article class="pauza-card">
-                            <p class="pauza-tag">Калькулятор</p>
-                            <h3>Telegram-бот</h3>
-                            <p>Ссылка будет добавлена после подтверждения владельцем.</p>
-                        </article>
-                        <article class="pauza-card">
-                            <p class="pauza-tag">Калькулятор</p>
-                            <h3>MAX-бот</h3>
-                            <p>Ссылка будет добавлена после подтверждения владельцем.</p>
-                        </article>
-                    </div>
+                    <h2>Калькулятор выздоровления</h2>
+                    <p>Калькулятор открыт как отдельный веб-сервис. Сайт ведет на него и не хранит ответы пользователя.</p>
+                    <article class="pauza-card">
+                        <h3>Открыть калькулятор</h3>
+                        <p>Результат после заполнения отправляйте спонсору или в группу текущего шага.</p>
+                        <a class="pauza-button pauza-button--primary" href="https://pauzarabotaet.ru/calculator/" target="_blank" rel="noopener noreferrer">Открыть калькулятор</a>
+                    </article>
                 </div>
-                <aside class="pauza-panel">
-                    <h2>Где показывать</h2>
-                    <ol class="pauza-task-list">
-                        <li>Внутри 1 шага.</li>
-                        <li>Внизу как дополнительный сервис.</li>
-                        <li>Как быстрый вход на главной странице.</li>
-                    </ol>
-                </aside>
             </div>
         </section>
 
         <section class="pauza-section pauza-section--muted" id="today">
             <div class="pauza-container">
                 <div class="pauza-section__heading">
-                    <p class="pauza-eyebrow">Только сегодня</p>
                     <h2>Только сегодня, <span data-current-date></span></h2>
                     <p>Эти тексты владелец сможет добавлять и редактировать в WordPress-админке в разделе «Только сегодня».</p>
                 </div>
                 <div class="pauza-card-grid pauza-card-grid--three">
                     <article class="pauza-card">
-                        <p class="pauza-tag">Только сегодня</p>
                         <h3>Вопрос 082</h3>
                         <div class="pauza-qa pauza-qa--question">
                             <span class="pauza-qa__label">Вопрос</span>
@@ -175,7 +154,6 @@
                         </details>
                     </article>
                     <article class="pauza-card">
-                        <p class="pauza-tag">Только сегодня</p>
                         <h3>Вопрос 057</h3>
                         <div class="pauza-qa pauza-qa--question">
                             <span class="pauza-qa__label">Вопрос</span>
@@ -196,7 +174,6 @@
                         </details>
                     </article>
                     <article class="pauza-card">
-                        <p class="pauza-tag">Только сегодня</p>
                         <h3>Вопрос 126</h3>
                         <div class="pauza-qa pauza-qa--question">
                             <span class="pauza-qa__label">Вопрос</span>
@@ -217,7 +194,6 @@
                         </details>
                     </article>
                     <article class="pauza-card">
-                        <p class="pauza-tag">Только сегодня</p>
                         <h3>Вопрос 125</h3>
                         <div class="pauza-qa pauza-qa--question">
                             <span class="pauza-qa__label">Вопрос</span>
@@ -353,16 +329,39 @@
             }
 
             function numberedLines(text) {
-                return splitLines(text).filter(function (line) {
-                    return /^\d+\.\s+/.test(line);
+                var items = [];
+                var current = [];
+
+                splitLines(text).forEach(function (line) {
+                    if (/^\d+\.\s+/.test(line)) {
+                        if (current.length) {
+                            items.push(current.join('\n'));
+                        }
+                        current = [line];
+                        return;
+                    }
+
+                    if (current.length) {
+                        current.push(line);
+                    }
                 });
+
+                if (current.length) {
+                    items.push(current.join('\n'));
+                }
+
+                return items;
             }
 
             function materialLines(text) {
                 var seen = {};
-                return splitLines(text).filter(function (line) {
+                var lines = splitLines(text);
+                return lines.filter(function (line, index) {
                     var hasUrl = /https?:\/\//i.test(line);
-                    return hasUrl;
+                    var nextLine = lines[index + 1] || '';
+                    var nextIsUrlOnly = /^https?:\/\/\S+[.,;:]?$/i.test(nextLine);
+                    var looksMaterial = /(группа\s+\d+\s+шага|телеграм|telegram|макс|max|rutube|яндекс|диск|бот|калькулятор|курс\s+цб|видео)/i.test(line);
+                    return hasUrl || (nextIsUrlOnly && looksMaterial);
                 }).filter(function (line) {
                     if (seen[line]) {
                         return false;
@@ -376,6 +375,22 @@
                 return Array.from(String(text || '').matchAll(/https?:\/\/[^\s)]+/g)).map(function (match) {
                     return match[0].replace(/[.,;:]+$/, '');
                 });
+            }
+
+            function mergeUrlOnlyLines(items) {
+                var merged = [];
+                items.forEach(function (item) {
+                    var line = String(item || '').trim();
+                    if (/^https?:\/\/\S+[.,;:]?$/i.test(line) && merged.length) {
+                        var previous = String(merged[merged.length - 1] || '');
+                        if (!/https?:\/\//i.test(previous)) {
+                            merged[merged.length - 1] = previous.replace(/[:\s]*$/, ':') + ' ' + line;
+                            return;
+                        }
+                    }
+                    merged.push(line);
+                });
+                return merged;
             }
 
             function videoLabelFromContext(context) {
@@ -544,18 +559,14 @@
 
             function renderSourceList(items) {
                 var list = createElement('ul', 'pauza-source-list');
-                items.forEach(function (item) {
+                mergeUrlOnlyLines(items).forEach(function (item) {
                     var source = String(item);
-                    var match = source.match(/^(\d+)\.\s+(.*)$/);
+                    var match = source.match(/^(\d+)\.\s+([\s\S]*)$/);
                     if (match) {
                         var li = createElement('li', 'pauza-source-item');
                         li.appendChild(createElement('span', 'pauza-source-item__number', match[1]));
                         var body = createElement('div', 'pauza-source-item__body');
-                        var label = /видео/i.test(item) ? 'Видео' : (/калькулятор/i.test(item) ? 'Калькулятор' : (/бот/i.test(item) ? 'Бот' : (/перехожу|переходи|группа\s+\d+\s+шага/i.test(item) ? 'Переход' : 'Задание')));
-                        body.appendChild(createElement('span', 'pauza-source-item__type', label));
-                        var text = createElement('p');
-                        appendLinkedText(text, match[2], true);
-                        body.appendChild(text);
+                        appendSourceItemBody(body, match[2]);
                         li.appendChild(body);
                         list.appendChild(li);
                         return;
@@ -580,13 +591,73 @@
                 return list;
             }
 
+            function isShortContinuationList(lines) {
+                return lines.length >= 2 && lines.length <= 24 && lines.every(function (line) {
+                    var text = String(line || '').trim();
+                    return text.length <= 70 && !/https?:\/\//i.test(text);
+                });
+            }
+
+            function renderSourceContinuation(lines) {
+                var fragment = document.createDocumentFragment();
+
+                if (isShortContinuationList(lines)) {
+                    var sublist = createElement('ul', 'pauza-source-sublist');
+                    lines.forEach(function (line) {
+                        var item = createElement('li');
+                        appendLinkedText(item, line, true);
+                        sublist.appendChild(item);
+                    });
+                    fragment.appendChild(sublist);
+                    return fragment;
+                }
+
+                lines.forEach(function (line) {
+                    var paragraph = createElement('p');
+                    appendLinkedText(paragraph, line, true);
+                    fragment.appendChild(paragraph);
+                });
+
+                return fragment;
+            }
+
+            function appendSourceItemBody(body, content) {
+                var lines = mergeUrlOnlyLines(splitLines(content));
+                var first = lines.shift();
+                var paragraph;
+                var continuation;
+                var shouldCollapse;
+
+                if (!first) {
+                    return;
+                }
+
+                paragraph = createElement('p');
+                appendLinkedText(paragraph, first, true);
+                body.appendChild(paragraph);
+
+                if (!lines.length) {
+                    return;
+                }
+
+                continuation = lines.join('\n');
+                shouldCollapse = !isShortContinuationList(lines) && (continuation.length > 900 || lines.length > 8);
+
+                if (shouldCollapse) {
+                    body.appendChild(detailsBlock('Показать продолжение', renderSourceContinuation(lines), false));
+                    return;
+                }
+
+                body.appendChild(renderSourceContinuation(lines));
+            }
+
             function renderReadableText(lines) {
                 return renderSourceList(lines);
             }
 
             function paragraphize(lines, replaceUrls) {
                 var fragment = document.createDocumentFragment();
-                lines.forEach(function (line) {
+                (replaceUrls ? mergeUrlOnlyLines(lines) : lines).forEach(function (line) {
                     var paragraph = createElement('p');
                     appendLinkedText(paragraph, line, Boolean(replaceUrls));
                     fragment.appendChild(paragraph);
@@ -711,7 +782,6 @@
                 body.appendChild(detailsBlock('Текст руководителя', sourceContent, false));
 
                 var transition = createElement('div', 'pauza-step-transition');
-                transition.appendChild(createElement('p', 'pauza-tag', 'Переход дальше'));
                 var transitionContent = transitionLines(text, stepNumber);
                 transition.appendChild(paragraphize(transitionContent, true));
                 body.appendChild(transition);

@@ -161,7 +161,7 @@ function pauza_seed_options(): void
         'calculator_instruction_url' => 'https://rutube.ru/video/7e631d8d1d40f7cbe4f68d1a321a3f10/',
         'calculator_telegram_url'    => '',
         'calculator_max_url'         => '',
-        'calculator_intro'           => 'Калькуляторы открываются как внешние боты в Telegram или MAX. На сайте мы только объясняем, когда ими пользоваться и куда отправлять результат.',
+        'calculator_intro'           => 'Калькулятор открыт как отдельный веб-сервис. Сайт ведет на него и не хранит ответы пользователя.',
         'privacy_notice'             => 'Публично показываются только подтвержденные контакты. Большая просьба не звонить: сначала напишите сообщение, представьтесь и коротко расскажите о себе.',
         'footer_note'                => 'Сайт помогает ориентироваться в программе и ведет во внешние группы, боты и видеоматериалы. Он не заменяет работу со спонсором.',
     ];
@@ -571,6 +571,9 @@ function pauza_step_slug(int $number, string $title): string
 
 function pauza_seed_materials(): void
 {
+    pauza_retire_seeded_post('pauza_material', 'calculator-telegram-bot');
+    pauza_retire_seeded_post('pauza_material', 'calculator-max-bot');
+
     $materials = [
         [
             'slug' => 'telegram-video',
@@ -613,20 +616,12 @@ function pauza_seed_materials(): void
             'label' => 'Открыть группу',
         ],
         [
-            'slug' => 'calculator-telegram-bot',
-            'title' => 'Калькулятор в Telegram',
-            'content' => 'Внешний бот-калькулятор. Сайт не хранит ответы и не встраивает калькулятор в админку.',
+            'slug' => 'calculator-web-service',
+            'title' => 'Калькулятор выздоровления',
+            'content' => 'Единый внешний веб-сервис калькулятора. Сайт ведет на него и не хранит ответы пользователя.',
             'type' => 'calculator',
-            'url' => '',
-            'label' => 'Открыть Telegram-бот',
-        ],
-        [
-            'slug' => 'calculator-max-bot',
-            'title' => 'Калькулятор в MAX',
-            'content' => 'Внешний MAX-инструмент для ежедневного расчета, когда ссылка будет подтверждена владельцем.',
-            'type' => 'calculator',
-            'url' => '',
-            'label' => 'Открыть MAX-бот',
+            'url' => pauza_calculator_url(),
+            'label' => 'Открыть калькулятор',
         ],
     ];
 

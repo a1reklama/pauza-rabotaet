@@ -55,14 +55,32 @@
         return true;
     }
 
+    const sponsorConsent = document.querySelector('[data-sponsor-consent]');
+    const sponsorControls = document.querySelector('[data-sponsor-controls]');
+    const sponsorList = document.querySelector('[data-sponsor-list]');
+
+    if (sponsorConsent) {
+        sponsorConsent.addEventListener('click', function () {
+            if (sponsorControls) {
+                sponsorControls.hidden = false;
+            }
+            if (sponsorList) {
+                sponsorList.hidden = false;
+            }
+            sponsorConsent.setAttribute('aria-expanded', 'true');
+            sponsorConsent.disabled = true;
+            sponsorConsent.classList.add('is-confirmed');
+        });
+    }
+
     const filterButtons = document.querySelectorAll('[data-sponsor-filter]');
     filterButtons.forEach(function (button) {
         button.addEventListener('click', function () {
             const filter = button.getAttribute('data-sponsor-filter');
-            const sponsorList = document.querySelector('[data-sponsor-list]');
             const sponsorCards = sponsorList ? Array.from(sponsorList.querySelectorAll('[data-sponsor-gender]')) : [];
 
             if (sponsorList) {
+                sponsorList.hidden = false;
                 sponsorList.classList.remove('is-collapsed');
                 sponsorList.querySelectorAll('p:not([class])').forEach(function (placeholder) {
                     placeholder.remove();

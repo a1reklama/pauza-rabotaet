@@ -106,8 +106,6 @@ function pauza_render_options_page(): void
             <h2><?php esc_html_e('Калькулятор', 'pauza-rabotaet'); ?></h2>
             <?php pauza_options_textarea('calculator_intro', __('Пояснение на странице калькулятора', 'pauza-rabotaet'), $options, 4); ?>
             <?php pauza_options_text('calculator_instruction_url', __('Ссылка на инструкцию', 'pauza-rabotaet'), $options, 'url'); ?>
-            <?php pauza_options_text('calculator_telegram_url', __('Ссылка на Telegram-бот калькулятора', 'pauza-rabotaet'), $options, 'url'); ?>
-            <?php pauza_options_text('calculator_max_url', __('Ссылка на MAX-бот калькулятора', 'pauza-rabotaet'), $options, 'url'); ?>
 
             <h2><?php esc_html_e('Юридические и служебные тексты', 'pauza-rabotaet'); ?></h2>
             <?php pauza_options_textarea('privacy_notice', __('Заметка о контактах спонсоров', 'pauza-rabotaet'), $options, 4); ?>

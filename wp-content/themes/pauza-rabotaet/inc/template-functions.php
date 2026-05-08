@@ -306,7 +306,12 @@ function pauza_linkify_text(string $text, bool $replace_urls = false): string
 
 function pauza_render_plain_text(string $text, bool $replace_urls = false): void
 {
-    foreach (pauza_paragraphs($text) as $paragraph) {
+    $paragraphs = pauza_paragraphs($text);
+    if ($replace_urls) {
+        $paragraphs = pauza_merge_url_only_lines($paragraphs);
+    }
+
+    foreach ($paragraphs as $paragraph) {
         echo '<p>' . nl2br(pauza_linkify_text($paragraph, $replace_urls)) . '</p>';
     }
 }
@@ -438,24 +443,71 @@ function pauza_render_step_source_sections(string $full_text): void
 
 function pauza_step_numbered_lines(string $text): array
 {
-    return array_values(array_filter(pauza_lines($text), static function ($line) {
-        return (bool) preg_match('/^\d+\.\s+/u', $line);
-    }));
+    $items = [];
+    $current = [];
+
+    foreach (pauza_lines($text) as $line) {
+        if (preg_match('/^\d+\.\s+/u', $line)) {
+            if ($current) {
+                $items[] = implode("\n", $current);
+            }
+
+            $current = [$line];
+            continue;
+        }
+
+        if ($current) {
+            $current[] = $line;
+        }
+    }
+
+    if ($current) {
+        $items[] = implode("\n", $current);
+    }
+
+    return $items;
 }
 
 function pauza_step_material_lines(string $text): array
 {
     $items = [];
+    $lines = pauza_lines($text);
 
-    foreach (pauza_lines($text) as $line) {
+    foreach ($lines as $index => $line) {
         $has_url = (bool) preg_match('/https?:\/\//i', $line);
+        $next_line = $lines[$index + 1] ?? '';
+        $next_is_url_only = (bool) preg_match('/^https?:\/\/\S+[.,;:]?$/i', $next_line);
+        $is_url_context = (bool) preg_match('/(группа|телеграм|telegram|макс|max|бот|курс|цб|видео|rutube|яндекс|диск)/iu', $line);
 
-        if ($has_url) {
+        if ($has_url || ($next_is_url_only && $is_url_context)) {
             $items[] = $line;
         }
     }
 
     return array_values(array_unique($items));
+}
+
+function pauza_merge_url_only_lines(array $items): array
+{
+    $merged = [];
+
+    foreach ($items as $item) {
+        $line = trim((string) $item);
+
+        if (preg_match('/^https?:\/\/\S+[.,;:]?$/i', $line) && $merged) {
+            $previous = (string) end($merged);
+
+            if (!preg_match('/https?:\/\//i', $previous)) {
+                array_pop($merged);
+                $merged[] = rtrim($previous, " \t\n\r\0\x0B:") . ': ' . $line;
+                continue;
+            }
+        }
+
+        $merged[] = $line;
+    }
+
+    return $merged;
 }
 
 function pauza_render_source_list(array $items, string $type = 'ol'): void
@@ -471,27 +523,15 @@ function pauza_render_source_list(array $items, string $type = 'ol'): void
     $class = $has_source_numbers || 'ul' === $type ? 'pauza-source-list' : 'pauza-task-list';
 
     printf('<%1$s class="%2$s">', esc_html($tag), esc_attr($class));
+    $items = pauza_merge_url_only_lines($items);
     foreach ($items as $item) {
         $item = (string) $item;
 
-        if (preg_match('/^(\d+)\.\s+(.*)$/u', $item, $matches)) {
-            $label = __('Задание', 'pauza-rabotaet');
-
-            if (preg_match('/видео/iu', $item)) {
-                $label = __('Видео', 'pauza-rabotaet');
-            } elseif (preg_match('/калькулятор/iu', $item)) {
-                $label = __('Калькулятор', 'pauza-rabotaet');
-            } elseif (preg_match('/бот/iu', $item)) {
-                $label = __('Бот', 'pauza-rabotaet');
-            } elseif (preg_match('/перехожу|переходи|группа\s+\d+\s+шага/iu', $item)) {
-                $label = __('Переход', 'pauza-rabotaet');
-            }
-
+        if (preg_match('/^(\d+)\.\s+([\s\S]*)$/u', $item, $matches)) {
             echo '<li class="pauza-source-item">';
             echo '<span class="pauza-source-item__number">' . esc_html($matches[1]) . '</span>';
             echo '<div class="pauza-source-item__body">';
-            echo '<span class="pauza-source-item__type">' . esc_html($label) . '</span>';
-            echo '<p>' . pauza_linkify_text($matches[2], true) . '</p>';
+            pauza_render_source_item_body($matches[2]);
             echo '</div>';
             echo '</li>';
             continue;
@@ -509,6 +549,76 @@ function pauza_render_source_list(array $items, string $type = 'ol'): void
         echo '<li class="pauza-source-text"><p>' . pauza_linkify_text($item, true) . '</p></li>';
     }
     printf('</%s>', esc_html($tag));
+}
+
+function pauza_is_short_continuation_list(array $lines): bool
+{
+    if (count($lines) < 2 || count($lines) > 24) {
+        return false;
+    }
+
+    foreach ($lines as $line) {
+        $line = trim((string) $line);
+        $length = function_exists('mb_strlen') ? mb_strlen($line) : strlen($line);
+
+        if ($length > 70 || preg_match('/https?:\/\//i', $line)) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+function pauza_render_source_continuation(array $lines): void
+{
+    if (!$lines) {
+        return;
+    }
+
+    if (pauza_is_short_continuation_list($lines)) {
+        echo '<ul class="pauza-source-sublist">';
+        foreach ($lines as $line) {
+            echo '<li>' . pauza_linkify_text((string) $line, true) . '</li>';
+        }
+        echo '</ul>';
+        return;
+    }
+
+    foreach ($lines as $line) {
+        echo '<p>' . pauza_linkify_text((string) $line, true) . '</p>';
+    }
+}
+
+function pauza_render_source_item_body(string $content): void
+{
+    $lines = pauza_merge_url_only_lines(pauza_lines($content));
+
+    if (!$lines) {
+        return;
+    }
+
+    $first = array_shift($lines);
+    echo '<p>' . pauza_linkify_text($first, true) . '</p>';
+
+    if (!$lines) {
+        return;
+    }
+
+    $continuation = implode("\n", $lines);
+    $length = function_exists('mb_strlen') ? mb_strlen($continuation) : strlen($continuation);
+    $collapse = !pauza_is_short_continuation_list($lines) && ($length > 900 || count($lines) > 8);
+
+    if ($collapse) {
+        echo '<details class="pauza-details pauza-source-more">';
+        echo '<summary>' . esc_html__('Показать продолжение', 'pauza-rabotaet') . '</summary>';
+        echo '<div class="pauza-content">';
+        pauza_render_source_continuation($lines);
+        echo '</div>';
+        echo '</details>';
+        return;
+    }
+
+    pauza_render_source_continuation($lines);
 }
 
 function pauza_text_between(string $text, string $start, string $end = ''): string

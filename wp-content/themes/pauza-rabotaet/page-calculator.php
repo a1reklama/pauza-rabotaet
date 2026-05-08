@@ -7,18 +7,13 @@
 
 get_header();
 
-$intro = pauza_get_option('calculator_intro');
 $instruction_url = pauza_get_option('calculator_instruction_url');
-$calculator_telegram_url = pauza_get_option('calculator_telegram_url');
-$calculator_max_url = pauza_get_option('calculator_max_url');
 ?>
 
 <section class="pauza-page-hero">
     <div class="pauza-container">
-        <p class="pauza-eyebrow"><?php esc_html_e('Внешние инструменты', 'pauza-rabotaet'); ?></p>
-        <h1><?php esc_html_e('Калькуляторы', 'pauza-rabotaet'); ?></h1>
-        <p class="pauza-lead"><?php echo esc_html($intro); ?></p>
-        <?php echo pauza_origin_badge('editorial'); ?>
+        <h1><?php esc_html_e('Калькулятор выздоровления', 'pauza-rabotaet'); ?></h1>
+        <p class="pauza-lead"><?php esc_html_e('Калькулятор открыт как отдельный веб-сервис. Сайт ведет на него и не хранит ответы пользователя.', 'pauza-rabotaet'); ?></p>
     </div>
 </section>
 
@@ -27,18 +22,9 @@ $calculator_max_url = pauza_get_option('calculator_max_url');
         <div class="pauza-content">
             <div class="pauza-card-grid">
                 <article class="pauza-card">
-                    <p class="pauza-tag"><?php esc_html_e('Telegram', 'pauza-rabotaet'); ?></p>
-                    <h2><?php esc_html_e('Калькулятор в Telegram', 'pauza-rabotaet'); ?></h2>
-                    <p><?php esc_html_e('Откройте бот, заполните данные и отправьте результат спонсору или в группу шага.', 'pauza-rabotaet'); ?></p>
-                    <?php echo pauza_button($calculator_telegram_url, __('Открыть Telegram-бот', 'pauza-rabotaet'), 'pauza-button pauza-button--primary'); ?>
-                    <?php echo $calculator_telegram_url ? '' : pauza_origin_badge('verify', __('Ссылку нужно подтвердить', 'pauza-rabotaet')); ?>
-                </article>
-                <article class="pauza-card">
-                    <p class="pauza-tag"><?php esc_html_e('MAX', 'pauza-rabotaet'); ?></p>
-                    <h2><?php esc_html_e('Калькулятор в MAX', 'pauza-rabotaet'); ?></h2>
-                    <p><?php esc_html_e('Если удобнее MAX, используйте отдельную ссылку на бот калькулятора.', 'pauza-rabotaet'); ?></p>
-                    <?php echo pauza_button($calculator_max_url, __('Открыть MAX-бот', 'pauza-rabotaet')); ?>
-                    <?php echo $calculator_max_url ? '' : pauza_origin_badge('verify', __('Ссылку нужно подтвердить', 'pauza-rabotaet')); ?>
+                    <h2><?php esc_html_e('Открыть калькулятор', 'pauza-rabotaet'); ?></h2>
+                    <p><?php esc_html_e('Используйте один внешний веб-сервис калькулятора. Результат после заполнения отправляйте спонсору или в группу текущего шага.', 'pauza-rabotaet'); ?></p>
+                    <?php echo pauza_internal_button(pauza_calculator_url(), __('Открыть калькулятор', 'pauza-rabotaet'), 'pauza-button pauza-button--primary'); ?>
                 </article>
             </div>
 
