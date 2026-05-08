@@ -21,7 +21,7 @@ $today = pauza_latest_today_query(4);
                 <?php echo pauza_internal_button(home_url('/materialy/'), __('Открыть 360 видео', 'pauza-rabotaet')); ?>
                 <?php echo pauza_internal_button(home_url('/12-shagov/pervyy-shag/'), __('Начать 1 шаг', 'pauza-rabotaet')); ?>
                 <?php echo pauza_internal_button(home_url('/bot-4-shaga/'), __('Бот 4 шага', 'pauza-rabotaet')); ?>
-                <?php echo pauza_internal_button(home_url('/calculator/'), __('Калькулятор', 'pauza-rabotaet')); ?>
+                <?php echo pauza_internal_button(pauza_calculator_url(), __('Калькулятор', 'pauza-rabotaet')); ?>
             </div>
         </div>
     </div>
@@ -139,7 +139,7 @@ $today = pauza_latest_today_query(4);
         </div>
         <div class="pauza-actions">
             <?php echo pauza_internal_button(home_url('/bot-4-shaga/'), __('Бот 4 шага', 'pauza-rabotaet'), 'pauza-button pauza-button--primary'); ?>
-            <?php echo pauza_internal_button(home_url('/calculator/'), __('Калькулятор', 'pauza-rabotaet')); ?>
+            <?php echo pauza_internal_button(pauza_calculator_url(), __('Калькулятор', 'pauza-rabotaet')); ?>
         </div>
     </div>
 </section>
@@ -160,7 +160,7 @@ $today = pauza_latest_today_query(4);
                             <p class="pauza-tag"><?php echo esc_html($date_label); ?></p>
                         <?php endif; ?>
                         <h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
-                        <p><?php echo esc_html(wp_trim_words(get_the_excerpt() ?: get_the_content(), 32)); ?></p>
+                        <?php echo pauza_today_question_answer_html(get_post_field('post_content', get_the_ID()), true); ?>
                         <?php echo pauza_internal_button(get_permalink(), __('Читать', 'pauza-rabotaet')); ?>
                     </article>
                 <?php endwhile; wp_reset_postdata(); ?>

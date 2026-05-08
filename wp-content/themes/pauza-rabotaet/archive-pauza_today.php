@@ -20,7 +20,7 @@ pauza_archive_title(sprintf(__('Только сегодня, %s', 'pauza-rabotae
                             <p class="pauza-tag"><?php echo esc_html($date_label); ?></p>
                         <?php endif; ?>
                         <h2><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
-                        <p><?php echo esc_html(get_the_excerpt()); ?></p>
+                        <?php echo pauza_today_question_answer_html(get_post_field('post_content', get_the_ID()), true); ?>
                         <?php echo pauza_internal_button(get_permalink(), __('Читать', 'pauza-rabotaet')); ?>
                     </article>
                 <?php endwhile; ?>

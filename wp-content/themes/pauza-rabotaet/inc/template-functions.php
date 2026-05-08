@@ -27,6 +27,11 @@ function pauza_meta(int $post_id, string $key, string $default = ''): string
     return '' === $value || null === $value ? $default : (string) $value;
 }
 
+function pauza_calculator_url(): string
+{
+    return 'https://pauzarabotaet.ru/calculator/';
+}
+
 function pauza_lines(string $value): array
 {
     $lines = preg_split('/\r\n|\r|\n/', $value);
@@ -41,6 +46,51 @@ function pauza_paragraphs(string $value): array
     $paragraphs = array_map('trim', is_array($paragraphs) ? $paragraphs : []);
 
     return array_values(array_filter($paragraphs, static fn ($paragraph) => '' !== $paragraph));
+}
+
+function pauza_today_parts(string $content): array
+{
+    $plain = trim(wp_strip_all_tags(strip_shortcodes($content)));
+    $paragraphs = pauza_paragraphs($plain);
+
+    if (!$paragraphs) {
+        return [
+            'question' => '',
+            'answer'   => '',
+        ];
+    }
+
+    return [
+        'question' => $paragraphs[0],
+        'answer'   => implode("\n\n", array_slice($paragraphs, 1)),
+    ];
+}
+
+function pauza_today_question_answer_html(string $content, bool $trim_answer = false): string
+{
+    $parts = pauza_today_parts($content);
+    $question = $parts['question'];
+    $answer = $trim_answer && $parts['answer'] ? wp_trim_words($parts['answer'], 34, '...') : $parts['answer'];
+
+    ob_start();
+    ?>
+    <div class="pauza-qa-list">
+        <?php if ($question) : ?>
+            <div class="pauza-qa pauza-qa--question">
+                <span class="pauza-qa__label"><?php esc_html_e('Вопрос', 'pauza-rabotaet'); ?></span>
+                <?php echo wpautop(esc_html($question)); ?>
+            </div>
+        <?php endif; ?>
+        <?php if ($answer) : ?>
+            <div class="pauza-qa pauza-qa--answer">
+                <span class="pauza-qa__label"><?php esc_html_e('Ответ', 'pauza-rabotaet'); ?></span>
+                <?php echo wpautop(esc_html($answer)); ?>
+            </div>
+        <?php endif; ?>
+    </div>
+    <?php
+
+    return (string) ob_get_clean();
 }
 
 function pauza_button(string $url, string $label, string $class = 'pauza-button'): string
@@ -585,7 +635,7 @@ function pauza_fallback_menu(): void
         ['Материалы', home_url('/materialy/')],
         ['12 шагов', home_url('/12-shagov/')],
         ['Бот 4 шага', home_url('/bot-4-shaga/')],
-        ['Калькулятор', home_url('/calculator/')],
+        ['Калькулятор', pauza_calculator_url()],
         ['Только сегодня', home_url('/tolko-segodnya/')],
     ];
 
@@ -604,7 +654,7 @@ function pauza_footer_menu(): void
         ['Материалы', home_url('/materialy/')],
         ['12 шагов', home_url('/12-shagov/')],
         ['Бот 4 шага', home_url('/bot-4-shaga/')],
-        ['Калькулятор', home_url('/calculator/')],
+        ['Калькулятор', pauza_calculator_url()],
         ['Только сегодня', home_url('/tolko-segodnya/')],
     ];
 

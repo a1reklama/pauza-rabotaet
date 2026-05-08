@@ -841,6 +841,43 @@ p {
     overflow: hidden;
 }
 
+.pauza-qa-list {
+    display: grid;
+    gap: 0.85rem;
+}
+
+.pauza-qa {
+    padding: 0.9rem 1rem;
+    border: 1px solid rgba(216, 221, 215, 0.85);
+    border-left: 4px solid rgba(18, 108, 90, 0.42);
+    border-radius: 8px;
+    background: rgba(255, 253, 248, 0.9);
+}
+
+.pauza-qa--answer {
+    border-left-color: rgba(161, 126, 73, 0.5);
+    background: rgba(248, 245, 238, 0.9);
+}
+
+.pauza-qa__label {
+    display: inline-flex;
+    margin-bottom: 0.45rem;
+    color: var(--pauza-muted);
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.pauza-qa p {
+    margin: 0;
+    color: var(--pauza-text);
+}
+
+.pauza-qa p + p {
+    margin-top: 0.75rem;
+}
+
 .pauza-source-card {
     margin-top: 1rem;
     padding: 1rem;

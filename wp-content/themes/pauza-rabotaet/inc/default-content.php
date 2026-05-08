@@ -750,7 +750,7 @@ function pauza_seed_menu(int $home_id, int $calculator_id, int $bot_id): void
         ['Материалы', home_url('/materialy/')],
         ['12 шагов', home_url('/12-shagov/')],
         ['Бот 4 шага', $bot_id ? get_permalink($bot_id) : home_url('/bot-4-shaga/')],
-        ['Калькулятор', $calculator_id ? get_permalink($calculator_id) : home_url('/calculator/')],
+        ['Калькулятор', pauza_calculator_url()],
         ['Только сегодня', home_url('/tolko-segodnya/')],
     ];
 

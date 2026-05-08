@@ -20,7 +20,7 @@ while (have_posts()) :
         <section class="pauza-section">
             <div class="pauza-container pauza-narrow">
                 <div class="pauza-content">
-                    <?php the_content(); ?>
+                    <?php echo pauza_today_question_answer_html(get_post_field('post_content', get_the_ID())); ?>
                 </div>
             </div>
         </section>
@@ -29,4 +29,3 @@ while (have_posts()) :
 
 <?php
 get_footer();
-
