@@ -19,10 +19,9 @@ while (have_posts()) :
     $telegram = pauza_meta($step_id, '_pauza_step_telegram_url');
     $max = pauza_meta($step_id, '_pauza_step_max_url');
     $video = pauza_meta($step_id, '_pauza_step_video_url');
-    $next_label = pauza_meta($step_id, '_pauza_step_next_label');
-    $next_url = pauza_meta($step_id, '_pauza_step_next_url');
     $source_work = pauza_step_numbered_lines($full_text);
     $source_materials = pauza_step_material_lines($full_text);
+    $source_transition = pauza_step_transition_lines($full_text, (int) $number);
     $calculator_url = pauza_calculator_url();
     $is_final_step = '12' === (string) $number;
     $group_primary_class = $is_final_step ? 'pauza-button' : 'pauza-button pauza-button--primary';
@@ -140,12 +139,12 @@ while (have_posts()) :
 
                 <div class="pauza-next-box">
                     <div>
-                        <p class="pauza-eyebrow"><?php esc_html_e('Дальше', 'pauza-rabotaet'); ?></p>
                         <h2><?php esc_html_e('После выполнения шага', 'pauza-rabotaet'); ?></h2>
-                        <p><?php esc_html_e('Ответы и отчеты не отправляются через сайт. Используйте спонсора, группу или внешний бот, если он указан в этом шаге.', 'pauza-rabotaet'); ?> <?php echo pauza_origin_badge('editorial'); ?></p>
-                    </div>
-                    <div class="pauza-actions">
-                        <?php echo $next_url && $next_label ? pauza_smart_button($next_url, $next_label, $is_final_step ? 'pauza-button' : 'pauza-button pauza-button--accent') : ''; ?>
+                        <?php if ($source_transition) : ?>
+                            <?php pauza_render_source_list($source_transition, 'ul'); ?>
+                        <?php else : ?>
+                            <p><?php esc_html_e('Переход для этого шага пока не указан.', 'pauza-rabotaet'); ?></p>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>

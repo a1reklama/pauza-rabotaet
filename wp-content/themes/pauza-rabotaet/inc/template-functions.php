@@ -487,6 +487,28 @@ function pauza_step_material_lines(string $text): array
     return array_values(array_unique($items));
 }
 
+function pauza_step_transition_lines(string $text, int $step_number): array
+{
+    $lines = pauza_lines($text);
+    $index = -1;
+
+    foreach ($lines as $line_index => $line) {
+        if (preg_match('/(перехожу|переходим|переходи|через 30 дней|вернуться)/iu', $line)) {
+            $index = $line_index;
+        }
+    }
+
+    if ($index >= 0) {
+        return array_slice($lines, $index);
+    }
+
+    if (12 === $step_number && $lines) {
+        return array_slice($lines, -3);
+    }
+
+    return $lines ? array_slice($lines, -3) : [];
+}
+
 function pauza_merge_url_only_lines(array $items): array
 {
     $merged = [];
