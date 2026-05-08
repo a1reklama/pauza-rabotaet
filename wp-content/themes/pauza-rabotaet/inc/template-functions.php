@@ -32,6 +32,26 @@ function pauza_calculator_url(): string
     return 'https://pauzarabotaet.ru/calculator/';
 }
 
+function pauza_is_external_url(string $url): bool
+{
+    $url = trim($url);
+
+    if ('' === $url || 0 === strpos($url, '#') || 0 === strpos($url, '/')) {
+        return false;
+    }
+
+    if (!preg_match('/^https?:\/\//i', $url)) {
+        return false;
+    }
+
+    return 0 !== strpos($url, home_url('/'));
+}
+
+function pauza_external_link_attrs(string $url): string
+{
+    return pauza_is_external_url($url) ? ' target="_blank" rel="noopener noreferrer"' : '';
+}
+
 function pauza_lines(string $value): array
 {
     $lines = preg_split('/\r\n|\r|\n/', $value);
@@ -114,9 +134,10 @@ function pauza_internal_button(string $url, string $label, string $class = 'pauz
     }
 
     return sprintf(
-        '<a class="%1$s" href="%2$s">%3$s</a>',
+        '<a class="%1$s" href="%2$s"%3$s>%4$s</a>',
         esc_attr($class),
         esc_url($url),
+        pauza_external_link_attrs($url),
         esc_html($label)
     );
 }
@@ -641,7 +662,7 @@ function pauza_fallback_menu(): void
 
     echo '<ul class="pauza-nav__list">';
     foreach ($items as $item) {
-        printf('<li><a href="%s">%s</a></li>', esc_url($item[1]), esc_html($item[0]));
+        printf('<li><a href="%s"%s>%s</a></li>', esc_url($item[1]), pauza_external_link_attrs($item[1]), esc_html($item[0]));
     }
     echo '</ul>';
 }
@@ -660,10 +681,23 @@ function pauza_footer_menu(): void
 
     echo '<ul class="pauza-footer__links">';
     foreach ($items as $item) {
-        printf('<li><a href="%s">%s</a></li>', esc_url($item[1]), esc_html($item[0]));
+        printf('<li><a href="%s"%s>%s</a></li>', esc_url($item[1]), pauza_external_link_attrs($item[1]), esc_html($item[0]));
     }
     echo '</ul>';
 }
+
+function pauza_external_nav_link_attrs(array $atts): array
+{
+    $url = isset($atts['href']) ? (string) $atts['href'] : '';
+
+    if (pauza_is_external_url($url)) {
+        $atts['target'] = '_blank';
+        $atts['rel'] = trim(($atts['rel'] ?? '') . ' noopener noreferrer');
+    }
+
+    return $atts;
+}
+add_filter('nav_menu_link_attributes', 'pauza_external_nav_link_attrs');
 
 function pauza_material_type_label(string $type): string
 {
