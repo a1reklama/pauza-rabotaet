@@ -25,6 +25,7 @@ while (have_posts()) :
     $calculator_url = pauza_calculator_url();
     $is_final_step = '12' === (string) $number;
     $group_primary_class = $is_final_step ? 'pauza-button' : 'pauza-button pauza-button--primary';
+    $telegram_intro_class = '1' === (string) $number ? 'pauza-button' : 'pauza-button pauza-button--primary';
     ?>
     <article>
         <section class="pauza-page-hero">
@@ -52,9 +53,15 @@ while (have_posts()) :
                         <p class="pauza-eyebrow"><?php esc_html_e('Работа по документу', 'pauza-rabotaet'); ?></p>
                         <h2><?php esc_html_e('Сначала откройте работу по шагу', 'pauza-rabotaet'); ?></h2>
                         <p><?php esc_html_e('Ниже идут пункты работы по шагу. Двигайтесь по ним последовательно и открывайте материалы по мере прохождения.', 'pauza-rabotaet'); ?></p>
+                        <?php if ('1' === (string) $number) : ?>
+                            <p class="pauza-muted"><?php esc_html_e('Если спонсор еще не выбран, сначала откройте список спонсоров.', 'pauza-rabotaet'); ?></p>
+                        <?php endif; ?>
                     </div>
                     <div class="pauza-actions">
-                        <?php echo pauza_button($telegram, __('Открыть Telegram', 'pauza-rabotaet'), 'pauza-button pauza-button--primary'); ?>
+                        <?php if ('1' === (string) $number) : ?>
+                            <?php echo pauza_internal_button(home_url('/sponsory/'), __('Выбрать спонсора', 'pauza-rabotaet'), 'pauza-button pauza-button--primary'); ?>
+                        <?php endif; ?>
+                        <?php echo pauza_button($telegram, __('Открыть Telegram', 'pauza-rabotaet'), $telegram_intro_class); ?>
                         <?php echo pauza_button($max, __('Открыть MAX', 'pauza-rabotaet')); ?>
                     </div>
                 </div>
@@ -97,7 +104,7 @@ while (have_posts()) :
                                     <h3><?php esc_html_e('Калькулятор выздоровления', 'pauza-rabotaet'); ?></h3>
                                     <p><?php esc_html_e('Калькулятор открыт как отдельный веб-сервис. После заполнения отправьте результат спонсору или в группу текущего шага.', 'pauza-rabotaet'); ?></p>
                                     <div class="pauza-actions">
-                                        <?php echo pauza_internal_button($calculator_url, __('Открыть калькулятор', 'pauza-rabotaet'), 'pauza-button pauza-button--primary'); ?>
+                                        <?php echo pauza_internal_button($calculator_url, __('Открыть', 'pauza-rabotaet'), 'pauza-button pauza-button--primary'); ?>
                                     </div>
                                 </div>
                             <?php endif; ?>

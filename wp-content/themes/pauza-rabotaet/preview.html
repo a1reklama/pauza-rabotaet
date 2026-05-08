@@ -57,11 +57,16 @@
                     <h2>Сначала выбери спонсора своего пола</h2>
                     <p>Этот блок идет до шагов, потому что выбор спонсора нужен до начала работы.</p>
                 </div>
-                <div class="pauza-next-box">
+                <div class="pauza-next-box pauza-sponsor-consent">
                     <div>
-                        <p>БОЛЬШАЯ ПРОСЬБА НЕ ЗВОНИТЬ, НАПИСАТЬ СООБЩЕНИЕ В ДОСТУПНЫЙ МЕССЕНДЖЕР ИЛИ СМС, ПРЕДСТАВИТЬСЯ И КОРОТКО РАССКАЗАТЬ О СЕБЕ</p>
+                        <h3>Сначала напишите, не звоните</h3>
+                        <p>Напишите сообщение в доступный мессенджер или SMS, представьтесь и коротко расскажите о себе.</p>
+                        <label class="pauza-check-consent">
+                            <input type="checkbox" data-sponsor-consent-check>
+                            <span>Я прочитал и понимаю</span>
+                        </label>
                     </div>
-                    <button class="pauza-button pauza-button--primary" type="button" data-sponsor-consent aria-expanded="false">Я ознакомился</button>
+                    <button class="pauza-button pauza-button--primary" type="button" data-sponsor-consent aria-expanded="false" disabled>Показать список</button>
                 </div>
                 <div class="pauza-filter" role="group" aria-label="Выбор списка спонсоров" data-sponsor-controls hidden>
                     <button type="button" data-sponsor-filter="female">Женщины</button>
@@ -80,9 +85,9 @@
                     <p>Этот блок стоит до первого шага, поэтому в маршруте он идет перед картой шагов.</p>
                 </div>
                 <div class="pauza-card-grid pauza-card-grid--three">
-                    <article class="pauza-card"><h3>Telegram-канал 360 видео</h3><p>ТЕЛЕГРАМ</p><a class="pauza-button pauza-button--primary" href="https://t.me/neporukovodstvu" target="_blank" rel="noopener noreferrer">Открыть Telegram-канал 360 видео</a></article>
-                    <article class="pauza-card"><h3>Rutube-канал</h3><p>RUTUBE</p><a class="pauza-button" href="https://rutube.ru/channel/44350949/" target="_blank" rel="noopener noreferrer">Открыть Rutube-канал</a></article>
-                    <article class="pauza-card"><h3>Скачать видео</h3><p>ЯНДЕКС ДИСК</p><a class="pauza-button" href="https://disk.yandex.ru/d/N2hLvMMUeXxsjg" target="_blank" rel="noopener noreferrer">Открыть Яндекс.Диск</a></article>
+                    <article class="pauza-card"><h3>Telegram-канал 360 видео</h3><p>ТЕЛЕГРАМ</p><a class="pauza-button pauza-button--primary" href="https://t.me/neporukovodstvu" target="_blank" rel="noopener noreferrer">Открыть</a></article>
+                    <article class="pauza-card"><h3>Rutube-канал</h3><p>RUTUBE</p><a class="pauza-button" href="https://rutube.ru/channel/44350949/" target="_blank" rel="noopener noreferrer">Открыть</a></article>
+                    <article class="pauza-card"><h3>Скачать видео</h3><p>ЯНДЕКС ДИСК</p><a class="pauza-button" href="https://disk.yandex.ru/d/N2hLvMMUeXxsjg" target="_blank" rel="noopener noreferrer">Открыть</a></article>
                 </div>
             </div>
         </section>
@@ -120,7 +125,7 @@
                     <article class="pauza-card">
                         <h3>Открыть калькулятор</h3>
                         <p>Результат после заполнения отправляйте спонсору или в группу текущего шага.</p>
-                        <a class="pauza-button pauza-button--primary" href="https://pauzarabotaet.ru/calculator/" target="_blank" rel="noopener noreferrer">Открыть калькулятор</a>
+                        <a class="pauza-button pauza-button--primary" href="https://pauzarabotaet.ru/calculator/" target="_blank" rel="noopener noreferrer">Открыть</a>
                     </article>
                 </div>
             </div>
@@ -755,6 +760,15 @@
                     body.appendChild(intro);
                 }
 
+                if (stepNumber === 1) {
+                    var sponsorNotice = createElement('div', 'pauza-friendly-note pauza-sponsor-step-note');
+                    sponsorNotice.appendChild(createElement('p', '', 'Если спонсор еще не выбран, сначала откройте список спонсоров.'));
+                    var sponsorAction = createElement('a', 'pauza-button pauza-button--primary', 'Выбрать спонсора');
+                    sponsorAction.href = '#sponsors';
+                    sponsorNotice.appendChild(sponsorAction);
+                    body.appendChild(sponsorNotice);
+                }
+
                 var work = numberedLines(text);
                 body.appendChild(detailsBlock('Работа по шагу', work.length ? renderSourceList(work) : renderReadableText(lines), true));
 
@@ -767,7 +781,7 @@
                 }
                 body.appendChild(detailsBlock('Материалы шага', materialsContent, false));
 
-                var sourceContent = createElement('div');
+                var sourceContent = createElement('div', 'pauza-source-document');
                 sourceChunks(text).forEach(function (chunk, index) {
                     var item = createElement('details', 'pauza-details');
                     var itemSummary = createElement('summary');

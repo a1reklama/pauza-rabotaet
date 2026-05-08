@@ -71,15 +71,15 @@ $today = pauza_latest_today_query(4);
         <div class="pauza-card-grid pauza-card-grid--three">
             <article class="pauza-card">
                 <h3><?php esc_html_e('Telegram-канал 360 видео', 'pauza-rabotaet'); ?></h3>
-                <?php echo pauza_button(pauza_get_option('telegram_channel_url'), __('Открыть Telegram-канал 360 видео', 'pauza-rabotaet'), 'pauza-button pauza-button--primary'); ?>
+                <?php echo pauza_button(pauza_get_option('telegram_channel_url'), __('Открыть', 'pauza-rabotaet'), 'pauza-button pauza-button--primary'); ?>
             </article>
             <article class="pauza-card">
                 <h3><?php esc_html_e('Rutube-канал', 'pauza-rabotaet'); ?></h3>
-                <?php echo pauza_button(pauza_get_option('rutube_channel_url'), __('Открыть Rutube-канал', 'pauza-rabotaet')); ?>
+                <?php echo pauza_button(pauza_get_option('rutube_channel_url'), __('Открыть', 'pauza-rabotaet')); ?>
             </article>
             <article class="pauza-card">
                 <h3><?php esc_html_e('Скачать видео', 'pauza-rabotaet'); ?></h3>
-                <?php echo pauza_button(pauza_get_option('yandex_disk_url'), __('Открыть Яндекс.Диск', 'pauza-rabotaet')); ?>
+                <?php echo pauza_button(pauza_get_option('yandex_disk_url'), __('Открыть', 'pauza-rabotaet')); ?>
             </article>
         </div>
     </div>
