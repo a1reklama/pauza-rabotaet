@@ -9,7 +9,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-define('PAUZA_THEME_VERSION', '1.0.0');
+define('PAUZA_THEME_VERSION', '1.0.1');
 define('PAUZA_THEME_DIR', get_template_directory());
 define('PAUZA_THEME_URI', get_template_directory_uri());
 

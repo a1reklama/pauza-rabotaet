@@ -38,12 +38,8 @@ $sponsors = pauza_sponsors_query();
             <div>
                 <h3><?php esc_html_e('Сначала напишите, не звоните', 'pauza-rabotaet'); ?></h3>
                 <p><?php esc_html_e('Напишите сообщение в доступный мессенджер или SMS, представьтесь и коротко расскажите о себе.', 'pauza-rabotaet'); ?></p>
-                <label class="pauza-check-consent">
-                    <input type="checkbox" data-sponsor-consent-check>
-                    <span><?php esc_html_e('Я прочитал и понимаю', 'pauza-rabotaet'); ?></span>
-                </label>
             </div>
-            <button class="pauza-button pauza-button--primary" type="button" data-sponsor-consent aria-expanded="false" disabled><?php esc_html_e('Показать список', 'pauza-rabotaet'); ?></button>
+            <button class="pauza-button pauza-button--primary" type="button" data-sponsor-consent aria-expanded="false"><?php esc_html_e('Я прочитал и понимаю', 'pauza-rabotaet'); ?></button>
         </div>
         <div class="pauza-filter" role="group" aria-label="<?php esc_attr_e('Выбор списка спонсоров', 'pauza-rabotaet'); ?>" data-sponsor-controls hidden>
             <button type="button" data-sponsor-filter="female"><?php esc_html_e('Женщины', 'pauza-rabotaet'); ?></button>
@@ -64,8 +60,6 @@ $sponsors = pauza_sponsors_query();
                         <?php endif; ?>
                     </article>
                 <?php endwhile; wp_reset_postdata(); ?>
-            <?php else : ?>
-                <p><?php esc_html_e('Список появится после публикации подтвержденных контактов в WordPress.', 'pauza-rabotaet'); ?></p>
             <?php endif; ?>
         </div>
     </div>

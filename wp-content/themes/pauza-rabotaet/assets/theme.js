@@ -55,16 +55,27 @@
         return true;
     }
 
-    const sponsorConsentCheck = document.querySelector('[data-sponsor-consent-check]');
     const sponsorConsent = document.querySelector('[data-sponsor-consent]');
     const sponsorControls = document.querySelector('[data-sponsor-controls]');
     const sponsorList = document.querySelector('[data-sponsor-list]');
+    const sponsorEmptyMessage = 'Список пока не опубликован. Попробуйте позже или обратитесь в группу.';
 
-    if (sponsorConsent && sponsorConsentCheck) {
-        sponsorConsent.disabled = !sponsorConsentCheck.checked;
-        sponsorConsentCheck.addEventListener('change', function () {
-            sponsorConsent.disabled = !sponsorConsentCheck.checked;
-        });
+    function ensureSponsorEmptyMessage() {
+        if (!sponsorList) {
+            return null;
+        }
+
+        let message = sponsorList.querySelector('[data-sponsor-empty]');
+        if (!message) {
+            message = document.createElement('p');
+            message.className = 'pauza-muted-line';
+            message.setAttribute('data-sponsor-empty', '');
+            message.textContent = sponsorEmptyMessage;
+            message.hidden = true;
+            sponsorList.appendChild(message);
+        }
+
+        return message;
     }
 
     if (sponsorConsent) {
@@ -78,9 +89,7 @@
             sponsorConsent.setAttribute('aria-expanded', 'true');
             sponsorConsent.disabled = true;
             sponsorConsent.classList.add('is-confirmed');
-            if (sponsorConsentCheck) {
-                sponsorConsentCheck.disabled = true;
-            }
+            sponsorConsent.textContent = 'Правило принято';
             if (sponsorControls) {
                 const firstFilter = sponsorControls.querySelector('[data-sponsor-filter]');
                 if (firstFilter) {
@@ -99,9 +108,6 @@
             if (sponsorList) {
                 sponsorList.hidden = false;
                 sponsorList.classList.remove('is-collapsed');
-                sponsorList.querySelectorAll('p:not([class])').forEach(function (placeholder) {
-                    placeholder.remove();
-                });
             }
 
             filterButtons.forEach(function (item) {
@@ -112,12 +118,20 @@
                 card.classList.add('is-hidden');
             });
 
-            shuffle(sponsorCards.filter(function (card) {
+            const visibleCards = shuffle(sponsorCards.filter(function (card) {
                 return card.getAttribute('data-sponsor-gender') === filter;
-            })).forEach(function (card) {
+            }));
+
+            visibleCards.forEach(function (card) {
                 card.classList.remove('is-hidden');
                 sponsorList.appendChild(card);
             });
+
+            const emptyMessage = ensureSponsorEmptyMessage();
+            if (emptyMessage) {
+                sponsorList.appendChild(emptyMessage);
+                emptyMessage.hidden = visibleCards.length > 0;
+            }
         });
     });
 
