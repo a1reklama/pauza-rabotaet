@@ -18,6 +18,7 @@ require_once PAUZA_THEME_DIR . '/inc/meta-boxes.php';
 require_once PAUZA_THEME_DIR . '/inc/options.php';
 require_once PAUZA_THEME_DIR . '/inc/template-functions.php';
 require_once PAUZA_THEME_DIR . '/inc/default-content.php';
+require_once PAUZA_THEME_DIR . '/inc/admin-optimization.php';
 
 function pauza_theme_setup(): void
 {
@@ -61,4 +62,3 @@ function pauza_body_classes(array $classes): array
     return $classes;
 }
 add_filter('body_class', 'pauza_body_classes');
-
