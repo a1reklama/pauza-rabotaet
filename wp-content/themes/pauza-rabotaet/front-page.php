@@ -9,139 +9,168 @@ get_header();
 
 $steps = pauza_steps_query(12);
 $today = pauza_latest_today_query(4);
+$sponsors = pauza_sponsors_query();
 ?>
 
-<section class="pauza-home-hero">
+<section class="pauza-home-hero" id="start">
     <div class="pauza-container pauza-home-hero__grid">
         <div class="pauza-home-hero__copy">
             <h1><?php esc_html_e('12 шагов для ВСЕХ', 'pauza-rabotaet'); ?></h1>
             <p class="pauza-lead"><?php esc_html_e('Сначала выбери спонсора, потом посмотри, откуда быстрее скачиваются 360 видео, начинай смотреть по одному видео в день и пройди 12 шагов за 360 дней', 'pauza-rabotaet'); ?></p>
             <div class="pauza-actions">
-                <?php echo pauza_internal_button(home_url('/sponsory/'), __('Выбрать спонсора', 'pauza-rabotaet'), 'pauza-button pauza-button--primary'); ?>
-                <?php echo pauza_internal_button(home_url('/materialy/'), __('Открыть 360 видео', 'pauza-rabotaet')); ?>
-                <?php echo pauza_internal_button(home_url('/12-shagov/pervyy-shag/'), __('Начать 1 шаг', 'pauza-rabotaet')); ?>
-                <?php echo pauza_internal_button(home_url('/bot-4-shaga/'), __('Бот 4 шага', 'pauza-rabotaet')); ?>
+                <?php echo pauza_internal_button('#sponsors', __('Выбрать спонсора', 'pauza-rabotaet'), 'pauza-button pauza-button--primary'); ?>
+                <?php echo pauza_internal_button('#materials', __('Открыть 360 видео', 'pauza-rabotaet')); ?>
+                <?php echo pauza_internal_button('#step-1', __('Начать 1 шаг', 'pauza-rabotaet')); ?>
+                <?php echo pauza_internal_button('#bot-4', __('Бот 4 шага', 'pauza-rabotaet')); ?>
                 <?php echo pauza_internal_button(pauza_calculator_url(), __('Калькулятор', 'pauza-rabotaet')); ?>
             </div>
         </div>
     </div>
 </section>
 
-<section class="pauza-section pauza-section--muted">
+<section class="pauza-section" id="sponsors">
     <div class="pauza-container">
         <div class="pauza-section__heading">
-            <p class="pauza-eyebrow"><?php esc_html_e('С чего начать', 'pauza-rabotaet'); ?></p>
-            <h2><?php esc_html_e('Один понятный маршрут без лишних разделов', 'pauza-rabotaet'); ?></h2>
+            <h2><?php esc_html_e('Сначала выбери спонсора своего пола', 'pauza-rabotaet'); ?></h2>
+            <p><?php esc_html_e('Этот блок идет до шагов, потому что выбор спонсора нужен до начала работы.', 'pauza-rabotaet'); ?></p>
         </div>
-        <div class="pauza-card-grid pauza-card-grid--three">
-            <article class="pauza-card">
-                <span class="pauza-card__number">01</span>
-                <h3><?php esc_html_e('Выбрать спонсора', 'pauza-rabotaet'); ?></h3>
-                <p><?php esc_html_e('Открой список, выбери свой пол и сначала напиши короткое сообщение. Не звони без предварительной переписки.', 'pauza-rabotaet'); ?></p>
-                <?php echo pauza_internal_button(home_url('/sponsory/'), __('Смотреть список', 'pauza-rabotaet')); ?>
-            </article>
-            <article class="pauza-card">
-                <span class="pauza-card__number">02</span>
-                <h3><?php esc_html_e('Открыть 360 видео', 'pauza-rabotaet'); ?></h3>
-                <p><?php esc_html_e('Перед первым шагом указаны Telegram, Rutube и Яндекс.Диск с видео. Показываем их до карты шагов.', 'pauza-rabotaet'); ?></p>
-                <?php echo pauza_internal_button(home_url('/materialy/'), __('Открыть материалы', 'pauza-rabotaet')); ?>
-            </article>
-            <article class="pauza-card">
-                <span class="pauza-card__number">03</span>
-                <h3><?php esc_html_e('Начать 1 шаг', 'pauza-rabotaet'); ?></h3>
-                <p><?php esc_html_e('На странице шага сначала видны пункты работы. Длинный текст руководителя открыт отдельной вкладкой.', 'pauza-rabotaet'); ?></p>
-                <?php echo pauza_internal_button(home_url('/12-shagov/pervyy-shag/'), __('Начать 1 шаг', 'pauza-rabotaet')); ?>
-            </article>
-            <article class="pauza-card">
-                <span class="pauza-card__number">04</span>
-                <h3><?php esc_html_e('Идти по переходу шага', 'pauza-rabotaet'); ?></h3>
-                <p><?php esc_html_e('Группы, боты и калькуляторы показываются внутри того шага, где они действительно нужны.', 'pauza-rabotaet'); ?></p>
-                <?php echo pauza_internal_button(home_url('/12-shagov/'), __('Открыть карту шагов', 'pauza-rabotaet')); ?>
-            </article>
+        <div class="pauza-next-box pauza-sponsor-consent">
+            <div>
+                <h3><?php esc_html_e('Сначала напишите, не звоните', 'pauza-rabotaet'); ?></h3>
+                <p><?php esc_html_e('Напишите сообщение в доступный мессенджер или SMS, представьтесь и коротко расскажите о себе.', 'pauza-rabotaet'); ?></p>
+                <label class="pauza-check-consent">
+                    <input type="checkbox" data-sponsor-consent-check>
+                    <span><?php esc_html_e('Я прочитал и понимаю', 'pauza-rabotaet'); ?></span>
+                </label>
+            </div>
+            <button class="pauza-button pauza-button--primary" type="button" data-sponsor-consent aria-expanded="false" disabled><?php esc_html_e('Показать список', 'pauza-rabotaet'); ?></button>
+        </div>
+        <div class="pauza-filter" role="group" aria-label="<?php esc_attr_e('Выбор списка спонсоров', 'pauza-rabotaet'); ?>" data-sponsor-controls hidden>
+            <button type="button" data-sponsor-filter="female"><?php esc_html_e('Женщины', 'pauza-rabotaet'); ?></button>
+            <button type="button" data-sponsor-filter="male"><?php esc_html_e('Мужчины', 'pauza-rabotaet'); ?></button>
+        </div>
+        <div class="pauza-sponsor-grid is-collapsed" data-sponsor-list hidden>
+            <?php if ($sponsors->have_posts()) : ?>
+                <?php while ($sponsors->have_posts()) : $sponsors->the_post(); ?>
+                    <?php
+                    $sponsor_id = get_the_ID();
+                    $gender = pauza_meta($sponsor_id, '_pauza_sponsor_gender', 'female');
+                    $phone = pauza_meta($sponsor_id, '_pauza_sponsor_phone');
+                    ?>
+                    <article class="pauza-sponsor-card pauza-sponsor-card--compact is-hidden" data-sponsor-gender="<?php echo esc_attr($gender); ?>">
+                        <h3><?php the_title(); ?></h3>
+                        <?php if ($phone) : ?>
+                            <p class="pauza-phone"><?php echo esc_html($phone); ?></p>
+                        <?php endif; ?>
+                    </article>
+                <?php endwhile; wp_reset_postdata(); ?>
+            <?php else : ?>
+                <p><?php esc_html_e('Список появится после публикации подтвержденных контактов в WordPress.', 'pauza-rabotaet'); ?></p>
+            <?php endif; ?>
         </div>
     </div>
 </section>
 
-<section class="pauza-section">
+<section class="pauza-section pauza-section--muted" id="materials">
     <div class="pauza-container">
         <div class="pauza-section__heading">
             <h2><?php esc_html_e('360 видео можно скачать здесь', 'pauza-rabotaet'); ?></h2>
-            <p><?php esc_html_e('Этот блок стоит перед шагами, потому что он нужен до первого шага.', 'pauza-rabotaet'); ?></p>
+            <p><?php esc_html_e('Этот блок стоит до первого шага, поэтому в маршруте он идет перед картой шагов.', 'pauza-rabotaet'); ?></p>
         </div>
         <div class="pauza-card-grid pauza-card-grid--three">
             <article class="pauza-card">
                 <h3><?php esc_html_e('Telegram-канал 360 видео', 'pauza-rabotaet'); ?></h3>
+                <p><?php esc_html_e('ТЕЛЕГРАМ', 'pauza-rabotaet'); ?></p>
                 <?php echo pauza_button(pauza_get_option('telegram_channel_url'), __('Открыть', 'pauza-rabotaet'), 'pauza-button pauza-button--primary'); ?>
             </article>
             <article class="pauza-card">
                 <h3><?php esc_html_e('Rutube-канал', 'pauza-rabotaet'); ?></h3>
+                <p><?php esc_html_e('RUTUBE', 'pauza-rabotaet'); ?></p>
                 <?php echo pauza_button(pauza_get_option('rutube_channel_url'), __('Открыть', 'pauza-rabotaet')); ?>
             </article>
             <article class="pauza-card">
                 <h3><?php esc_html_e('Скачать видео', 'pauza-rabotaet'); ?></h3>
+                <p><?php esc_html_e('ЯНДЕКС ДИСК', 'pauza-rabotaet'); ?></p>
                 <?php echo pauza_button(pauza_get_option('yandex_disk_url'), __('Открыть', 'pauza-rabotaet')); ?>
             </article>
         </div>
     </div>
 </section>
 
-<section class="pauza-section pauza-section--muted" id="steps">
+<section class="pauza-section" id="steps">
     <div class="pauza-container">
         <div class="pauza-section__heading">
-            <p class="pauza-eyebrow"><?php esc_html_e('Карта программы', 'pauza-rabotaet'); ?></p>
-            <h2><?php esc_html_e('12 шагов: открывайте только нужный шаг', 'pauza-rabotaet'); ?></h2>
+            <h2><?php esc_html_e('12 шагов для ВСЕХ', 'pauza-rabotaet'); ?></h2>
+            <p><?php esc_html_e('Открыта только одна папка. Внутри каждого шага: работа по шагу, материалы, текст руководителя и следующее действие.', 'pauza-rabotaet'); ?></p>
         </div>
-        <div class="pauza-step-map">
+        <div class="pauza-step-folders" id="full-step-folders">
             <?php if ($steps->have_posts()) : ?>
                 <?php while ($steps->have_posts()) : $steps->the_post(); ?>
                     <?php
                     $step_id = get_the_ID();
                     $number = pauza_meta($step_id, '_pauza_step_number');
-                    $status = pauza_meta($step_id, '_pauza_step_status');
+                    $full_text = pauza_meta($step_id, '_pauza_step_full_text');
+                    pauza_render_step_folder($number, $full_text, '1' === (string) $number, '#sponsors');
                     ?>
-                    <a class="pauza-step-tile" href="<?php the_permalink(); ?>">
-                        <span><?php echo esc_html($number); ?></span>
-                        <strong><?php echo esc_html(pauza_step_display_title($number)); ?></strong>
-                        <?php if ($status) : ?>
-                            <em><?php echo esc_html($status); ?></em>
-                        <?php endif; ?>
-                    </a>
                 <?php endwhile; wp_reset_postdata(); ?>
+            <?php else : ?>
+                <p><?php esc_html_e('Шаги пока не добавлены.', 'pauza-rabotaet'); ?></p>
             <?php endif; ?>
         </div>
-        <div class="pauza-section__footer">
-            <?php echo pauza_internal_button(home_url('/12-shagov/'), __('Открыть всю карту', 'pauza-rabotaet'), 'pauza-button pauza-button--primary'); ?>
-        </div>
     </div>
 </section>
 
-<section class="pauza-section pauza-section--muted" id="services">
+<section class="pauza-section pauza-section--muted" id="bot-4">
     <div class="pauza-container pauza-split">
         <div>
-            <p class="pauza-eyebrow"><?php esc_html_e('Быстрые ссылки', 'pauza-rabotaet'); ?></p>
-            <h2><?php esc_html_e('Бот 4 шага и калькулятор', 'pauza-rabotaet'); ?></h2>
-            <p><?php esc_html_e('Это внешние инструменты. Сайт дает быстрый вход, но не хранит ответы и не заменяет работу со спонсором.', 'pauza-rabotaet'); ?></p>
+            <h2><?php esc_html_e('Бот 4 шага', 'pauza-rabotaet'); ?></h2>
+            <p><?php esc_html_e('Внешний инструмент для работы по четвертому шагу. В основном маршруте он появляется после 3 шага, но теперь есть и быстрый вход с главной страницы.', 'pauza-rabotaet'); ?></p>
         </div>
         <div class="pauza-actions">
-            <?php echo pauza_internal_button(home_url('/bot-4-shaga/'), __('Бот 4 шага', 'pauza-rabotaet'), 'pauza-button pauza-button--primary'); ?>
-            <?php echo pauza_internal_button(pauza_calculator_url(), __('Калькулятор', 'pauza-rabotaet')); ?>
+            <?php echo pauza_button(pauza_get_option('four_step_bot_url'), __('Открыть Telegram-бот', 'pauza-rabotaet'), 'pauza-button pauza-button--primary'); ?>
+            <?php echo pauza_button(pauza_get_option('four_step_max_bot_url'), __('Открыть MAX-бот', 'pauza-rabotaet')); ?>
         </div>
     </div>
 </section>
 
-<section class="pauza-section" id="today">
+<section class="pauza-section" id="calculator">
+    <div class="pauza-container">
+        <div class="pauza-content">
+            <h2><?php esc_html_e('Калькулятор выздоровления', 'pauza-rabotaet'); ?></h2>
+            <p><?php esc_html_e('Калькулятор открыт как отдельный веб-сервис. Сайт ведет на него и не хранит ответы пользователя.', 'pauza-rabotaet'); ?></p>
+            <article class="pauza-card">
+                <h3><?php esc_html_e('Открыть калькулятор', 'pauza-rabotaet'); ?></h3>
+                <p><?php esc_html_e('Результат после заполнения отправляйте спонсору или в группу текущего шага.', 'pauza-rabotaet'); ?></p>
+                <?php echo pauza_internal_button(pauza_calculator_url(), __('Открыть', 'pauza-rabotaet'), 'pauza-button pauza-button--primary'); ?>
+            </article>
+        </div>
+    </div>
+</section>
+
+<section class="pauza-section pauza-section--muted" id="today">
     <div class="pauza-container">
         <div class="pauza-section__heading">
             <h2><?php echo esc_html(sprintf(__('Только сегодня, %s', 'pauza-rabotaet'), date_i18n('j F Y'))); ?></h2>
-            <p><?php esc_html_e('Тексты редактируются в WordPress-админке в разделе «Только сегодня».', 'pauza-rabotaet'); ?></p>
+            <p><?php esc_html_e('Эти тексты владелец сможет добавлять и редактировать в WordPress-админке в разделе «Только сегодня».', 'pauza-rabotaet'); ?></p>
         </div>
         <?php if ($today->have_posts()) : ?>
-            <div class="pauza-card-grid">
+            <div class="pauza-card-grid pauza-card-grid--three">
                 <?php while ($today->have_posts()) : $today->the_post(); ?>
+                    <?php $parts = pauza_today_parts(get_post_field('post_content', get_the_ID())); ?>
                     <article class="pauza-card">
-                        <h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
-                        <?php echo pauza_today_question_answer_html(get_post_field('post_content', get_the_ID()), true); ?>
-                        <?php echo pauza_internal_button(get_permalink(), __('Читать', 'pauza-rabotaet')); ?>
+                        <h3><?php the_title(); ?></h3>
+                        <?php if ($parts['question']) : ?>
+                            <div class="pauza-qa pauza-qa--question">
+                                <span class="pauza-qa__label"><?php esc_html_e('Вопрос', 'pauza-rabotaet'); ?></span>
+                                <p><?php echo esc_html(wp_trim_words($parts['question'], 18, '...')); ?></p>
+                            </div>
+                        <?php endif; ?>
+                        <details class="pauza-details">
+                            <summary><?php esc_html_e('Читать', 'pauza-rabotaet'); ?></summary>
+                            <div class="pauza-content pauza-qa-list">
+                                <?php echo pauza_today_question_answer_html(get_post_field('post_content', get_the_ID()), false); ?>
+                            </div>
+                        </details>
                     </article>
                 <?php endwhile; wp_reset_postdata(); ?>
             </div>

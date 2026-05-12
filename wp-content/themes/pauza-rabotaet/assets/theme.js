@@ -155,6 +155,22 @@
         openStepFromHash(window.location.hash, true);
     });
 
+    document.querySelectorAll('.pauza-step-folders').forEach(function (container) {
+        container.querySelectorAll('.pauza-step-folder').forEach(function (folder) {
+            folder.addEventListener('toggle', function () {
+                if (!folder.open) {
+                    return;
+                }
+
+                container.querySelectorAll('.pauza-step-folder').forEach(function (other) {
+                    if (other !== folder) {
+                        other.open = false;
+                    }
+                });
+            });
+        });
+    });
+
     document.querySelectorAll('[data-pauza-tabs]').forEach(function (tabs) {
         const buttons = Array.from(tabs.querySelectorAll('[data-tab-target]'));
         const panels = Array.from(tabs.querySelectorAll('[data-tab-panel]'));

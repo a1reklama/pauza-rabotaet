@@ -73,7 +73,7 @@ function pauza_ensure_today_seeded(): void
 
 function pauza_ensure_default_menu_items(): void
 {
-    if (get_option('pauza_menu_seeded_v4')) {
+    if (get_option('pauza_menu_seeded_v5')) {
         return;
     }
 
@@ -728,25 +728,22 @@ function pauza_seed_menu(int $home_id, int $calculator_id, int $bot_id): void
         return;
     }
 
-    pauza_remove_menu_items((int) $menu_id, ['Калькулятор', 'Калькуляторы', 'Материалы', 'Только сегодня', 'Бот 4 шага', 'Новости', 'Еще']);
+    pauza_remove_menu_items((int) $menu_id, ['Начать', 'Спонсоры', 'Материалы', '12 шагов', 'Бот 4 шага', 'Калькулятор', 'Калькуляторы', 'Только сегодня', 'Новости', 'Еще']);
 
-    if ($home_id && !pauza_menu_has_item((int) $menu_id, 'Начать')) {
-        wp_update_nav_menu_item($menu_id, 0, [
-            'menu-item-title'     => 'Начать',
-            'menu-item-object'    => 'page',
-            'menu-item-object-id' => $home_id,
-            'menu-item-type'      => 'post_type',
-            'menu-item-status'    => 'publish',
-        ]);
-    }
+    wp_update_nav_menu_item($menu_id, 0, [
+        'menu-item-title'  => 'Начать',
+        'menu-item-url'    => home_url('/#start'),
+        'menu-item-type'   => 'custom',
+        'menu-item-status' => 'publish',
+    ]);
 
     $top_links = [
-        ['Спонсоры', home_url('/sponsory/')],
-        ['Материалы', home_url('/materialy/')],
-        ['12 шагов', home_url('/12-shagov/')],
-        ['Бот 4 шага', $bot_id ? get_permalink($bot_id) : home_url('/bot-4-shaga/')],
+        ['Спонсоры', home_url('/#sponsors')],
+        ['Материалы', home_url('/#materials')],
+        ['12 шагов', home_url('/#steps')],
+        ['Бот 4 шага', home_url('/#bot-4')],
         ['Калькулятор', pauza_calculator_url()],
-        ['Только сегодня', home_url('/tolko-segodnya/')],
+        ['Только сегодня', home_url('/#today')],
     ];
 
     foreach ($top_links as $link) {
@@ -767,7 +764,7 @@ function pauza_seed_menu(int $home_id, int $calculator_id, int $bot_id): void
         'footer'  => (int) $menu_id,
     ]);
 
-    update_option('pauza_menu_seeded_v4', current_time('mysql'));
+    update_option('pauza_menu_seeded_v5', current_time('mysql'));
 }
 
 function pauza_remove_menu_items(int $menu_id, array $titles): void

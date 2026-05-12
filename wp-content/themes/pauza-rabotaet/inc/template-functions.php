@@ -44,6 +44,10 @@ function pauza_is_external_url(string $url): bool
         return false;
     }
 
+    if (0 === strpos(untrailingslashit($url), untrailingslashit(pauza_calculator_url()))) {
+        return true;
+    }
+
     return 0 !== strpos($url, home_url('/'));
 }
 
@@ -339,6 +343,103 @@ function pauza_step_icon_html(string $number): string
         '<span class="pauza-step-icon pauza-step-icon--fallback">%1$d</span>',
         $step
     );
+}
+
+function pauza_step_header_lines(string $text): array
+{
+    $lines = pauza_lines($text);
+    $first_numbered_index = -1;
+
+    foreach ($lines as $index => $line) {
+        if (preg_match('/^\d+\.\s+/u', $line)) {
+            $first_numbered_index = $index;
+            break;
+        }
+    }
+
+    $length = max(1, $first_numbered_index);
+
+    return array_slice($lines, 0, $length);
+}
+
+function pauza_render_step_folder(string $number, string $full_text, bool $open = false, string $sponsor_url = '#sponsors'): void
+{
+    $step_number = max(1, min(12, (int) $number));
+    $header_lines = pauza_step_header_lines($full_text);
+    $work = pauza_step_numbered_lines($full_text);
+    $materials = pauza_step_material_lines($full_text);
+    $transition = pauza_step_transition_lines($full_text, $step_number);
+    ?>
+    <details class="pauza-step-folder" id="step-<?php echo esc_attr((string) $step_number); ?>" data-step-number="<?php echo esc_attr((string) $step_number); ?>" <?php echo $open ? 'open' : ''; ?>>
+        <summary class="pauza-step-folder__summary">
+            <div class="pauza-step-hero__icon">
+                <?php echo pauza_step_icon_html((string) $step_number); ?>
+            </div>
+            <div>
+                <h3><?php echo esc_html(pauza_step_display_title((string) $step_number)); ?></h3>
+            </div>
+            <span class="pauza-step-folder__chevron">›</span>
+        </summary>
+
+        <div class="pauza-step-folder__body">
+            <?php if (count($header_lines) > 1) : ?>
+                <div class="pauza-step-folder__intro">
+                    <?php pauza_render_plain_text(implode("\n", array_slice($header_lines, 1)), true); ?>
+                </div>
+            <?php endif; ?>
+
+            <?php if (1 === $step_number) : ?>
+                <div class="pauza-friendly-note pauza-sponsor-step-note">
+                    <p><?php esc_html_e('Если спонсор еще не выбран, сначала откройте список спонсоров.', 'pauza-rabotaet'); ?></p>
+                    <?php echo pauza_internal_button($sponsor_url, __('Выбрать спонсора', 'pauza-rabotaet'), 'pauza-button pauza-button--primary'); ?>
+                </div>
+            <?php endif; ?>
+
+            <details class="pauza-details" open>
+                <summary><?php esc_html_e('Работа по шагу', 'pauza-rabotaet'); ?></summary>
+                <div class="pauza-content">
+                    <?php if ($work) : ?>
+                        <?php pauza_render_source_list($work); ?>
+                    <?php elseif ($full_text) : ?>
+                        <?php pauza_render_source_list(pauza_lines($full_text), 'ul'); ?>
+                    <?php else : ?>
+                        <p><?php esc_html_e('Текст шага пока не добавлен.', 'pauza-rabotaet'); ?></p>
+                    <?php endif; ?>
+                </div>
+            </details>
+
+            <details class="pauza-details">
+                <summary><?php esc_html_e('Материалы шага', 'pauza-rabotaet'); ?></summary>
+                <div class="pauza-content">
+                    <?php if ($materials) : ?>
+                        <?php pauza_render_source_list($materials, 'ul'); ?>
+                    <?php else : ?>
+                        <p><?php esc_html_e('В тексте этого шага внешние ссылки не указаны.', 'pauza-rabotaet'); ?></p>
+                    <?php endif; ?>
+                </div>
+            </details>
+
+            <details class="pauza-details">
+                <summary><?php esc_html_e('Текст руководителя', 'pauza-rabotaet'); ?></summary>
+                <div class="pauza-content pauza-source-document">
+                    <?php if ($full_text) : ?>
+                        <?php pauza_render_step_source_sections($full_text); ?>
+                    <?php else : ?>
+                        <p><?php esc_html_e('Исходный текст для этого шага пока не добавлен.', 'pauza-rabotaet'); ?></p>
+                    <?php endif; ?>
+                </div>
+            </details>
+
+            <div class="pauza-step-transition">
+                <?php if ($transition) : ?>
+                    <?php pauza_render_plain_text(implode("\n", $transition), true); ?>
+                <?php else : ?>
+                    <p><?php esc_html_e('Переход для этого шага пока не указан.', 'pauza-rabotaet'); ?></p>
+                <?php endif; ?>
+            </div>
+        </div>
+    </details>
+    <?php
 }
 
 function pauza_step_source_chunks(string $text): array
@@ -771,13 +872,13 @@ function pauza_archive_title(string $title, string $subtitle = ''): void
 function pauza_fallback_menu(): void
 {
     $items = [
-        ['Начать', home_url('/')],
-        ['Спонсоры', home_url('/sponsory/')],
-        ['Материалы', home_url('/materialy/')],
-        ['12 шагов', home_url('/12-shagov/')],
-        ['Бот 4 шага', home_url('/bot-4-shaga/')],
+        ['Начать', home_url('/#start')],
+        ['Спонсоры', home_url('/#sponsors')],
+        ['Материалы', home_url('/#materials')],
+        ['12 шагов', home_url('/#steps')],
+        ['Бот 4 шага', home_url('/#bot-4')],
         ['Калькулятор', pauza_calculator_url()],
-        ['Только сегодня', home_url('/tolko-segodnya/')],
+        ['Только сегодня', home_url('/#today')],
     ];
 
     echo '<ul class="pauza-nav__list">';
@@ -790,13 +891,13 @@ function pauza_fallback_menu(): void
 function pauza_footer_menu(): void
 {
     $items = [
-        ['Начать', home_url('/')],
-        ['Спонсоры', home_url('/sponsory/')],
-        ['Материалы', home_url('/materialy/')],
-        ['12 шагов', home_url('/12-shagov/')],
-        ['Бот 4 шага', home_url('/bot-4-shaga/')],
+        ['Начать', home_url('/#start')],
+        ['Спонсоры', home_url('/#sponsors')],
+        ['Материалы', home_url('/#materials')],
+        ['12 шагов', home_url('/#steps')],
+        ['Бот 4 шага', home_url('/#bot-4')],
         ['Калькулятор', pauza_calculator_url()],
-        ['Только сегодня', home_url('/tolko-segodnya/')],
+        ['Только сегодня', home_url('/#today')],
     ];
 
     echo '<ul class="pauza-footer__links">';
