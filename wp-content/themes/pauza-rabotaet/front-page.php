@@ -9,7 +9,6 @@ get_header();
 
 $steps = pauza_steps_query(12);
 $today = pauza_latest_today_query(4);
-$sponsors = pauza_sponsors_query();
 ?>
 
 <section class="pauza-home-hero" id="start">
@@ -36,8 +35,8 @@ $sponsors = pauza_sponsors_query();
         </div>
         <div class="pauza-next-box pauza-sponsor-consent">
             <div>
-                <h3><?php esc_html_e('Сначала напишите, не звоните', 'pauza-rabotaet'); ?></h3>
-                <p><?php esc_html_e('Напишите сообщение в доступный мессенджер или SMS, представьтесь и коротко расскажите о себе.', 'pauza-rabotaet'); ?></p>
+                <h3><?php esc_html_e('Сначала напиши, не звони', 'pauza-rabotaet'); ?></h3>
+                <p><?php esc_html_e('Напиши сообщение в доступный мессенджер или SMS, представься и коротко расскажи о себе.', 'pauza-rabotaet'); ?></p>
             </div>
             <button class="pauza-button pauza-button--primary" type="button" data-sponsor-consent aria-expanded="false"><?php esc_html_e('Я прочитал и понимаю', 'pauza-rabotaet'); ?></button>
         </div>
@@ -45,23 +44,7 @@ $sponsors = pauza_sponsors_query();
             <button type="button" data-sponsor-filter="female"><?php esc_html_e('Женщины', 'pauza-rabotaet'); ?></button>
             <button type="button" data-sponsor-filter="male"><?php esc_html_e('Мужчины', 'pauza-rabotaet'); ?></button>
         </div>
-        <div class="pauza-sponsor-grid is-collapsed" data-sponsor-list hidden>
-            <?php if ($sponsors->have_posts()) : ?>
-                <?php while ($sponsors->have_posts()) : $sponsors->the_post(); ?>
-                    <?php
-                    $sponsor_id = get_the_ID();
-                    $gender = pauza_meta($sponsor_id, '_pauza_sponsor_gender', 'female');
-                    $phone = pauza_meta($sponsor_id, '_pauza_sponsor_phone');
-                    ?>
-                    <article class="pauza-sponsor-card pauza-sponsor-card--compact is-hidden" data-sponsor-gender="<?php echo esc_attr($gender); ?>">
-                        <h3><?php the_title(); ?></h3>
-                        <?php if ($phone) : ?>
-                            <p class="pauza-phone"><?php echo esc_html($phone); ?></p>
-                        <?php endif; ?>
-                    </article>
-                <?php endwhile; wp_reset_postdata(); ?>
-            <?php endif; ?>
-        </div>
+        <div class="pauza-sponsor-grid is-collapsed" data-sponsor-list data-nosnippet aria-live="polite" hidden></div>
     </div>
 </section>
 
@@ -95,7 +78,7 @@ $sponsors = pauza_sponsors_query();
     <div class="pauza-container">
         <div class="pauza-section__heading">
             <h2><?php esc_html_e('12 шагов для ВСЕХ', 'pauza-rabotaet'); ?></h2>
-            <p><?php esc_html_e('Открыта только одна папка. Внутри каждого шага: работа по шагу, материалы, текст руководителя и следующее действие.', 'pauza-rabotaet'); ?></p>
+            <p><?php esc_html_e('Открыта только одна папка. Внутри каждого шага: работа по шагу и следующее действие.', 'pauza-rabotaet'); ?></p>
         </div>
         <div class="pauza-step-folders" id="full-step-folders">
             <?php if ($steps->have_posts()) : ?>
@@ -134,7 +117,7 @@ $sponsors = pauza_sponsors_query();
             <p><?php esc_html_e('Калькулятор открыт как отдельный веб-сервис. Сайт ведет на него и не хранит ответы пользователя.', 'pauza-rabotaet'); ?></p>
             <article class="pauza-card">
                 <h3><?php esc_html_e('Открыть калькулятор', 'pauza-rabotaet'); ?></h3>
-                <p><?php esc_html_e('Результат после заполнения отправляйте спонсору или в группу текущего шага.', 'pauza-rabotaet'); ?></p>
+                <p><?php esc_html_e('Результат после заполнения отправляй спонсору или в группу текущего шага.', 'pauza-rabotaet'); ?></p>
                 <?php echo pauza_internal_button(pauza_calculator_url(), __('Открыть', 'pauza-rabotaet'), 'pauza-button pauza-button--primary'); ?>
             </article>
         </div>
@@ -145,7 +128,6 @@ $sponsors = pauza_sponsors_query();
     <div class="pauza-container">
         <div class="pauza-section__heading">
             <h2><?php echo esc_html(sprintf(__('Только сегодня, %s', 'pauza-rabotaet'), date_i18n('j F Y'))); ?></h2>
-            <p><?php esc_html_e('Эти тексты владелец сможет добавлять и редактировать в WordPress-админке в разделе «Только сегодня».', 'pauza-rabotaet'); ?></p>
         </div>
         <?php if ($today->have_posts()) : ?>
             <div class="pauza-card-grid pauza-card-grid--three">

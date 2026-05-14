@@ -367,7 +367,6 @@ function pauza_render_step_folder(string $number, string $full_text, bool $open 
     $step_number = max(1, min(12, (int) $number));
     $header_lines = pauza_step_header_lines($full_text);
     $work = pauza_step_numbered_lines($full_text);
-    $materials = pauza_step_material_lines($full_text);
     $transition = pauza_step_transition_lines($full_text, $step_number);
     ?>
     <details class="pauza-step-folder" id="step-<?php echo esc_attr((string) $step_number); ?>" data-step-number="<?php echo esc_attr((string) $step_number); ?>" <?php echo $open ? 'open' : ''; ?>>
@@ -390,14 +389,14 @@ function pauza_render_step_folder(string $number, string $full_text, bool $open 
 
             <?php if (1 === $step_number) : ?>
                 <div class="pauza-friendly-note pauza-sponsor-step-note">
-                    <p><?php esc_html_e('Если спонсор еще не выбран, сначала откройте список спонсоров.', 'pauza-rabotaet'); ?></p>
+                    <p><?php esc_html_e('Если спонсор еще не выбран, сначала открой список спонсоров.', 'pauza-rabotaet'); ?></p>
                     <?php echo pauza_internal_button($sponsor_url, __('Выбрать спонсора', 'pauza-rabotaet'), 'pauza-button pauza-button--primary'); ?>
                 </div>
             <?php endif; ?>
 
-            <details class="pauza-details" open>
-                <summary><?php esc_html_e('Работа по шагу', 'pauza-rabotaet'); ?></summary>
+            <div class="pauza-panel">
                 <div class="pauza-content">
+                    <h3><?php esc_html_e('Работа по шагу', 'pauza-rabotaet'); ?></h3>
                     <?php if ($work) : ?>
                         <?php pauza_render_source_list($work); ?>
                     <?php elseif ($full_text) : ?>
@@ -406,29 +405,7 @@ function pauza_render_step_folder(string $number, string $full_text, bool $open 
                         <p><?php esc_html_e('Текст шага пока не добавлен.', 'pauza-rabotaet'); ?></p>
                     <?php endif; ?>
                 </div>
-            </details>
-
-            <details class="pauza-details">
-                <summary><?php esc_html_e('Материалы шага', 'pauza-rabotaet'); ?></summary>
-                <div class="pauza-content">
-                    <?php if ($materials) : ?>
-                        <?php pauza_render_source_list($materials, 'ul'); ?>
-                    <?php else : ?>
-                        <p><?php esc_html_e('В тексте этого шага внешние ссылки не указаны.', 'pauza-rabotaet'); ?></p>
-                    <?php endif; ?>
-                </div>
-            </details>
-
-            <details class="pauza-details">
-                <summary><?php esc_html_e('Текст руководителя', 'pauza-rabotaet'); ?></summary>
-                <div class="pauza-content pauza-source-document">
-                    <?php if ($full_text) : ?>
-                        <?php pauza_render_step_source_sections($full_text); ?>
-                    <?php else : ?>
-                        <p><?php esc_html_e('Исходный текст для этого шага пока не добавлен.', 'pauza-rabotaet'); ?></p>
-                    <?php endif; ?>
-                </div>
-            </details>
+            </div>
 
             <div class="pauza-step-transition">
                 <?php if ($transition) : ?>
@@ -724,20 +701,6 @@ function pauza_render_source_item_body(string $content): void
     echo '<p>' . pauza_linkify_text($first, true) . '</p>';
 
     if (!$lines) {
-        return;
-    }
-
-    $continuation = implode("\n", $lines);
-    $length = function_exists('mb_strlen') ? mb_strlen($continuation) : strlen($continuation);
-    $collapse = !pauza_is_short_continuation_list($lines) && ($length > 900 || count($lines) > 8);
-
-    if ($collapse) {
-        echo '<details class="pauza-details pauza-source-more">';
-        echo '<summary>' . esc_html__('Показать продолжение', 'pauza-rabotaet') . '</summary>';
-        echo '<div class="pauza-content">';
-        pauza_render_source_continuation($lines);
-        echo '</div>';
-        echo '</details>';
         return;
     }
 

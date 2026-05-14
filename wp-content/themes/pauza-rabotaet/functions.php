@@ -9,7 +9,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-define('PAUZA_THEME_VERSION', '1.0.1');
+define('PAUZA_THEME_VERSION', '1.0.3');
 define('PAUZA_THEME_DIR', get_template_directory());
 define('PAUZA_THEME_URI', get_template_directory_uri());
 
@@ -19,6 +19,7 @@ require_once PAUZA_THEME_DIR . '/inc/options.php';
 require_once PAUZA_THEME_DIR . '/inc/template-functions.php';
 require_once PAUZA_THEME_DIR . '/inc/default-content.php';
 require_once PAUZA_THEME_DIR . '/inc/admin-optimization.php';
+require_once PAUZA_THEME_DIR . '/inc/sponsor-privacy.php';
 
 function pauza_theme_setup(): void
 {
@@ -52,6 +53,12 @@ function pauza_enqueue_assets(): void
         PAUZA_THEME_VERSION,
         true
     );
+
+    wp_localize_script('pauza-theme', 'pauzaSponsorApi', [
+        'url'    => admin_url('admin-ajax.php'),
+        'action' => 'pauza_sponsors',
+        'nonce'  => wp_create_nonce('pauza_sponsors'),
+    ]);
 }
 add_action('wp_enqueue_scripts', 'pauza_enqueue_assets');
 

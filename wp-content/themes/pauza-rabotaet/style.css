@@ -3,7 +3,7 @@ Theme Name: Pauza Rabotaet
 Theme URI: https://pauzarabotaet.ru
 Author: Codex
 Description: WordPress theme for a structured 12-step rehabilitation program entrance site.
-Version: 1.0.1
+Version: 1.0.3
 Requires at least: 6.0
 Tested up to: 6.6
 Requires PHP: 8.0
@@ -1950,4 +1950,9 @@ li {
     .pauza-sponsor-step-note {
         grid-template-columns: minmax(0, 1fr);
     }
+}
+
+.pauza-source-item__body > p,
+.pauza-source-item__body > .pauza-source-sublist {
+    max-width: 78ch;
 }

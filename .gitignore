@@ -7,9 +7,15 @@ wordpress/
 php/
 mysql/
 sqlite-database/
+.local-tools/
 
 # Generated archives
 *.zip
+*.docx
+
+# Local secrets and transferred server backups
+*.local.txt
+remote-backups/
 
 # Logs and caches
 *.log

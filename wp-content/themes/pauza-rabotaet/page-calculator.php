@@ -23,7 +23,7 @@ $instruction_url = pauza_get_option('calculator_instruction_url');
             <div class="pauza-card-grid">
                 <article class="pauza-card">
                     <h2><?php esc_html_e('Открыть калькулятор', 'pauza-rabotaet'); ?></h2>
-                    <p><?php esc_html_e('Используйте один внешний веб-сервис калькулятора. Результат после заполнения отправляйте спонсору или в группу текущего шага.', 'pauza-rabotaet'); ?></p>
+                    <p><?php esc_html_e('Используй один внешний веб-сервис калькулятора. Результат после заполнения отправляй спонсору или в группу текущего шага.', 'pauza-rabotaet'); ?></p>
                     <?php echo pauza_internal_button(pauza_calculator_url(), __('Открыть', 'pauza-rabotaet'), 'pauza-button pauza-button--primary'); ?>
                 </article>
             </div>

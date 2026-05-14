@@ -7,6 +7,16 @@
             const isOpen = menu.classList.toggle('is-open');
             menuButton.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
         });
+
+        menu.addEventListener('click', function (event) {
+            const link = event.target.closest('a');
+            if (!link) {
+                return;
+            }
+
+            menu.classList.remove('is-open');
+            menuButton.setAttribute('aria-expanded', 'false');
+        });
     }
 
     function shuffle(items) {
@@ -78,6 +88,93 @@
         return message;
     }
 
+    let sponsorCardsLoaded = false;
+    let sponsorCardsLoading = null;
+
+    function createSponsorCard(sponsor) {
+        const card = document.createElement('article');
+        card.className = 'pauza-sponsor-card pauza-sponsor-card--compact is-hidden';
+        card.setAttribute('data-sponsor-gender', sponsor.gender || 'female');
+        card.setAttribute('data-nosnippet', '');
+
+        const title = document.createElement('h3');
+        title.textContent = sponsor.name || '';
+        card.appendChild(title);
+
+        if (sponsor.phone) {
+            const phone = document.createElement('p');
+            phone.className = 'pauza-phone';
+            phone.textContent = sponsor.phone;
+            card.appendChild(phone);
+        }
+
+        if (sponsor.note) {
+            const note = document.createElement('p');
+            note.textContent = sponsor.note;
+            card.appendChild(note);
+        }
+
+        return card;
+    }
+
+    function existingSponsorCards() {
+        return sponsorList ? Array.from(sponsorList.querySelectorAll('[data-sponsor-gender]')) : [];
+    }
+
+    function loadSponsorCards() {
+        if (!sponsorList || sponsorCardsLoaded) {
+            return Promise.resolve(existingSponsorCards());
+        }
+
+        if (sponsorCardsLoading) {
+            return sponsorCardsLoading;
+        }
+
+        if (!window.pauzaSponsorApi || !window.pauzaSponsorApi.url) {
+            sponsorCardsLoaded = true;
+            return Promise.resolve(existingSponsorCards());
+        }
+
+        const body = new URLSearchParams();
+        body.set('action', window.pauzaSponsorApi.action || 'pauza_sponsors');
+        body.set('nonce', window.pauzaSponsorApi.nonce || '');
+        sponsorList.setAttribute('aria-busy', 'true');
+
+        sponsorCardsLoading = fetch(window.pauzaSponsorApi.url, {
+            method: 'POST',
+            credentials: 'same-origin',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+            },
+            body: body.toString(),
+        })
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (payload) {
+                sponsorCardsLoaded = true;
+                sponsorList.removeAttribute('aria-busy');
+
+                if (!payload || !payload.success || !payload.data || !Array.isArray(payload.data.sponsors)) {
+                    return existingSponsorCards();
+                }
+
+                payload.data.sponsors.forEach(function (sponsor) {
+                    sponsorList.appendChild(createSponsorCard(sponsor));
+                });
+
+                return existingSponsorCards();
+            })
+            .catch(function () {
+                sponsorCardsLoaded = true;
+                sponsorList.removeAttribute('aria-busy');
+
+                return existingSponsorCards();
+            });
+
+        return sponsorCardsLoading;
+    }
+
     if (sponsorConsent) {
         sponsorConsent.addEventListener('click', function () {
             if (sponsorControls) {
@@ -103,7 +200,6 @@
     filterButtons.forEach(function (button) {
         button.addEventListener('click', function () {
             const filter = button.getAttribute('data-sponsor-filter');
-            const sponsorCards = sponsorList ? Array.from(sponsorList.querySelectorAll('[data-sponsor-gender]')) : [];
 
             if (sponsorList) {
                 sponsorList.hidden = false;
@@ -114,24 +210,26 @@
                 item.classList.toggle('is-active', item === button);
             });
 
-            sponsorCards.forEach(function (card) {
-                card.classList.add('is-hidden');
+            loadSponsorCards().then(function (sponsorCards) {
+                sponsorCards.forEach(function (card) {
+                    card.classList.add('is-hidden');
+                });
+
+                const visibleCards = shuffle(sponsorCards.filter(function (card) {
+                    return card.getAttribute('data-sponsor-gender') === filter;
+                }));
+
+                visibleCards.forEach(function (card) {
+                    card.classList.remove('is-hidden');
+                    sponsorList.appendChild(card);
+                });
+
+                const emptyMessage = ensureSponsorEmptyMessage();
+                if (emptyMessage) {
+                    sponsorList.appendChild(emptyMessage);
+                    emptyMessage.hidden = visibleCards.length > 0;
+                }
             });
-
-            const visibleCards = shuffle(sponsorCards.filter(function (card) {
-                return card.getAttribute('data-sponsor-gender') === filter;
-            }));
-
-            visibleCards.forEach(function (card) {
-                card.classList.remove('is-hidden');
-                sponsorList.appendChild(card);
-            });
-
-            const emptyMessage = ensureSponsorEmptyMessage();
-            if (emptyMessage) {
-                sponsorList.appendChild(emptyMessage);
-                emptyMessage.hidden = visibleCards.length > 0;
-            }
         });
     });
 
