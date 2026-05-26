@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>12 шагов для ВСЕХ - preview</title>
     <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=1.0.27">
 </head>
 <body class="pauza-site">
     <header class="pauza-header">
@@ -24,11 +24,12 @@
                 <ul class="pauza-nav__list">
                     <li><a href="#start">Начать</a></li>
                     <li><a href="#sponsors">Спонсоры</a></li>
-                    <li><a href="#materials">Материалы</a></li>
+                    <li><a href="https://us06web.zoom.us/j/84148453952?pwd=umnK3faCOKQIyaoLDKXgLeNtciu7Yv.1" target="_blank" rel="noopener noreferrer">Группа</a></li>
                     <li><a href="#steps">12 шагов</a></li>
                     <li><a href="#bot-4">Бот 4 шага</a></li>
                     <li><a href="https://pauzarabotaet.ru/calculator/" target="_blank" rel="noopener noreferrer">Калькулятор</a></li>
                     <li><a href="#today">Только сегодня</a></li>
+                    <li><button class="pauza-nav__help-trigger" type="button" data-help-open aria-haspopup="dialog" aria-expanded="false" aria-controls="pauza-help-modal">Помощь</button></li>
                 </ul>
             </nav>
         </div>
@@ -39,10 +40,10 @@
             <div class="pauza-container pauza-home-hero__grid">
                 <div class="pauza-home-hero__copy">
                     <h1>12 шагов для ВСЕХ</h1>
-                    <p class="pauza-lead">Сначала выбери спонсора, потом посмотри, откуда быстрее скачиваются 360 видео, начинай смотреть по одному видео в день и пройди 12 шагов за 360 дней</p>
+                    <p class="pauza-lead">Сначала выбери спонсора, подключайся к группе, начинай смотреть по одному видео в день и пройди 12 шагов за 360 дней</p>
                     <div class="pauza-actions">
                         <a class="pauza-button pauza-button--primary" href="#sponsors">Выбрать спонсора</a>
-                        <a class="pauza-button" href="#materials">Открыть 360 видео</a>
+                        <a class="pauza-button" href="#group">Группа</a>
                         <a class="pauza-button" href="#step-1">Начать 1 шаг</a>
                         <a class="pauza-button" href="#bot-4">Бот 4 шага</a>
                         <a class="pauza-button" href="https://pauzarabotaet.ru/calculator/" target="_blank" rel="noopener noreferrer">Калькулятор</a>
@@ -68,20 +69,19 @@
                     <button type="button" data-sponsor-filter="female">Женщины</button>
                     <button type="button" data-sponsor-filter="male">Мужчины</button>
                 </div>
+                <p class="pauza-sponsor-hint" data-sponsor-hint hidden>Сначала напиши, не звони. Номер можно скопировать.</p>
                 <div class="pauza-sponsor-grid is-collapsed" data-sponsor-list data-nosnippet hidden></div>
             </div>
         </section>
 
-        <section class="pauza-section pauza-section--muted" id="materials">
+        <section class="pauza-section pauza-section--muted" id="group">
             <div class="pauza-container">
                 <div class="pauza-section__heading">
-                    <h2>360 видео можно скачать здесь</h2>
-                    <p>Этот блок стоит до первого шага, поэтому в маршруте он идет перед картой шагов.</p>
+                    <h2>ГРУППА</h2>
+                    <p>09:00 и 21:00 ЕЖЕДНЕВНО</p>
                 </div>
-                <div class="pauza-card-grid pauza-card-grid--three">
-                    <article class="pauza-card"><h3>Telegram-канал 360 видео</h3><p>ТЕЛЕГРАМ</p><a class="pauza-button pauza-button--primary" href="https://t.me/neporukovodstvu" target="_blank" rel="noopener noreferrer">Открыть</a></article>
-                    <article class="pauza-card"><h3>Rutube-канал</h3><p>RUTUBE</p><a class="pauza-button" href="https://rutube.ru/channel/44350949/" target="_blank" rel="noopener noreferrer">Открыть</a></article>
-                    <article class="pauza-card"><h3>Скачать видео</h3><p>ЯНДЕКС ДИСК</p><a class="pauza-button" href="https://disk.yandex.ru/d/N2hLvMMUeXxsjg" target="_blank" rel="noopener noreferrer">Открыть</a></article>
+                <div class="pauza-card-grid">
+                    <article class="pauza-card"><a class="pauza-button pauza-button--primary" href="https://us06web.zoom.us/j/84148453952?pwd=umnK3faCOKQIyaoLDKXgLeNtciu7Yv.1" target="_blank" rel="noopener noreferrer">ПОДКЛЮЧАЙСЯ ПО ССЫЛКЕ</a></article>
                 </div>
             </div>
         </section>
@@ -93,7 +93,7 @@
                     <p>Открыта только одна папка. Внутри каждого шага: работа по шагу и следующее действие.</p>
                 </div>
                 <div class="pauza-step-folders" id="full-step-folders">
-                    <p>Загрузка всех 12 шагов...</p>
+                    <p>Загрузка всех 13 шагов...</p>
                 </div>
             </div>
         </section>
@@ -219,24 +219,55 @@
 
     <footer class="pauza-footer">
         <div class="pauza-container pauza-footer__grid">
-            <div>
+            <div class="pauza-footer__brand">
                 <h2>12 шагов для ВСЕХ</h2>
                 <p>Сайт помогает ориентироваться в программе и ведет во внешние группы, боты и видеоматериалы. Он не заменяет работу со спонсором.</p>
             </div>
-            <nav aria-label="Меню в подвале">
+            <nav class="pauza-footer__nav" aria-label="Меню в подвале">
+                <h3>Быстрый переход</h3>
                 <ul class="pauza-footer__links">
                     <li><a href="#start">Начать</a></li>
                     <li><a href="#sponsors">Спонсоры</a></li>
-                    <li><a href="#materials">Материалы</a></li>
+                    <li><a href="https://us06web.zoom.us/j/84148453952?pwd=umnK3faCOKQIyaoLDKXgLeNtciu7Yv.1" target="_blank" rel="noopener noreferrer">Группа</a></li>
                     <li><a href="#steps">12 шагов</a></li>
                     <li><a href="#bot-4">Бот 4 шага</a></li>
                     <li><a href="https://pauzarabotaet.ru/calculator/" target="_blank" rel="noopener noreferrer">Калькулятор</a></li>
                     <li><a href="#today">Только сегодня</a></li>
+                    <li><button class="pauza-footer__help-trigger" type="button" data-help-open aria-haspopup="dialog" aria-expanded="false" aria-controls="pauza-help-modal">Помощь</button></li>
                 </ul>
             </nav>
+            <div class="pauza-footer__meetings">
+                <h3>ГРУППА</h3>
+                <p>09:00 и 21:00 ЕЖЕДНЕВНО</p>
+                <a class="pauza-footer__button" href="https://us06web.zoom.us/j/84148453952?pwd=umnK3faCOKQIyaoLDKXgLeNtciu7Yv.1" target="_blank" rel="noopener noreferrer nofollow">ПОДКЛЮЧАЙСЯ ПО ССЫЛКЕ</a>
+            </div>
         </div>
     </footer>
-    <script src="assets/theme.js"></script>
+    <div class="pauza-meetings-float" data-meetings-float>
+        <button class="pauza-meetings-float__trigger" type="button" aria-expanded="false" aria-controls="pauza-meetings-popup" data-meetings-toggle>Группа</button>
+        <div class="pauza-meetings-float__popup" id="pauza-meetings-popup" role="dialog" aria-label="Группа" data-meetings-popup>
+            <p>09:00 и 21:00 ЕЖЕДНЕВНО</p>
+            <a href="https://us06web.zoom.us/j/84148453952?pwd=umnK3faCOKQIyaoLDKXgLeNtciu7Yv.1" target="_blank" rel="noopener noreferrer nofollow" data-meetings-zoom>ПОДКЛЮЧАЙСЯ ПО ССЫЛКЕ</a>
+        </div>
+    </div>
+    <div class="pauza-help-modal" id="pauza-help-modal" data-help-modal hidden>
+        <div class="pauza-help-modal__backdrop" data-help-close></div>
+        <section class="pauza-help-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="pauza-help-title" tabindex="-1">
+            <div class="pauza-help-modal__header">
+                <h2 id="pauza-help-title">Помощь</h2>
+                <button class="pauza-help-modal__close" type="button" data-help-close aria-label="Закрыть помощь">Закрыть</button>
+            </div>
+            <nav class="pauza-help-modal__actions" aria-label="Быстрые действия помощи">
+                <a class="pauza-help-modal__action" href="#sponsors">Выбрать спонсора</a>
+                <a class="pauza-help-modal__action" href="https://us06web.zoom.us/j/84148453952?pwd=umnK3faCOKQIyaoLDKXgLeNtciu7Yv.1" target="_blank" rel="noopener noreferrer nofollow">Подключиться к группе</a>
+                <a class="pauza-help-modal__action" href="#step-1">Открыть 1 шаг</a>
+                <a class="pauza-help-modal__action" href="#bot-4">Открыть бот 4 шага</a>
+                <a class="pauza-help-modal__action" href="https://pauzarabotaet.ru/calculator/" target="_blank" rel="noopener noreferrer nofollow">Открыть калькулятор</a>
+                <a class="pauza-help-modal__action" href="#today">Только сегодня</a>
+            </nav>
+        </section>
+    </div>
+    <script src="assets/theme.js?v=1.0.27"></script>
     <script>
         (function () {
             document.querySelectorAll('[data-current-date]').forEach(function (target) {
@@ -259,12 +290,13 @@
                 9: '9 шаг для ВСЕХ',
                 10: '10 шаг для ВСЕХ',
                 11: '11 шаг для ВСЕХ',
-                12: '12 шаг для ВСЕХ'
+                12: '12 шаг для ВСЕХ',
+                13: '13 шаг для ВСЕХ'
             };
-            var sourceIconSteps = { 1: true, 2: true, 3: true, 6: true, 7: true, 8: true, 9: true, 10: true, 11: true, 12: true };
+            var sourceIconSteps = {};
             var sponsors = [
-                ['female', 'Женщина-спонсор', 'Контакт скрыт в preview'],
-                ['male', 'Мужчина-спонсор', 'Контакт скрыт в preview']
+                ['female', 'Анна', '+70000000001'],
+                ['male', 'Иван', '+70000000002']
             ];
 
             function splitLines(text) {
@@ -308,10 +340,19 @@
                 target.textContent = '';
                 shuffle(sponsors).forEach(function (sponsor) {
                     var card = createElement('article', 'pauza-sponsor-card pauza-sponsor-card--compact is-hidden');
+                    card.hidden = true;
                     card.dataset.sponsorGender = sponsor[0];
                     card.setAttribute('data-nosnippet', '');
                     card.appendChild(createElement('h3', '', sponsor[1]));
-                    card.appendChild(createElement('p', 'pauza-phone', sponsor[2]));
+
+                    var phoneButton = createElement('button', 'pauza-sponsor-copy pauza-sponsor-copy--phone', sponsor[2]);
+                    phoneButton.type = 'button';
+                    phoneButton.title = 'Скопировать номер';
+                    phoneButton.setAttribute('aria-label', 'Скопировать номер');
+                    phoneButton.setAttribute('data-sponsor-copy', 'phone');
+                    phoneButton.setAttribute('data-copy-text', sponsor[2]);
+                    card.appendChild(phoneButton);
+
                     target.appendChild(card);
                 });
             }
@@ -324,7 +365,10 @@
                     return img;
                 }
 
-                return createElement('span', 'pauza-step-icon pauza-step-icon--fallback', String(stepNumber));
+                var icon = createElement('span', 'pauza-step-icon pauza-step-icon--fallback', String(stepNumber));
+                icon.dataset.stepNumber = String(stepNumber);
+                icon.setAttribute('aria-hidden', 'true');
+                return icon;
             }
 
             function numberedLines(text) {
@@ -701,6 +745,71 @@
                 return lines.slice(-3);
             }
 
+            function isStepGroupLine(line, stepNumber) {
+                return new RegExp('^\\s*Группа\\s+' + stepNumber + '\\s+шага\\s+в\\s+(Телеграм|Telegram|МАКС|Макс|MAX)\\b', 'i').test(line);
+            }
+
+            function headerWithoutGroupLinks(headerLines, stepNumber) {
+                var result = [];
+                var skipNextUrl = false;
+
+                headerLines.forEach(function (line) {
+                    if (skipNextUrl && /^https?:\/\/\S+[.,;:]?$/i.test(String(line).trim())) {
+                        skipNextUrl = false;
+                        return;
+                    }
+
+                    skipNextUrl = false;
+
+                    if (isStepGroupLine(line, stepNumber)) {
+                        skipNextUrl = !/https?:\/\//i.test(line);
+                        return;
+                    }
+
+                    result.push(line);
+                });
+
+                return result;
+            }
+
+            function bodyLinesWithoutGroupLinks(lines, stepNumber) {
+                var bodyLines = lines.slice();
+
+                if (bodyLines.length && /^\d+\s*шаг\b/i.test(bodyLines[0])) {
+                    bodyLines.shift();
+                }
+
+                return headerWithoutGroupLinks(bodyLines, stepNumber);
+            }
+
+            function groupIntroLinesFromHeader(headerLines, stepNumber) {
+                var result = [];
+                var pending = '';
+
+                headerLines.forEach(function (line) {
+                    if (pending && /^https?:\/\/\S+[.,;:]?$/i.test(String(line).trim())) {
+                        result.push(pending.replace(/:\s*$/, '') + ': ' + String(line).trim());
+                        pending = '';
+                        return;
+                    }
+
+                    pending = '';
+
+                    if (!isStepGroupLine(line, stepNumber)) {
+                        return;
+                    }
+
+                    if (/https?:\/\//i.test(line)) {
+                        result.push(line);
+                        return;
+                    }
+
+                    pending = line;
+                });
+
+                return result;
+            }
+
             function detailsBlock(title, contentNode, open) {
                 var details = createElement('details', 'pauza-details');
                 if (open) {
@@ -739,8 +848,10 @@
                 var body = createElement('div', 'pauza-step-folder__body');
                 var intro = createElement('div', 'pauza-step-folder__intro');
                 var headerLines = lines.slice(0, Math.max(1, lines.findIndex(function (line) { return /^\d+\.\s+/.test(line); })));
-                if (headerLines.length > 1) {
-                    intro.appendChild(paragraphize(headerLines.slice(1), true));
+                var introLines = groupIntroLinesFromHeader(headerLines.slice(1), stepNumber)
+                    .concat(headerWithoutGroupLinks(headerLines.slice(1), stepNumber));
+                if (introLines.length) {
+                    intro.appendChild(paragraphize(introLines, true));
                     body.appendChild(intro);
                 }
 
@@ -757,14 +868,16 @@
                 var workPanel = createElement('div', 'pauza-panel');
                 var workContent = createElement('div', 'pauza-content');
                 workContent.appendChild(createElement('h3', '', 'Работа по шагу'));
-                workContent.appendChild(work.length ? renderSourceList(work) : renderReadableText(lines));
+                workContent.appendChild(work.length ? renderSourceList(work) : renderReadableText(bodyLinesWithoutGroupLinks(lines, stepNumber)));
                 workPanel.appendChild(workContent);
                 body.appendChild(workPanel);
 
-                var transition = createElement('div', 'pauza-step-transition');
                 var transitionContent = transitionLines(text, stepNumber);
-                transition.appendChild(paragraphize(transitionContent, true));
-                body.appendChild(transition);
+                if (transitionContent.length) {
+                    var transition = createElement('div', 'pauza-step-transition');
+                    transition.appendChild(paragraphize(transitionContent, true));
+                    body.appendChild(transition);
+                }
 
                 details.appendChild(body);
                 return details;
@@ -777,7 +890,7 @@
                 .then(function (data) {
                     var target = document.getElementById('full-step-folders');
                     target.textContent = '';
-                    for (var i = 1; i <= 12; i += 1) {
+                    for (var i = 1; i <= 13; i += 1) {
                         target.appendChild(renderStepFolder(i, data[String(i)] || ''));
                     }
 

@@ -32,6 +32,11 @@ function pauza_calculator_url(): string
     return 'https://pauzarabotaet.ru/calculator/';
 }
 
+function pauza_meetings_zoom_url(): string
+{
+    return 'https://us06web.zoom.us/j/84148453952?pwd=umnK3faCOKQIyaoLDKXgLeNtciu7Yv.1';
+}
+
 function pauza_is_external_url(string $url): bool
 {
     $url = trim($url);
@@ -327,11 +332,11 @@ function pauza_origin_badge(string $origin, string $label = ''): string
 
 function pauza_step_icon_html(string $number): string
 {
-    $step = max(1, min(12, (int) $number));
+    $step = max(1, (int) $number);
     $relative = sprintf('/assets/step-icons/step-%02d.png', $step);
     $path = PAUZA_THEME_DIR . $relative;
 
-    if (file_exists($path)) {
+    if (false && file_exists($path)) {
         return sprintf(
             '<img class="pauza-step-icon" src="%1$s" alt="%2$s">',
             esc_url(PAUZA_THEME_URI . $relative),
@@ -340,7 +345,7 @@ function pauza_step_icon_html(string $number): string
     }
 
     return sprintf(
-        '<span class="pauza-step-icon pauza-step-icon--fallback">%1$d</span>',
+        '<span class="pauza-step-icon pauza-step-icon--fallback" data-step-number="%1$d" aria-hidden="true">%1$d</span>',
         $step
     );
 }
@@ -362,11 +367,70 @@ function pauza_step_header_lines(string $text): array
     return array_slice($lines, 0, $length);
 }
 
-function pauza_render_step_folder(string $number, string $full_text, bool $open = false, string $sponsor_url = '#sponsors'): void
+function pauza_step_header_without_group_links(array $lines, int $step_number): array
 {
-    $step_number = max(1, min(12, (int) $number));
-    $header_lines = pauza_step_header_lines($full_text);
+    $result = [];
+    $skip_next_url = false;
+
+    foreach ($lines as $line) {
+        $line = (string) $line;
+
+        if ($skip_next_url && preg_match('/^https?:\/\/\S+[.,;:]?$/i', trim($line))) {
+            $skip_next_url = false;
+            continue;
+        }
+
+        $skip_next_url = false;
+
+        if (preg_match('/^\s*Группа\s+' . preg_quote((string) $step_number, '/') . '\s+шага\s+в\s+(Телеграм|Telegram|МАКС|Макс|MAX)\b/iu', $line)) {
+            $skip_next_url = !preg_match('/https?:\/\//i', $line);
+            continue;
+        }
+
+        $result[] = $line;
+    }
+
+    return array_values($result);
+}
+
+function pauza_step_group_intro_lines(int $step_number, string $telegram = '', string $max = ''): array
+{
+    $lines = [];
+
+    if ($telegram) {
+        $lines[] = sprintf(__('Группа %d шага в Телеграм: %s', 'pauza-rabotaet'), $step_number, $telegram);
+    }
+
+    if ($max) {
+        $lines[] = sprintf(__('Группа %d шага в МАКС: %s', 'pauza-rabotaet'), $step_number, $max);
+    }
+
+    return $lines;
+}
+
+function pauza_step_body_lines(string $text): array
+{
+    $lines = pauza_lines($text);
+
+    if ($lines && preg_match('/^\d+\s*шаг\b/iu', (string) $lines[0])) {
+        array_shift($lines);
+    }
+
+    return array_values($lines);
+}
+
+function pauza_step_body_lines_without_group_links(string $text, int $step_number): array
+{
+    return pauza_step_header_without_group_links(pauza_step_body_lines($text), $step_number);
+}
+
+function pauza_render_step_folder(string $number, string $full_text, bool $open = false, string $sponsor_url = '#sponsors', string $telegram = '', string $max = ''): void
+{
+    $step_number = max(1, (int) $number);
+    $header_lines = pauza_step_header_without_group_links(array_slice(pauza_step_header_lines($full_text), 1), $step_number);
+    $intro_lines = array_merge(pauza_step_group_intro_lines($step_number, $telegram, $max), $header_lines);
     $work = pauza_step_numbered_lines($full_text);
+    $body_lines = pauza_step_body_lines_without_group_links($full_text, $step_number);
     $transition = pauza_step_transition_lines($full_text, $step_number);
     ?>
     <details class="pauza-step-folder" id="step-<?php echo esc_attr((string) $step_number); ?>" data-step-number="<?php echo esc_attr((string) $step_number); ?>" <?php echo $open ? 'open' : ''; ?>>
@@ -381,9 +445,9 @@ function pauza_render_step_folder(string $number, string $full_text, bool $open 
         </summary>
 
         <div class="pauza-step-folder__body">
-            <?php if (count($header_lines) > 1) : ?>
+            <?php if ($intro_lines) : ?>
                 <div class="pauza-step-folder__intro">
-                    <?php pauza_render_plain_text(implode("\n", array_slice($header_lines, 1)), true); ?>
+                    <?php pauza_render_plain_text(implode("\n", $intro_lines), true); ?>
                 </div>
             <?php endif; ?>
 
@@ -399,21 +463,19 @@ function pauza_render_step_folder(string $number, string $full_text, bool $open 
                     <h3><?php esc_html_e('Работа по шагу', 'pauza-rabotaet'); ?></h3>
                     <?php if ($work) : ?>
                         <?php pauza_render_source_list($work); ?>
-                    <?php elseif ($full_text) : ?>
-                        <?php pauza_render_source_list(pauza_lines($full_text), 'ul'); ?>
+                    <?php elseif ($body_lines) : ?>
+                        <?php pauza_render_source_list($body_lines, 'ul'); ?>
                     <?php else : ?>
                         <p><?php esc_html_e('Текст шага пока не добавлен.', 'pauza-rabotaet'); ?></p>
                     <?php endif; ?>
                 </div>
             </div>
 
-            <div class="pauza-step-transition">
-                <?php if ($transition) : ?>
+            <?php if ($transition) : ?>
+                <div class="pauza-step-transition">
                     <?php pauza_render_plain_text(implode("\n", $transition), true); ?>
-                <?php else : ?>
-                    <p><?php esc_html_e('Переход для этого шага пока не указан.', 'pauza-rabotaet'); ?></p>
-                <?php endif; ?>
-            </div>
+                </div>
+            <?php endif; ?>
         </div>
     </details>
     <?php
@@ -582,6 +644,14 @@ function pauza_step_transition_lines(string $text, int $step_number): array
 
     if (12 === $step_number && $lines) {
         return array_slice($lines, -3);
+    }
+
+    $has_numbered_lines = (bool) array_filter($lines, static function ($line) {
+        return (bool) preg_match('/^\d+\.\s+/u', (string) $line);
+    });
+
+    if (!$has_numbered_lines) {
+        return [];
     }
 
     return $lines ? array_slice($lines, -3) : [];
@@ -837,7 +907,7 @@ function pauza_fallback_menu(): void
     $items = [
         ['Начать', home_url('/#start')],
         ['Спонсоры', home_url('/#sponsors')],
-        ['Материалы', home_url('/#materials')],
+        ['Группа', pauza_meetings_zoom_url()],
         ['12 шагов', home_url('/#steps')],
         ['Бот 4 шага', home_url('/#bot-4')],
         ['Калькулятор', pauza_calculator_url()],
@@ -856,7 +926,7 @@ function pauza_footer_menu(): void
     $items = [
         ['Начать', home_url('/#start')],
         ['Спонсоры', home_url('/#sponsors')],
-        ['Материалы', home_url('/#materials')],
+        ['Группа', pauza_meetings_zoom_url()],
         ['12 шагов', home_url('/#steps')],
         ['Бот 4 шага', home_url('/#bot-4')],
         ['Калькулятор', pauza_calculator_url()],
@@ -867,6 +937,10 @@ function pauza_footer_menu(): void
     foreach ($items as $item) {
         printf('<li><a href="%s"%s>%s</a></li>', esc_url($item[1]), pauza_external_link_attrs($item[1]), esc_html($item[0]));
     }
+    printf(
+        '<li><button class="pauza-footer__help-trigger" type="button" data-help-open aria-haspopup="dialog" aria-expanded="false" aria-controls="pauza-help-modal">%s</button></li>',
+        esc_html__('Помощь', 'pauza-rabotaet')
+    );
     echo '</ul>';
 }
 

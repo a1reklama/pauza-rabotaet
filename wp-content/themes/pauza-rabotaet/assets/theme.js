@@ -3,6 +3,11 @@
     const menu = document.querySelector('.pauza-nav');
 
     if (menuButton && menu) {
+        function closeMenu() {
+            menu.classList.remove('is-open');
+            menuButton.setAttribute('aria-expanded', 'false');
+        }
+
         menuButton.addEventListener('click', function () {
             const isOpen = menu.classList.toggle('is-open');
             menuButton.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
@@ -14,8 +19,141 @@
                 return;
             }
 
-            menu.classList.remove('is-open');
-            menuButton.setAttribute('aria-expanded', 'false');
+            closeMenu();
+        });
+
+        document.addEventListener('click', function (event) {
+            if (!menu.classList.contains('is-open')) {
+                return;
+            }
+
+            if (menu.contains(event.target) || menuButton.contains(event.target)) {
+                return;
+            }
+
+            closeMenu();
+        });
+
+        document.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape') {
+                closeMenu();
+            }
+        });
+    }
+
+    const meetingsFloat = document.querySelector('[data-meetings-float]');
+    const meetingsToggle = meetingsFloat ? meetingsFloat.querySelector('[data-meetings-toggle]') : null;
+    const meetingsZoomLink = meetingsFloat ? meetingsFloat.querySelector('[data-meetings-zoom]') : null;
+
+    if (meetingsFloat && meetingsToggle) {
+        function setMeetingsOpen(isOpen) {
+            meetingsFloat.classList.toggle('is-open', isOpen);
+            meetingsToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+            if (!isOpen && meetingsFloat.contains(document.activeElement) && typeof document.activeElement.blur === 'function') {
+                document.activeElement.blur();
+            }
+        }
+
+        meetingsToggle.addEventListener('click', function () {
+            setMeetingsOpen(!meetingsFloat.classList.contains('is-open'));
+        });
+
+        document.addEventListener('click', function (event) {
+            if (!meetingsFloat.classList.contains('is-open') || meetingsFloat.contains(event.target)) {
+                return;
+            }
+
+            setMeetingsOpen(false);
+        });
+
+        document.addEventListener('keydown', function (event) {
+            if (event.key !== 'Escape') {
+                return;
+            }
+
+            setMeetingsOpen(false);
+        });
+
+        if (meetingsZoomLink) {
+            meetingsZoomLink.addEventListener('click', function (event) {
+                const href = meetingsZoomLink.href;
+                if (!href) {
+                    return;
+                }
+
+                event.preventDefault();
+
+                const opened = window.open(href, '_blank');
+                if (opened) {
+                    try {
+                        opened.opener = null;
+                    } catch (error) {
+                        // Ignore browsers that disallow touching opener across contexts.
+                    }
+                } else {
+                    window.location.href = href;
+                }
+
+                setMeetingsOpen(false);
+            });
+        }
+    }
+
+    const helpModal = document.querySelector('[data-help-modal]');
+    const helpDialog = helpModal ? helpModal.querySelector('.pauza-help-modal__dialog') : null;
+    const helpOpenButtons = Array.from(document.querySelectorAll('[data-help-open]'));
+    const helpCloseButtons = helpModal ? Array.from(helpModal.querySelectorAll('[data-help-close]')) : [];
+
+    if (helpModal && helpDialog && helpOpenButtons.length) {
+        function setHelpOpen(isOpen) {
+            helpModal.hidden = !isOpen;
+            helpModal.classList.toggle('is-open', isOpen);
+            helpOpenButtons.forEach(function (button) {
+                button.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+            });
+
+            if (isOpen) {
+                if (menu && menuButton) {
+                    menu.classList.remove('is-open');
+                    menuButton.setAttribute('aria-expanded', 'false');
+                }
+                window.setTimeout(function () {
+                    helpDialog.focus();
+                }, 0);
+            }
+        }
+
+        helpOpenButtons.forEach(function (button) {
+            button.addEventListener('click', function () {
+                setHelpOpen(true);
+            });
+        });
+
+        helpCloseButtons.forEach(function (button) {
+            button.addEventListener('click', function () {
+                setHelpOpen(false);
+            });
+        });
+
+        helpModal.addEventListener('click', function (event) {
+            if (event.target === helpModal) {
+                setHelpOpen(false);
+            }
+        });
+
+        helpDialog.addEventListener('click', function (event) {
+            const link = event.target.closest('a');
+            if (!link) {
+                return;
+            }
+
+            setHelpOpen(false);
+        });
+
+        document.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape' && !helpModal.hidden) {
+                setHelpOpen(false);
+            }
         });
     }
 
@@ -67,8 +205,65 @@
 
     const sponsorConsent = document.querySelector('[data-sponsor-consent]');
     const sponsorControls = document.querySelector('[data-sponsor-controls]');
+    const sponsorHint = document.querySelector('[data-sponsor-hint]');
     const sponsorList = document.querySelector('[data-sponsor-list]');
     const sponsorEmptyMessage = 'Список пока не опубликован. Попробуйте позже или обратитесь в группу.';
+    let copyToastTimer = null;
+
+    function showCopyToast(message) {
+        let toast = document.querySelector('[data-copy-toast]');
+        if (!toast) {
+            toast = document.createElement('div');
+            toast.className = 'pauza-copy-toast';
+            toast.setAttribute('data-copy-toast', '');
+            toast.setAttribute('role', 'status');
+            toast.setAttribute('aria-live', 'polite');
+            document.body.appendChild(toast);
+        }
+
+        toast.textContent = message;
+        toast.classList.add('is-visible');
+        window.clearTimeout(copyToastTimer);
+        copyToastTimer = window.setTimeout(function () {
+            toast.classList.remove('is-visible');
+        }, 1800);
+    }
+
+    function fallbackCopyText(text) {
+        const textarea = document.createElement('textarea');
+        textarea.value = text;
+        textarea.setAttribute('readonly', '');
+        textarea.style.position = 'fixed';
+        textarea.style.left = '-9999px';
+        textarea.style.top = '0';
+        document.body.appendChild(textarea);
+        textarea.focus();
+        textarea.select();
+
+        let copied = false;
+        try {
+            copied = document.execCommand('copy');
+        } catch (error) {
+            copied = false;
+        }
+
+        document.body.removeChild(textarea);
+        return copied ? Promise.resolve() : Promise.reject(new Error('copy failed'));
+    }
+
+    function copyText(text) {
+        if (!text) {
+            return Promise.reject(new Error('empty text'));
+        }
+
+        if (navigator.clipboard && window.isSecureContext) {
+            return navigator.clipboard.writeText(text).catch(function () {
+                return fallbackCopyText(text);
+            });
+        }
+
+        return fallbackCopyText(text);
+    }
 
     function ensureSponsorEmptyMessage() {
         if (!sponsorList) {
@@ -94,24 +289,26 @@
     function createSponsorCard(sponsor) {
         const card = document.createElement('article');
         card.className = 'pauza-sponsor-card pauza-sponsor-card--compact is-hidden';
+        card.hidden = true;
         card.setAttribute('data-sponsor-gender', sponsor.gender || 'female');
         card.setAttribute('data-nosnippet', '');
+
+        const sponsorPhone = sponsor.phone || '';
 
         const title = document.createElement('h3');
         title.textContent = sponsor.name || '';
         card.appendChild(title);
 
-        if (sponsor.phone) {
-            const phone = document.createElement('p');
-            phone.className = 'pauza-phone';
-            phone.textContent = sponsor.phone;
-            card.appendChild(phone);
-        }
-
-        if (sponsor.note) {
-            const note = document.createElement('p');
-            note.textContent = sponsor.note;
-            card.appendChild(note);
+        if (sponsorPhone) {
+            const phoneButton = document.createElement('button');
+            phoneButton.type = 'button';
+            phoneButton.className = 'pauza-sponsor-copy pauza-sponsor-copy--phone';
+            phoneButton.title = 'Скопировать номер';
+            phoneButton.setAttribute('aria-label', 'Скопировать номер');
+            phoneButton.setAttribute('data-sponsor-copy', 'phone');
+            phoneButton.setAttribute('data-copy-text', sponsorPhone);
+            phoneButton.textContent = sponsorPhone;
+            card.appendChild(phoneButton);
         }
 
         return card;
@@ -180,6 +377,9 @@
             if (sponsorControls) {
                 sponsorControls.hidden = false;
             }
+            if (sponsorHint) {
+                sponsorHint.hidden = false;
+            }
             if (sponsorList) {
                 sponsorList.hidden = true;
             }
@@ -196,10 +396,42 @@
         });
     }
 
+    if (sponsorList) {
+        sponsorList.addEventListener('click', function (event) {
+            const button = event.target.closest('[data-sponsor-copy]');
+            if (!button || !sponsorList.contains(button)) {
+                return;
+            }
+
+            event.preventDefault();
+            copyText(button.getAttribute('data-copy-text') || '')
+                .then(function () {
+                    showCopyToast('Номер скопирован');
+                })
+                .catch(function () {
+                    showCopyToast('Не удалось скопировать');
+                });
+        });
+    }
+
     const filterButtons = document.querySelectorAll('[data-sponsor-filter]');
+    function sponsorFilterFromButton(button) {
+        const label = (button.textContent || '').trim().toLowerCase();
+
+        if (label.indexOf('жен') !== -1) {
+            return 'female';
+        }
+
+        if (label.indexOf('муж') !== -1) {
+            return 'male';
+        }
+
+        return button.getAttribute('data-sponsor-filter');
+    }
+
     filterButtons.forEach(function (button) {
         button.addEventListener('click', function () {
-            const filter = button.getAttribute('data-sponsor-filter');
+            const filter = sponsorFilterFromButton(button);
 
             if (sponsorList) {
                 sponsorList.hidden = false;
@@ -212,6 +444,7 @@
 
             loadSponsorCards().then(function (sponsorCards) {
                 sponsorCards.forEach(function (card) {
+                    card.hidden = true;
                     card.classList.add('is-hidden');
                 });
 
@@ -220,6 +453,7 @@
                 }));
 
                 visibleCards.forEach(function (card) {
+                    card.hidden = false;
                     card.classList.remove('is-hidden');
                     sponsorList.appendChild(card);
                 });

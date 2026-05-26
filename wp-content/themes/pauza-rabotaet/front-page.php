@@ -7,7 +7,7 @@
 
 get_header();
 
-$steps = pauza_steps_query(12);
+$steps = pauza_steps_query(13);
 $today = pauza_latest_today_query(4);
 ?>
 
@@ -15,10 +15,10 @@ $today = pauza_latest_today_query(4);
     <div class="pauza-container pauza-home-hero__grid">
         <div class="pauza-home-hero__copy">
             <h1><?php esc_html_e('12 шагов для ВСЕХ', 'pauza-rabotaet'); ?></h1>
-            <p class="pauza-lead"><?php esc_html_e('Сначала выбери спонсора, потом посмотри, откуда быстрее скачиваются 360 видео, начинай смотреть по одному видео в день и пройди 12 шагов за 360 дней', 'pauza-rabotaet'); ?></p>
+            <p class="pauza-lead"><?php esc_html_e('Сначала выбери спонсора, подключайся к группе, начинай смотреть по одному видео в день и пройди 12 шагов за 360 дней', 'pauza-rabotaet'); ?></p>
             <div class="pauza-actions">
                 <?php echo pauza_internal_button('#sponsors', __('Выбрать спонсора', 'pauza-rabotaet'), 'pauza-button pauza-button--primary'); ?>
-                <?php echo pauza_internal_button('#materials', __('Открыть 360 видео', 'pauza-rabotaet')); ?>
+                <?php echo pauza_internal_button('#group', __('Группа', 'pauza-rabotaet')); ?>
                 <?php echo pauza_internal_button('#step-1', __('Начать 1 шаг', 'pauza-rabotaet')); ?>
                 <?php echo pauza_internal_button('#bot-4', __('Бот 4 шага', 'pauza-rabotaet')); ?>
                 <?php echo pauza_internal_button(pauza_calculator_url(), __('Калькулятор', 'pauza-rabotaet')); ?>
@@ -44,31 +44,20 @@ $today = pauza_latest_today_query(4);
             <button type="button" data-sponsor-filter="female"><?php esc_html_e('Женщины', 'pauza-rabotaet'); ?></button>
             <button type="button" data-sponsor-filter="male"><?php esc_html_e('Мужчины', 'pauza-rabotaet'); ?></button>
         </div>
+        <p class="pauza-sponsor-hint" data-sponsor-hint hidden><?php esc_html_e('Сначала напиши, не звони. Номер можно скопировать.', 'pauza-rabotaet'); ?></p>
         <div class="pauza-sponsor-grid is-collapsed" data-sponsor-list data-nosnippet aria-live="polite" hidden></div>
     </div>
 </section>
 
-<section class="pauza-section pauza-section--muted" id="materials">
+<section class="pauza-section pauza-section--muted" id="group">
     <div class="pauza-container">
         <div class="pauza-section__heading">
-            <h2><?php esc_html_e('360 видео можно скачать здесь', 'pauza-rabotaet'); ?></h2>
-            <p><?php esc_html_e('Этот блок стоит до первого шага, поэтому в маршруте он идет перед картой шагов.', 'pauza-rabotaet'); ?></p>
+            <h2><?php esc_html_e('ГРУППА', 'pauza-rabotaet'); ?></h2>
+            <p><?php esc_html_e('09:00 и 21:00 ЕЖЕДНЕВНО', 'pauza-rabotaet'); ?></p>
         </div>
-        <div class="pauza-card-grid pauza-card-grid--three">
+        <div class="pauza-card-grid">
             <article class="pauza-card">
-                <h3><?php esc_html_e('Telegram-канал 360 видео', 'pauza-rabotaet'); ?></h3>
-                <p><?php esc_html_e('ТЕЛЕГРАМ', 'pauza-rabotaet'); ?></p>
-                <?php echo pauza_button(pauza_get_option('telegram_channel_url'), __('Открыть', 'pauza-rabotaet'), 'pauza-button pauza-button--primary'); ?>
-            </article>
-            <article class="pauza-card">
-                <h3><?php esc_html_e('Rutube-канал', 'pauza-rabotaet'); ?></h3>
-                <p><?php esc_html_e('RUTUBE', 'pauza-rabotaet'); ?></p>
-                <?php echo pauza_button(pauza_get_option('rutube_channel_url'), __('Открыть', 'pauza-rabotaet')); ?>
-            </article>
-            <article class="pauza-card">
-                <h3><?php esc_html_e('Скачать видео', 'pauza-rabotaet'); ?></h3>
-                <p><?php esc_html_e('ЯНДЕКС ДИСК', 'pauza-rabotaet'); ?></p>
-                <?php echo pauza_button(pauza_get_option('yandex_disk_url'), __('Открыть', 'pauza-rabotaet')); ?>
+                <?php echo pauza_button(pauza_meetings_zoom_url(), __('ПОДКЛЮЧАЙСЯ ПО ССЫЛКЕ', 'pauza-rabotaet'), 'pauza-button pauza-button--primary'); ?>
             </article>
         </div>
     </div>
@@ -87,7 +76,9 @@ $today = pauza_latest_today_query(4);
                     $step_id = get_the_ID();
                     $number = pauza_meta($step_id, '_pauza_step_number');
                     $full_text = pauza_meta($step_id, '_pauza_step_full_text');
-                    pauza_render_step_folder($number, $full_text, '1' === (string) $number, '#sponsors');
+                    $telegram = pauza_meta($step_id, '_pauza_step_telegram_url');
+                    $max = pauza_meta($step_id, '_pauza_step_max_url');
+                    pauza_render_step_folder($number, $full_text, '1' === (string) $number, '#sponsors', $telegram, $max);
                     ?>
                 <?php endwhile; wp_reset_postdata(); ?>
             <?php else : ?>

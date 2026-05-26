@@ -18,6 +18,7 @@ while (have_posts()) :
     $telegram = pauza_meta($step_id, '_pauza_step_telegram_url');
     $max = pauza_meta($step_id, '_pauza_step_max_url');
     $source_work = pauza_step_numbered_lines($full_text);
+    $source_body = pauza_step_body_lines_without_group_links($full_text, (int) $number);
     $source_transition = pauza_step_transition_lines($full_text, (int) $number);
     $telegram_intro_class = '1' === (string) $number ? 'pauza-button' : 'pauza-button pauza-button--primary';
     ?>
@@ -65,26 +66,24 @@ while (have_posts()) :
                         <h2><?php esc_html_e('Работа по шагу', 'pauza-rabotaet'); ?> <?php echo $source_work ? pauza_origin_badge('source') : pauza_origin_badge('editorial'); ?></h2>
                         <?php if ($source_work) : ?>
                             <?php pauza_render_source_list($source_work); ?>
+                        <?php elseif ($source_body) : ?>
+                            <?php pauza_render_source_list($source_body, 'ul'); ?>
                         <?php elseif ($tasks) : ?>
                             <?php pauza_render_source_list($tasks); ?>
-                        <?php elseif ($full_text) : ?>
-                            <?php pauza_render_source_list(pauza_lines($full_text), 'ul'); ?>
                         <?php else : ?>
                             <p><?php esc_html_e('Пункты работы пока не добавлены.', 'pauza-rabotaet'); ?> <?php echo pauza_origin_badge('verify'); ?></p>
                         <?php endif; ?>
                     </div>
                 </div>
 
-                <div class="pauza-next-box">
-                    <div>
-                        <h2><?php esc_html_e('После выполнения шага', 'pauza-rabotaet'); ?></h2>
-                        <?php if ($source_transition) : ?>
+                <?php if ($source_transition) : ?>
+                    <div class="pauza-next-box">
+                        <div>
+                            <h2><?php esc_html_e('После выполнения шага', 'pauza-rabotaet'); ?></h2>
                             <?php pauza_render_source_list($source_transition, 'ul'); ?>
-                        <?php else : ?>
-                            <p><?php esc_html_e('Переход для этого шага пока не указан.', 'pauza-rabotaet'); ?></p>
-                        <?php endif; ?>
+                        </div>
                     </div>
-                </div>
+                <?php endif; ?>
             </div>
         </section>
     </article>

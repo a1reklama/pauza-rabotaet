@@ -86,7 +86,6 @@ function pauza_public_sponsor_payload(): array
             'name'   => get_the_title(),
             'gender' => $gender,
             'phone'  => pauza_meta($post_id, '_pauza_sponsor_phone'),
-            'note'   => pauza_meta($post_id, '_pauza_sponsor_note'),
         ];
     }
 
