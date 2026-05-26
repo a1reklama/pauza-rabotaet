@@ -332,7 +332,7 @@ function pauza_origin_badge(string $origin, string $label = ''): string
 
 function pauza_step_icon_html(string $number): string
 {
-    $step = max(1, (int) $number);
+    $step = max(1, min(12, (int) $number));
     $relative = sprintf('/assets/step-icons/step-%02d.png', $step);
     $path = PAUZA_THEME_DIR . $relative;
 
@@ -426,7 +426,7 @@ function pauza_step_body_lines_without_group_links(string $text, int $step_numbe
 
 function pauza_render_step_folder(string $number, string $full_text, bool $open = false, string $sponsor_url = '#sponsors', string $telegram = '', string $max = ''): void
 {
-    $step_number = max(1, (int) $number);
+    $step_number = max(1, min(12, (int) $number));
     $header_lines = pauza_step_header_without_group_links(array_slice(pauza_step_header_lines($full_text), 1), $step_number);
     $intro_lines = array_merge(pauza_step_group_intro_lines($step_number, $telegram, $max), $header_lines);
     $work = pauza_step_numbered_lines($full_text);

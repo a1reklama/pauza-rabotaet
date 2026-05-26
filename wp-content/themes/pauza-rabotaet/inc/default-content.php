@@ -481,21 +481,6 @@ function pauza_seed_steps(): void
             'next_label' => 'Вернуться к карте шагов',
             'next_url' => home_url('/12-shagov/'),
         ],
-        [
-            'number' => 13,
-            'title' => '13 шаг для ВСЕХ',
-            'status' => 'Дополнительно',
-            'goal' => 'Петя посмотри',
-            'content' => 'Петя посмотри',
-            'requirements' => [],
-            'tasks' => [
-                'Петя посмотри',
-            ],
-            'telegram' => '',
-            'max' => '',
-            'next_label' => 'Вернуться к карте шагов',
-            'next_url' => home_url('/12-shagov/'),
-        ],
     ];
 
     foreach ($steps as $step) {
@@ -523,7 +508,7 @@ function pauza_step_structured_blocks(): array
     $full_texts = pauza_load_step_full_texts();
     $blocks = [];
 
-    foreach (range(1, 13) as $number) {
+    foreach (range(1, 12) as $number) {
         $key = (string) $number;
         $text = isset($full_texts[$key]) ? (string) $full_texts[$key] : '';
         $numbered = $text ? pauza_step_numbered_lines($text) : [];

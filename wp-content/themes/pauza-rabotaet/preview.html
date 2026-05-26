@@ -93,7 +93,7 @@
                     <p>Открыта только одна папка. Внутри каждого шага: работа по шагу и следующее действие.</p>
                 </div>
                 <div class="pauza-step-folders" id="full-step-folders">
-                    <p>Загрузка всех 13 шагов...</p>
+                    <p>Загрузка всех 12 шагов...</p>
                 </div>
             </div>
         </section>
@@ -290,8 +290,7 @@
                 9: '9 шаг для ВСЕХ',
                 10: '10 шаг для ВСЕХ',
                 11: '11 шаг для ВСЕХ',
-                12: '12 шаг для ВСЕХ',
-                13: '13 шаг для ВСЕХ'
+                12: '12 шаг для ВСЕХ'
             };
             var sourceIconSteps = {};
             var sponsors = [
@@ -890,7 +889,7 @@
                 .then(function (data) {
                     var target = document.getElementById('full-step-folders');
                     target.textContent = '';
-                    for (var i = 1; i <= 13; i += 1) {
+                    for (var i = 1; i <= 12; i += 1) {
                         target.appendChild(renderStepFolder(i, data[String(i)] || ''));
                     }
 

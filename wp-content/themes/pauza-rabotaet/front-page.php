@@ -7,7 +7,7 @@
 
 get_header();
 
-$steps = pauza_steps_query(13);
+$steps = pauza_steps_query(12);
 $today = pauza_latest_today_query(4);
 ?>
 
